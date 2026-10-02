@@ -38,10 +38,17 @@ def normalizar_gametype(d: pd.DataFrame) -> pd.Series:
 
     tipo = d["gameType"].map(MAPA_GAMETYPE)
     es_cup = tipo.eq("cup")
-    # La final de 2023 viene como 'NBA Cup' sin sub-etiqueta;
-    # las finales posteriores traen gameSubLabel == 'Championship'
-    es_final = es_cup & (d["gameSubLabel"].eq("Championship")
-                         | d["gameType"].eq("NBA Cup"))
+
+    # Final de la Copa NBA: la etiqueta cambia cada año (e incluso entre
+    # equipos del mismo partido), pero el gameId siempre empieza con 6.
+    es_final = d["gameId"].astype(str).str.startswith("6")
+
+    # Validación cruzada: todo 'Championship' fuera del All-Star
+    # (ej. la final del Rising Stars) debe tener prefijo 6
+    champ = d["gameSubLabel"].eq("Championship") & tipo.ne("allstar")
+    if (champ & ~es_final).any():
+        raise ValueError("Hay partidos 'Championship' sin gameId con prefijo 6")
+
     tipo = tipo.where(~es_cup, "regular")
     tipo = tipo.where(~es_final, "cup_final")
     return tipo
