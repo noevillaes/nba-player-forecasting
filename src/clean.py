@@ -77,6 +77,39 @@ def parsear_minutos(s: pd.Series) -> pd.Series:
     return resultado.astype(float)
 
 
+def rellenar_equipos(ps: pd.DataFrame) -> pd.DataFrame:
+    """Recupera playerteamId/opponentteamId vacíos cruzando (gameId, home)
+    con TeamStatistics. En 2021-22 casi toda la temporada viene sin ID."""
+    t = pd.read_parquet(f"{RAW}/TeamStatistics.parquet",
+                        columns=["gameId", "home", "teamId", "opponentTeamId"])
+    t = t.dropna(subset=["home"]).copy()
+    t["gameId"] = t["gameId"].astype("int64")
+    t["home"] = t["home"].astype(int)
+
+    dup = t.duplicated(["gameId", "home"]).sum()
+    if dup:
+        print(f"Aviso: {dup} partidos con (gameId, home) repetido en TeamStatistics")
+        t = t.drop_duplicates(["gameId", "home"])
+
+    ps["gameId"] = ps["gameId"].astype("int64")
+    ps["home"] = ps["home"].astype(int)
+    m = ps[["gameId", "home"]].merge(t, on=["gameId", "home"],
+                                     how="left", validate="m:1")
+    m.index = ps.index
+
+    # Control de consistencia: donde ya había ID, debe coincidir
+    hay = ps["playerteamId"].notna() & m["teamId"].notna()
+    distintos = (ps.loc[hay, "playerteamId"].astype("int64")
+                 != m.loc[hay, "teamId"].astype("int64")).sum()
+    print(f"IDs existentes que NO coinciden con TeamStatistics: {distintos}")
+
+    antes = ps["playerteamId"].isna().sum()
+    ps["playerteamId"] = ps["playerteamId"].fillna(m["teamId"])
+    ps["opponentteamId"] = ps["opponentteamId"].fillna(m["opponentTeamId"])
+    print(f"Sin equipo: {antes} antes → {ps['playerteamId'].isna().sum()} después")
+    return ps
+
+
 def main(desde=1996):
     ps = pd.read_parquet(f"{RAW}/PlayerStatistics.parquet")
     ext = pd.read_parquet(f"{RAW}/PlayerStatisticsExtended.parquet")
@@ -86,6 +119,7 @@ def main(desde=1996):
     ps = ps[ps["tipo"].isin(["regular", "playoffs", "playin"])].copy()
     ps["temporada"] = temporada(ps["gameDateTimeEst"])
     ps = ps[ps["temporada"] >= desde]
+    ps = rellenar_equipos(ps)
 
     # 2. Banderas útiles
     ps["numMinutes"] = parsear_minutos(ps["numMinutes"]).fillna(0)
