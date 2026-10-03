@@ -21,7 +21,8 @@ import features
 import team_features
 from clean import temporada as temporada_de
 from conformal import entrenar, predecir, NIVEL
-from evaluate import datos_evaluables, agregar_b1, OBJETIVOS
+from evaluate import datos_evaluables, agregar_b1, cargar, OBJETIVOS
+from reconcile import factor_k
 from models import columnas_features, VENTANA_TRAIN
 
 CLEAN = "data/clean/player_games.parquet"
@@ -29,6 +30,7 @@ RAW = "data/raw"
 MODELOS = Path("models")
 SALIDA = Path("predictions")
 TIPOS_VALIDOS = ["regular", "playoffs", "playin"]
+LAMBDA_RECONCILIACION = 0.5  # elegido en validación 2015-2018
 
 
 # ---------- Filas futuras ----------
@@ -86,10 +88,25 @@ def construir_tabla(hist, fut, fecha) -> pd.DataFrame:
 
 # ---------- Modelo: se entrena una vez por temporada y se guarda ----------
 
+def asegurar_k_mediana(paquete: dict, objetivo: int, ruta: Path) -> dict:
+    """Mediana de k en la temporada de calibración, para la reconciliación.
+    Se calcula una vez y se guarda junto al modelo."""
+    if "k_mediana" in paquete:
+        return paquete
+    print("Calculando la referencia para la reconciliación (solo esta vez)...")
+    todo = cargar()
+    calib = todo[(todo["temporada"] == objetivo - 1) & todo["min_prom_10"].notna()]
+    pc = predecir(paquete["modelos"]["points"], calib[paquete["cols"]], "points")
+    paquete["k_mediana"] = float(factor_k(calib, pc["points"]).median())
+    print(f"  k mediana: {paquete['k_mediana']:.3f}")
+    joblib.dump(paquete, ruta)
+    return paquete
+
+
 def obtener_modelo(objetivo: int) -> dict:
     ruta = MODELOS / f"modelo_{objetivo}.joblib"
     if ruta.exists():
-        return joblib.load(ruta)
+        return asegurar_k_mediana(joblib.load(ruta), objetivo, ruta)
 
     print(f"Entrenando modelo para la temporada {objetivo} (solo esta vez)...")
     df = datos_evaluables()
@@ -111,7 +128,7 @@ def obtener_modelo(objetivo: int) -> dict:
 
     MODELOS.mkdir(exist_ok=True)
     joblib.dump(paquete, ruta)
-    return paquete
+    return asegurar_k_mediana(paquete, objetivo, ruta)
 
 
 def pronosticar(tabla: pd.DataFrame, paquete: dict) -> pd.DataFrame:
@@ -122,9 +139,21 @@ def pronosticar(tabla: pd.DataFrame, paquete: dict) -> pd.DataFrame:
     for obj in OBJETIVOS:
         p = predecir(paquete["modelos"][obj], X, obj)
         q = paquete["ajuste"][obj]
-        out[obj] = p[obj].round(1)
-        out[f"{obj}_q10"] = (p[f"{obj}_q10"] - q).clip(lower=0).round(1)
-        out[f"{obj}_q90"] = (p[f"{obj}_q90"] + q).round(1)
+        out[obj] = p[obj]
+        out[f"{obj}_q10"] = (p[f"{obj}_q10"] - q).clip(lower=0)
+        out[f"{obj}_q90"] = p[f"{obj}_q90"] + q
+
+    # Reconciliación de puntos con el total esperado del equipo
+    con_hist = out["con_historial"]
+    k = factor_k(tabla[con_hist], out.loc[con_hist, "points"])
+    k_rel = (k / paquete["k_mediana"]).reindex(out.index).fillna(1.0).clip(0.5, 1.5)
+    out["ajuste_equipo"] = k_rel ** LAMBDA_RECONCILIACION
+    for c in ["points", "points_q10", "points_q90"]:
+        out[c] = out[c] * out["ajuste_equipo"]
+
+    columnas_num = [c for c in out.columns if c.startswith(tuple(OBJETIVOS))]
+    out[columnas_num] = out[columnas_num].round(1)
+    out["ajuste_equipo"] = out["ajuste_equipo"].round(3)
     return out
 
 
