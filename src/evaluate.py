@@ -14,18 +14,24 @@ OBJETIVOS = ["numMinutes", "points", "reboundsTotal", "assists",
 TEMPORADAS_PRUEBA = range(2015, 2026)
 
 
-def cargar() -> pd.DataFrame:
-    df = pd.read_parquet(FEAT)
+def agregar_b1(df: pd.DataFrame) -> pd.DataFrame:
+    """Promedio de los últimos 10 partidos JUGADOS (sin contar DNP).
+    Las filas futuras (es_futuro) también lo reciben, calculado con el pasado."""
     df = df.sort_values(["personId", "fecha"]).reset_index(drop=True)
-
-    # Historial de partidos JUGADOS para el baseline 1 (sin contar DNP)
-    jug = df[df["y_jugo"] == 1]
+    base = df["y_jugo"] == 1
+    if "es_futuro" in df.columns:
+        base = base | df["es_futuro"].astype(bool)
+    jug = df[base]
     for obj in OBJETIVOS:
         prev = jug.groupby("personId")[f"y_{obj}"].shift(1)
         df.loc[jug.index, f"b1_{obj}"] = (
             prev.groupby(jug["personId"]).rolling(10, min_periods=3).mean()
             .reset_index(level=0, drop=True))
     return df
+
+
+def cargar() -> pd.DataFrame:
+    return agregar_b1(pd.read_parquet(FEAT))
 
 
 def datos_evaluables() -> pd.DataFrame:

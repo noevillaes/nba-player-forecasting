@@ -1,6 +1,9 @@
 """Features por jugador-partido.
 Regla de oro: cada feature usa solo información disponible ANTES del
-partido. Por eso todo pasa por shift(1) antes de cualquier ventana."""
+partido. Por eso todo pasa por shift(1) antes de cualquier ventana.
+
+construir() sirve para el histórico y para filas futuras (es_futuro=True):
+como todo mira hacia atrás, una fila futura recibe sus features del pasado."""
 import os
 import numpy as np
 import pandas as pd
@@ -13,6 +16,8 @@ STATS = ["points", "reboundsTotal", "assists", "threePointersMade",
          "freeThrowsAttempted"]
 OBJETIVOS = ["numMinutes", "points", "reboundsTotal", "assists",
              "threePointersMade"]
+IDS = ["personId", "firstName", "lastName", "gameId", "fecha",
+       "temporada", "tipo", "playerteamId", "opponentteamId"]
 
 
 def previo(df: pd.DataFrame, col: str) -> pd.Series:
@@ -26,8 +31,7 @@ def ventana(df: pd.DataFrame, col: str, n: int, func: str = "mean") -> pd.Series
     return getattr(r, func)().reset_index(level=0, drop=True)
 
 
-def main():
-    df = pd.read_parquet(f"{CLEAN}/player_games.parquet")
+def construir(df: pd.DataFrame) -> pd.DataFrame:
     df = df.sort_values(["personId", "gameDateTimeEst"]).reset_index(drop=True)
     df["fecha"] = df["gameDateTimeEst"].dt.normalize()
     df["titular"] = df["titular"].astype(float)
@@ -45,8 +49,7 @@ def main():
     f["jugo_prop_10"] = ventana(df, "jugo", 10)
     f["uso_prom_10"] = ventana(df, "usagePercentage", 10)
 
-    # 2. Producción por minuto: suma(stat) / suma(minutos) en la ventana.
-    #    Es más estable que promediar porcentajes partido a partido.
+    # 2. Producción por minuto: suma(stat) / suma(minutos) en la ventana
     for n in [10, 20]:
         mins = ventana(df, "numMinutes", n, "sum").replace(0, np.nan)
         for stat in STATS:
@@ -59,8 +62,7 @@ def main():
         f[f"{stat}_pm_temp"] = (grp[stat].cumsum() - df[stat]) / min_temp
     f["partidos_temp"] = grp.cumcount()
 
-    # 4. Descanso. Se usan fechas sin hora: con hora, un partido a las 22:00
-    #    y otro a las 19:00 del día siguiente contarían como 0 días.
+    # 4. Descanso (fechas sin hora: 22:00 → 19:00 del día siguiente = 1 día)
     dias = df.groupby("personId")["fecha"].diff().dt.days
     f["dias_descanso"] = dias.clip(upper=10)
     f["back_to_back"] = dias.eq(1).astype(int)
@@ -73,15 +75,21 @@ def main():
     primeros = df.groupby("personId").cumcount().eq(0)
     assert f.loc[primeros, "min_prom_5"].isna().all(), "Fuga de información"
 
-    ids = ["personId", "firstName", "lastName", "gameId", "fecha",
-           "temporada", "tipo", "playerteamId", "opponentteamId"]
+    ids = IDS + (["es_futuro"] if "es_futuro" in df.columns else [])
     objetivos = df[OBJETIVOS + ["jugo"]].add_prefix("y_")
     out = pd.concat([df[ids], f, objetivos], axis=1)
+    if "es_futuro" in out.columns:
+        out.loc[out["es_futuro"], objetivos.columns] = np.nan
+    return out
 
+
+def main():
+    out = construir(pd.read_parquet(f"{CLEAN}/player_games.parquet"))
     os.makedirs(OUT, exist_ok=True)
     out.to_parquet(f"{OUT}/player_features.parquet", index=False)
     print(out.shape)
-    print(f.isna().mean().round(3).sort_values(ascending=False).head(10).to_string())
+    feats = [c for c in out.columns if c not in IDS and not c.startswith("y_")]
+    print(out[feats].isna().mean().round(3).sort_values(ascending=False).head(10).to_string())
 
 
 if __name__ == "__main__":

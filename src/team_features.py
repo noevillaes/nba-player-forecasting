@@ -1,6 +1,9 @@
 """Features de equipo y rival (ritmo, eficiencia, lo que permite),
 unidas a la tabla de jugador. Misma regla: solo información previa
-al partido (shift(1) antes de cualquier ventana)."""
+al partido (shift(1) antes de cualquier ventana).
+
+construir_equipos() acepta partidos futuros: se agregan sin estadísticas
+y reciben, vía shift(1), el promedio de sus partidos anteriores."""
 import numpy as np
 import pandas as pd
 
@@ -16,10 +19,10 @@ COLS = ["pace", "ortg", "drtg", "reb_permitidos",
         "ast_permitidas", "triples_permitidos"]
 
 
-def cargar_equipos() -> pd.DataFrame:
+def cargar_equipos(desde: str = "1995-10-01") -> pd.DataFrame:
     t = pd.read_parquet(f"{RAW}/TeamStatistics.parquet")
     t = t[t["gameId"].astype(str).str[0].isin(PREFIJOS_VALIDOS)]
-    t = t[t["gameDateTimeEst"] >= "1995-10-01"].copy()
+    t = t[t["gameDateTimeEst"] >= desde].copy()
     assert not t.duplicated(["teamId", "gameId"]).any(), "Equipo duplicado"
     for c in NUM:
         t[c] = pd.to_numeric(t[c], errors="coerce")
@@ -70,33 +73,53 @@ def ventanas_previas(t: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-def main():
-    t = metricas_por_partido(cargar_equipos())
-    print("Medianas de control:",
-          t[["pace", "ortg", "drtg"]].median().round(1).to_dict())
+def construir_equipos(t: pd.DataFrame, futuros: pd.DataFrame = None) -> pd.DataFrame:
+    """t: partidos jugados (de cargar_equipos). futuros: filas de jugador
+    con es_futuro=True, de donde se sacan los partidos por jugar."""
+    t = metricas_por_partido(t)
+    if futuros is not None and len(futuros):
+        f = (futuros[["gameId", "playerteamId", "opponentteamId", "fecha"]]
+             .drop_duplicates(["gameId", "playerteamId"])
+             .rename(columns={"playerteamId": "teamId",
+                              "opponentteamId": "opponentTeamId",
+                              "fecha": "gameDateTimeEst"}))
+        for c in ["gameId", "teamId", "opponentTeamId"]:
+            f[c] = f[c].astype("int64")
+        t = pd.concat([t, f], ignore_index=True)
+    return ventanas_previas(t)
 
-    eq = ventanas_previas(t)
 
-    p = pd.read_parquet(f"{FEAT}/player_features.parquet")
+def unir(p: pd.DataFrame, eq: pd.DataFrame) -> pd.DataFrame:
+    """Une las features de equipo dos veces: propio_ y rival_."""
+    p = p.copy()
+    eq = eq.copy()
     for c in ["gameId", "playerteamId", "opponentteamId"]:
-        p[c] = p[c].astype("Int64")   # entero que acepta vacíos
-        print(f"{c} vacíos: {p[c].isna().sum()}")
+        p[c] = p[c].astype("Int64")
     eq[["gameId", "teamId"]] = eq[["gameId", "teamId"]].astype("Int64")
 
     propio = eq.add_prefix("propio_").rename(
         columns={"propio_gameId": "gameId", "propio_teamId": "playerteamId"})
     rival = eq.add_prefix("rival_").rename(
         columns={"rival_gameId": "gameId", "rival_teamId": "opponentteamId"})
-
     p = p.merge(propio, on=["gameId", "playerteamId"], how="left", validate="m:1")
     p = p.merge(rival, on=["gameId", "opponentteamId"], how="left", validate="m:1")
+    return p
 
-    print(p.shape)
-    nuevas = [c for c in p.columns if c.startswith(("propio_", "rival_"))]
+
+def main():
+    t = metricas_por_partido(cargar_equipos())
+    print("Medianas de control:",
+          t[["pace", "ortg", "drtg"]].median().round(1).to_dict())
+    eq = ventanas_previas(t)
+
+    p = pd.read_parquet(f"{FEAT}/player_features.parquet")
+    tabla = unir(p, eq)
+
+    print(tabla.shape)
+    nuevas = [c for c in tabla.columns if c.startswith(("propio_", "rival_"))]
     print("Vacíos en features de equipo:")
-    print(p[nuevas].isna().mean().round(3).sort_values(ascending=False).head(6).to_string())
-
-    p.to_parquet(f"{FEAT}/model_table.parquet", index=False)
+    print(tabla[nuevas].isna().mean().round(3).sort_values(ascending=False).head(6).to_string())
+    tabla.to_parquet(f"{FEAT}/model_table.parquet", index=False)
 
 
 if __name__ == "__main__":
