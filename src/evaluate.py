@@ -1,0 +1,97 @@
+"""Marco de evaluación walk-forward y modelos baseline.
+
+Decisión de diseño: se evalúa solo en partidos que el jugador SÍ jugó.
+Predecir disponibilidad (lesiones, descansos) es otro problema y queda
+fuera de esta versión."""
+import os
+import numpy as np
+import pandas as pd
+
+FEAT = "data/features/model_table.parquet"
+OUT = "results"
+OBJETIVOS = ["numMinutes", "points", "reboundsTotal", "assists",
+             "threePointersMade"]
+TEMPORADAS_PRUEBA = range(2015, 2026)
+
+
+def cargar() -> pd.DataFrame:
+    df = pd.read_parquet(FEAT)
+    df = df.sort_values(["personId", "fecha"]).reset_index(drop=True)
+
+    # Historial de partidos JUGADOS para el baseline 1 (sin contar DNP)
+    jug = df[df["y_jugo"] == 1]
+    for obj in OBJETIVOS:
+        prev = jug.groupby("personId")[f"y_{obj}"].shift(1)
+        df.loc[jug.index, f"b1_{obj}"] = (
+            prev.groupby(jug["personId"]).rolling(10, min_periods=3).mean()
+            .reset_index(level=0, drop=True))
+    return df
+
+
+# Modelos baseline
+# Cada modelo recibe (train, test) y devuelve un DataFrame con una
+# columna por objetivo, con el mismo índice que test.
+
+def prom_10_jugados(train, test):
+    return pd.DataFrame({obj: test[f"b1_{obj}"] for obj in OBJETIVOS},
+                        index=test.index)
+
+
+def tasa_x_minutos(train, test):
+    pred = pd.DataFrame(index=test.index)
+    pred["numMinutes"] = test["min_prom_10"]
+    for obj in OBJETIVOS[1:]:
+        pred[obj] = test[f"{obj}_pm_10"] * test["min_prom_10"]
+    return pred
+
+
+# Marco walk-forward
+
+def walk_forward(df: pd.DataFrame, modelos: dict,
+                 temporadas=TEMPORADAS_PRUEBA) -> pd.DataFrame:
+    filas = []
+    for t in temporadas:
+        train = df[df["temporada"] < t]
+        test = df[df["temporada"] == t]
+        for nombre, fn in modelos.items():
+            pred = fn(train, test)
+            for obj in OBJETIVOS:
+                err = pred[obj] - test[f"y_{obj}"]
+                filas.append({
+                    "temporada": t, "modelo": nombre, "objetivo": obj,
+                    "n": int(err.notna().sum()),
+                    "MAE": err.abs().mean(),
+                    "RMSE": np.sqrt((err ** 2).mean()),
+                    "sesgo": err.mean(),
+                })
+        print(f"Temporada {t} evaluada")
+    return pd.DataFrame(filas)
+
+
+def main():
+    df = cargar()
+
+    # Mismas filas para todos los modelos: comparación justa
+    columnas_base = ([f"b1_{o}" for o in OBJETIVOS] + ["min_prom_10"]
+                     + [f"{o}_pm_10" for o in OBJETIVOS[1:]])
+    evaluables = (df["y_jugo"] == 1) & df[columnas_base].notna().all(axis=1)
+    df = df[evaluables]
+    print(f"Filas evaluables: {len(df):,}")
+
+    modelos = {"prom_10_jugados": prom_10_jugados,
+               "tasa_x_minutos": tasa_x_minutos}
+    res = walk_forward(df, modelos)
+
+    os.makedirs(OUT, exist_ok=True)
+    res.to_csv(f"{OUT}/metricas_baseline.csv", index=False)
+
+    print("\nMAE promedio 2015-2025:")
+    print(res.pivot_table(index="objetivo", columns="modelo",
+                          values="MAE").round(2).to_string())
+    print("\nSesgo promedio (negativo = subestima):")
+    print(res.pivot_table(index="objetivo", columns="modelo",
+                          values="sesgo").round(2).to_string())
+
+
+if __name__ == "__main__":
+    main()
