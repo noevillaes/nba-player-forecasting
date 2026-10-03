@@ -142,6 +142,7 @@ def pronosticar(tabla: pd.DataFrame, paquete: dict) -> pd.DataFrame:
         out[obj] = p[obj]
         out[f"{obj}_q10"] = (p[f"{obj}_q10"] - q).clip(lower=0)
         out[f"{obj}_q90"] = p[f"{obj}_q90"] + q
+        out[f"{obj}_base"] = tabla[f"b1_{obj}"]
 
     # Reconciliación de puntos con el total esperado del equipo
     con_hist = out["con_historial"]

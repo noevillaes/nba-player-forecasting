@@ -17,7 +17,6 @@ PASOS = ["src/ingest_live.py",   # partidos de anoche + calendario actualizado
          "src/clean.py",
          "src/features.py",
          "src/team_features.py"]
-# Los scripts imprimen acentos y flechas: se fuerza UTF-8 al escribir al log
 ENTORNO = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
 
@@ -51,20 +50,26 @@ def main():
                 sys.exit(1)
             print(f"OK  {paso}")
 
-        if not hay_partidos(args.fecha):
-            print(f"No hay partidos el {args.fecha}. Nada que pronosticar.")
-            return
+        if hay_partidos(args.fecha):
+            if correr([sys.executable, "src/predict.py", "--fecha", args.fecha], log) != 0:
+                print(f"FALLÓ predict.py. Revisa {ruta_log}")
+                sys.exit(1)
+            print("OK  src/predict.py")
+        else:
+            print(f"No hay partidos el {args.fecha}.")
 
-        if correr([sys.executable, "src/predict.py", "--fecha", args.fecha], log) != 0:
-            print(f"FALLÓ predict.py. Revisa {ruta_log}")
-            sys.exit(1)
-        print("OK  src/predict.py")
+        # El marcador corre siempre: evalúa los partidos ya jugados
+        if any(Path("predictions").glob("????-??-??.csv")):
+            if correr([sys.executable, "src/score.py"], log) == 0:
+                print("OK  src/score.py")
+            else:
+                print(f"FALLÓ score.py (los pronósticos sí se generaron). Revisa {ruta_log}")
 
         if not args.sin_push:
-            correr(["git", "add", "predictions"], log)
-            if correr(["git", "commit", "-m", f"Pronósticos {args.fecha}"], log) == 0:
+            correr(["git", "add", "predictions", "results"], log)
+            if correr(["git", "commit", "-m", f"Pronósticos y marcador {args.fecha}"], log) == 0:
                 correr(["git", "push"], log)
-                print("OK  pronósticos publicados en GitHub")
+                print("OK  publicado en GitHub")
 
     print(f"Listo en {(datetime.now() - inicio).seconds // 60} min. Log: {ruta_log}")
 
