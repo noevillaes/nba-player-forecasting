@@ -4,3 +4,4 @@ kagglehub
 jupyter
 lightgbm
 scikit-learn
+nba_api
