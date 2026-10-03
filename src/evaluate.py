@@ -3,14 +3,13 @@
 Decisión de diseño: se evalúa solo en partidos que el jugador SÍ jugó.
 Predecir disponibilidad (lesiones, descansos) es otro problema y queda
 fuera de esta versión."""
+from features import OBJETIVOS
 import os
 import numpy as np
 import pandas as pd
 
 FEAT = "data/features/model_table.parquet"
 OUT = "results"
-OBJETIVOS = ["numMinutes", "points", "reboundsTotal", "assists",
-             "threePointersMade"]
 TEMPORADAS_PRUEBA = range(2015, 2026)
 
 

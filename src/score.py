@@ -17,9 +17,14 @@ from datos import leer
 from clean import parsear_minutos
 from evaluate import OBJETIVOS
 
-NOMBRES = {"numMinutes": "Minutos", "points": "Puntos",
-           "reboundsTotal": "Rebotes", "assists": "Asistencias",
-           "threePointersMade": "Triples"}
+NOMBRES = {"numMinutes": "MIN", "fieldGoalsMade": "FGM",
+           "fieldGoalsAttempted": "FGA", "threePointersMade": "3PM",
+           "threePointersAttempted": "3PA", "freeThrowsMade": "FTM",
+           "freeThrowsAttempted": "FTA", "reboundsOffensive": "OREB",
+           "reboundsDefensive": "DREB", "reboundsTotal": "REB",
+           "assists": "AST", "steals": "STL", "blocks": "BLK",
+           "turnovers": "TO", "foulsPersonal": "PF", "points": "PTS"}
+ORDEN = {nombre: i for i, nombre in enumerate(NOMBRES.values())}
 COLS_ID = ["fecha", "gameId", "personId", "jugador", "equipo", "rival",
            "local", "estado", "ajuste_equipo"]
 
@@ -68,6 +73,7 @@ def main():
     for obj in OBJETIVOS:
         d = m.reindex(columns=COLS_ID).copy()
         d["estadistica"] = NOMBRES[obj]
+        d["orden"] = ORDEN[NOMBRES[obj]]
         d["pronostico"] = m[obj]
         d["q10"] = m[f"{obj}_q10"]
         d["q90"] = m[f"{obj}_q90"]

@@ -11,11 +11,12 @@ import pandas as pd
 CLEAN = "data/clean"
 OUT = "data/features"
 VENTANAS = [5, 10, 20]
-STATS = ["points", "reboundsTotal", "assists", "threePointersMade",
-         "steals", "blocks", "turnovers", "fieldGoalsAttempted",
-         "freeThrowsAttempted"]
-OBJETIVOS = ["numMinutes", "points", "reboundsTotal", "assists",
-             "threePointersMade"]
+STATS = ["points", "reboundsTotal", "reboundsOffensive", "reboundsDefensive",
+         "assists", "steals", "blocks", "turnovers", "foulsPersonal",
+         "fieldGoalsMade", "fieldGoalsAttempted",
+         "threePointersMade", "threePointersAttempted",
+         "freeThrowsMade", "freeThrowsAttempted"]
+OBJETIVOS = ["numMinutes"] + STATS
 IDS = ["personId", "firstName", "lastName", "gameId", "fecha",
        "temporada", "tipo", "playerteamId", "opponentteamId"]
 
