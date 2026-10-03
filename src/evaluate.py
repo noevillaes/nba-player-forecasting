@@ -28,9 +28,19 @@ def cargar() -> pd.DataFrame:
     return df
 
 
-# Modelos baseline
-# Cada modelo recibe (train, test) y devuelve un DataFrame con una
-# columna por objetivo, con el mismo índice que test.
+def datos_evaluables() -> pd.DataFrame:
+    """Filas donde el jugador jugó y todos los baselines tienen historia.
+    Mismas filas para todos los modelos: comparación justa."""
+    df = cargar()
+    columnas_base = ([f"b1_{o}" for o in OBJETIVOS] + ["min_prom_10"]
+                     + [f"{o}_pm_10" for o in OBJETIVOS[1:]])
+    evaluables = (df["y_jugo"] == 1) & df[columnas_base].notna().all(axis=1)
+    df = df[evaluables]
+    print(f"Filas evaluables: {len(df):,}")
+    return df
+
+
+# ---------- Modelos baseline ----------
 
 def prom_10_jugados(train, test):
     return pd.DataFrame({obj: test[f"b1_{obj}"] for obj in OBJETIVOS},
@@ -45,10 +55,13 @@ def tasa_x_minutos(train, test):
     return pred
 
 
-# Marco walk-forward
+# ---------- Marco walk-forward ----------
 
 def walk_forward(df: pd.DataFrame, modelos: dict,
                  temporadas=TEMPORADAS_PRUEBA) -> pd.DataFrame:
+    """Cada modelo recibe (train, test) y devuelve un DataFrame con una
+    columna por objetivo. Si además trae '{obj}_q10' y '{obj}_q90',
+    se mide la cobertura del intervalo del 80%."""
     filas = []
     for t in temporadas:
         train = df[df["temporada"] < t]
@@ -56,28 +69,26 @@ def walk_forward(df: pd.DataFrame, modelos: dict,
         for nombre, fn in modelos.items():
             pred = fn(train, test)
             for obj in OBJETIVOS:
-                err = pred[obj] - test[f"y_{obj}"]
-                filas.append({
+                y = test[f"y_{obj}"]
+                err = pred[obj] - y
+                fila = {
                     "temporada": t, "modelo": nombre, "objetivo": obj,
                     "n": int(err.notna().sum()),
                     "MAE": err.abs().mean(),
                     "RMSE": np.sqrt((err ** 2).mean()),
                     "sesgo": err.mean(),
-                })
+                }
+                if f"{obj}_q10" in pred:
+                    lo, hi = pred[f"{obj}_q10"], pred[f"{obj}_q90"]
+                    fila["cobertura_80"] = ((y >= lo) & (y <= hi)).mean()
+                    fila["ancho_80"] = (hi - lo).mean()
+                filas.append(fila)
         print(f"Temporada {t} evaluada")
     return pd.DataFrame(filas)
 
 
 def main():
-    df = cargar()
-
-    # Mismas filas para todos los modelos: comparación justa
-    columnas_base = ([f"b1_{o}" for o in OBJETIVOS] + ["min_prom_10"]
-                     + [f"{o}_pm_10" for o in OBJETIVOS[1:]])
-    evaluables = (df["y_jugo"] == 1) & df[columnas_base].notna().all(axis=1)
-    df = df[evaluables]
-    print(f"Filas evaluables: {len(df):,}")
-
+    df = datos_evaluables()
     modelos = {"prom_10_jugados": prom_10_jugados,
                "tasa_x_minutos": tasa_x_minutos}
     res = walk_forward(df, modelos)

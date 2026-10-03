@@ -2,3 +2,5 @@ pandas
 pyarrow
 kagglehub
 jupyter
+lightgbm
+scikit-learn
