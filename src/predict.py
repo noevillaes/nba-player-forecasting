@@ -1,14 +1,12 @@
-"""Genera pronósticos (con intervalo del 80% calibrado) para una fecha.
+"""Genera pronósticos (con intervalo del 80% calibrado) para una fecha:
+jugadores (16 estadísticas) y partidos (marcador, total, diferencia y
+probabilidad de victoria del local).
 
 En vivo:    python src/predict.py --fecha 2026-10-20
-            Partidos del calendario × plantillas actuales.
 Backtest:   python src/predict.py --fecha 2026-03-10 --backtest
-            Finge que es esa fecha usando solo la historia previa y
-            compara contra lo que realmente pasó.
 
 Los features se calculan con EXACTAMENTE el mismo código que en el
-entrenamiento (features.construir y team_features), así que no hay
-diferencias entre cómo se entrena y cómo se pronostica."""
+entrenamiento, así que no hay diferencias entre entrenar y pronosticar."""
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -18,12 +16,13 @@ import numpy as np
 import pandas as pd
 
 import features
+import game_model
 import team_features
 from clean import temporada as temporada_de
 from conformal import entrenar, predecir, NIVEL
 from evaluate import datos_evaluables, agregar_b1, cargar, OBJETIVOS
-from reconcile import factor_k
 from models import columnas_features, VENTANA_TRAIN
+from reconcile import factor_k
 
 CLEAN = "data/clean/player_games.parquet"
 RAW = "data/raw"
@@ -73,7 +72,8 @@ def vaciar(fut: pd.DataFrame) -> pd.DataFrame:
 
 # ---------- Tabla de features ----------
 
-def construir_tabla(hist, fut, fecha) -> pd.DataFrame:
+def construir_tabla(hist, fut, fecha):
+    """Devuelve (filas futuras de jugador con features, features de equipo)."""
     p = pd.concat([hist.assign(es_futuro=False), fut], ignore_index=True)
     pf = features.construir(p)
 
@@ -83,14 +83,13 @@ def construir_tabla(hist, fut, fecha) -> pd.DataFrame:
     eq = team_features.construir_equipos(t, futuros=pf[pf["es_futuro"]])
 
     tabla = agregar_b1(team_features.unir(pf, eq))
-    return tabla[tabla["es_futuro"]].copy()
+    return tabla[tabla["es_futuro"]].copy(), eq
 
 
-# ---------- Modelo: se entrena una vez por temporada y se guarda ----------
+# ---------- Modelos: se entrenan una vez por temporada y se guardan ----------
 
 def asegurar_k_mediana(paquete: dict, objetivo: int, ruta: Path) -> dict:
-    """Mediana de k en la temporada de calibración, para la reconciliación.
-    Se calcula una vez y se guarda junto al modelo."""
+    """Referencia para la reconciliación de puntos (se calcula una vez)."""
     if "k_mediana" in paquete:
         return paquete
     print("Calculando la referencia para la reconciliación (solo esta vez)...")
@@ -98,7 +97,6 @@ def asegurar_k_mediana(paquete: dict, objetivo: int, ruta: Path) -> dict:
     calib = todo[(todo["temporada"] == objetivo - 1) & todo["min_prom_10"].notna()]
     pc = predecir(paquete["modelos"]["points"], calib[paquete["cols"]], "points")
     paquete["k_mediana"] = float(factor_k(calib, pc["points"]).median())
-    print(f"  k mediana: {paquete['k_mediana']:.3f}")
     joblib.dump(paquete, ruta)
     return paquete
 
@@ -108,7 +106,7 @@ def obtener_modelo(objetivo: int) -> dict:
     if ruta.exists():
         return asegurar_k_mediana(joblib.load(ruta), objetivo, ruta)
 
-    print(f"Entrenando modelo para la temporada {objetivo} (solo esta vez)...")
+    print(f"Entrenando modelo de jugadores para {objetivo} (solo esta vez)...")
     df = datos_evaluables()
     calib = df[df["temporada"] == objetivo - 1]
     fit = df[(df["temporada"] < objetivo - 1)
@@ -130,6 +128,19 @@ def obtener_modelo(objetivo: int) -> dict:
     joblib.dump(paquete, ruta)
     return asegurar_k_mediana(paquete, objetivo, ruta)
 
+
+def obtener_paquete_juegos(objetivo: int) -> dict:
+    ruta = MODELOS / f"juegos_{objetivo}.joblib"
+    if ruta.exists():
+        return joblib.load(ruta)
+    print(f"Calibrando el modelo de partidos para {objetivo} (solo esta vez)...")
+    paq = game_model.entrenar_paquete(game_model.historico(), objetivo)
+    MODELOS.mkdir(exist_ok=True)
+    joblib.dump(paq, ruta)
+    return paq
+
+
+# ---------- Pronósticos ----------
 
 def pronosticar(tabla: pd.DataFrame, paquete: dict) -> pd.DataFrame:
     X = tabla[paquete["cols"]]
@@ -158,6 +169,33 @@ def pronosticar(tabla: pd.DataFrame, paquete: dict) -> pd.DataFrame:
     return out
 
 
+def pronosticar_juegos(fut, eq, objetivo, nombres) -> pd.DataFrame:
+    t = (fut[["gameId", "playerteamId", "opponentteamId", "home", "gameDateTimeEst"]]
+         .drop_duplicates(["gameId", "playerteamId"])
+         .rename(columns={"playerteamId": "teamId", "opponentteamId": "opponentTeamId"}))
+    d = game_model.tabla_equipos(t, eq)
+    j = game_model.pronosticar_partidos(d, obtener_paquete_juegos(objetivo))
+    out = pd.DataFrame({
+        "fecha": j["gameDateTimeEst_local"].dt.normalize(),
+        "gameId": j["gameId"],
+        "local": j["teamId_local"].map(nombres),
+        "visitante": j["teamId_visita"].map(nombres),
+        "pts_local": j["pts_local"],
+        "pts_local_q10": j["pts_q10_local"],
+        "pts_local_q90": j["pts_q90_local"],
+        "pts_visita": j["pts_visita"],
+        "pts_visita_q10": j["pts_q10_visita"],
+        "pts_visita_q90": j["pts_q90_visita"],
+        "total": j["total"],
+        "spread": j["spread"],
+        "prob_local": j["prob_local"],
+    })
+    num = [c for c in out.columns if c.startswith(("pts_", "total", "spread"))]
+    out[num] = out[num].round(1)
+    out["prob_local"] = out["prob_local"].round(3)
+    return out
+
+
 def nombres_equipos() -> pd.Series:
     t = pd.read_parquet(f"{RAW}/TeamStatistics.parquet",
                         columns=["teamId", "teamName", "gameDateTimeEst"])
@@ -182,7 +220,7 @@ def comparar(pred: pd.DataFrame, reales: pd.DataFrame):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Pronósticos por jugador para una fecha")
+    ap = argparse.ArgumentParser(description="Pronósticos de jugadores y partidos")
     ap.add_argument("--fecha", required=True, help="AAAA-MM-DD")
     ap.add_argument("--backtest", action="store_true",
                     help="fingir que es esa fecha y comparar con lo real")
@@ -190,6 +228,7 @@ def main():
 
     fecha = pd.Timestamp(args.fecha)
     objetivo = int(temporada_de(pd.Series([fecha])).iloc[0])
+    sufijo = "_backtest" if args.backtest else ""
 
     hist = pd.read_parquet(CLEAN)
     hist = hist[hist["temporada"] >= objetivo - 2]
@@ -208,25 +247,30 @@ def main():
     print(f"Temporada {objetivo} | {fut['gameId'].nunique()} partidos | "
           f"{len(fut)} jugadores en plantilla")
 
-    tabla = construir_tabla(hist, fut, fecha)
-    paquete = obtener_modelo(objetivo)
-    pred = pronosticar(tabla, paquete)
+    tabla, eq = construir_tabla(hist, fut, fecha)
+    nombres = nombres_equipos()
+    generado = datetime.now().strftime("%Y-%m-%d %H:%M")
+    SALIDA.mkdir(exist_ok=True)
 
+    # Jugadores
+    pred = pronosticar(tabla, obtener_modelo(objetivo))
     sin_hist = int((~pred["con_historial"]).sum())
     pred = pred[pred["con_historial"]].drop(columns="con_historial")
-    nombres = nombres_equipos()
     pred.insert(5, "equipo", pred["playerteamId"].astype("int64").map(nombres))
     pred.insert(6, "rival", pred["opponentteamId"].astype("int64").map(nombres))
-    pred["generado"] = datetime.now().strftime("%Y-%m-%d %H:%M")
-
-    SALIDA.mkdir(exist_ok=True)
-    ruta = SALIDA / f"{fecha.date()}{'_backtest' if args.backtest else ''}.csv"
+    pred["generado"] = generado
+    ruta = SALIDA / f"{fecha.date()}{sufijo}.csv"
     pred.to_csv(ruta, index=False)
-    print(f"\nGuardado: {ruta} ({len(pred)} jugadores; "
-          f"{sin_hist} sin historial omitidos)")
-    print(pred.sort_values("points", ascending=False)[
-        ["firstName", "lastName", "equipo", "rival", "numMinutes",
-         "points", "points_q10", "points_q90"]].head(10).to_string(index=False))
+    print(f"\nGuardado: {ruta} ({len(pred)} jugadores; {sin_hist} sin historial omitidos)")
+
+    # Partidos
+    juegos = pronosticar_juegos(fut, eq, objetivo, nombres)
+    juegos["generado"] = generado
+    ruta_j = SALIDA / f"juegos_{fecha.date()}{sufijo}.csv"
+    juegos.to_csv(ruta_j, index=False)
+    print(f"Guardado: {ruta_j} ({len(juegos)} partidos)")
+    print(juegos[["visitante", "local", "pts_visita", "pts_local", "total",
+                  "spread", "prob_local"]].to_string(index=False))
 
     if reales is not None:
         comparar(pred, reales)
