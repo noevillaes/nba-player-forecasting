@@ -4,6 +4,7 @@ al partido (shift(1) antes de cualquier ventana).
 
 construir_equipos() acepta partidos futuros: se agregan sin estadísticas
 y reciben, vía shift(1), el promedio de sus partidos anteriores."""
+from datos import leer
 import numpy as np
 import pandas as pd
 
@@ -20,7 +21,7 @@ COLS = ["pace", "ortg", "drtg", "reb_permitidos",
 
 
 def cargar_equipos(desde: str = "1995-10-01") -> pd.DataFrame:
-    t = pd.read_parquet(f"{RAW}/TeamStatistics.parquet")
+    t = leer("TeamStatistics")
     t = t[t["gameId"].astype(str).str[0].isin(PREFIJOS_VALIDOS)]
     t = t[t["gameDateTimeEst"] >= desde].copy()
     assert not t.duplicated(["teamId", "gameId"]).any(), "Equipo duplicado"

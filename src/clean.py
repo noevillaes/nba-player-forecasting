@@ -1,6 +1,8 @@
 """Normaliza, filtra y arma la tabla jugador-partido base."""
+from datos import leer
 import os
 import pandas as pd
+
 
 RAW = "data/raw"
 OUT = "data/clean"
@@ -80,8 +82,7 @@ def parsear_minutos(s: pd.Series) -> pd.Series:
 def rellenar_equipos(ps: pd.DataFrame) -> pd.DataFrame:
     """Recupera playerteamId/opponentteamId vacíos cruzando (gameId, home)
     con TeamStatistics. En 2021-22 casi toda la temporada viene sin ID."""
-    t = pd.read_parquet(f"{RAW}/TeamStatistics.parquet",
-                        columns=["gameId", "home", "teamId", "opponentTeamId"])
+    t = leer("TeamStatistics", columns=["gameId", "home", "teamId", "opponentTeamId"])
     t = t.dropna(subset=["home"]).copy()
     t["gameId"] = t["gameId"].astype("int64")
     t["home"] = t["home"].astype(int)
@@ -111,8 +112,8 @@ def rellenar_equipos(ps: pd.DataFrame) -> pd.DataFrame:
 
 
 def main(desde=1996):
-    ps = pd.read_parquet(f"{RAW}/PlayerStatistics.parquet")
-    ext = pd.read_parquet(f"{RAW}/PlayerStatisticsExtended.parquet")
+    ps = leer("PlayerStatistics")
+    ext = leer("PlayerStatisticsExtended")
 
     # 1. Tipo de partido y temporada
     ps["tipo"] = normalizar_gametype(ps)
