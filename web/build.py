@@ -26,7 +26,8 @@ import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(ROOT, "web")
-STATIC = ["index.html", "style.css", "app.js", "favicon.svg"]
+STATIC = ["index.html", "terms.html", "privacy.html", "style.css", "app.js", "favicon.svg"]
+STATIC_DIRS = ["fonts"]
 
 DATASETS = {
     "live": {
@@ -37,7 +38,7 @@ DATASETS = {
         "score": "results/marcador.csv",
     },
     "backtest": {
-        "label": "Backtest, March 2026",
+        "label": "Backtest, March 2026 (simulated)",
         "players": "predictions/historial_backtest.csv",
         "games": "predictions/historial_juegos_backtest.csv",
         "score": "results/marcador_backtest.csv",
@@ -189,6 +190,8 @@ def main():
     os.makedirs(out)
     for f in STATIC:
         shutil.copy2(os.path.join(WEB, f), os.path.join(out, f))
+    for d in STATIC_DIRS:
+        shutil.copytree(os.path.join(WEB, d), os.path.join(out, d))
     open(os.path.join(out, ".nojekyll"), "w").close()
 
     print(f"Building site in {out}")
