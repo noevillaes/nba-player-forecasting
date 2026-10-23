@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NBA Forecasts</title>
+<meta name="description" content="Daily NBA player and game forecasts with 80% ranges, published before tip-off and scored against what actually happened.">
+<meta property="og:title" content="NBA Forecasts">
+<meta property="og:description" content="Daily NBA player and game forecasts, published before tip-off and scored against the real box scores.">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1F26" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#view=games">NBA Forecasts</a>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#view=games" data-view="games">Games</a>
+    <a href="#view=performance" data-view="performance">Model performance</a>
+    <a href="#view=method" data-view="method">How it works</a>
+  </nav>
+  <div class="top-right">
+    <label class="sr-only" for="dataset">Forecast set</label>
+    <select id="dataset"></select>
+    <a class="quiet" href="https://github.com/noevillaes/nba-player-forecasting">GitHub</a>
+  </div>
+</header>
+
+<main>
+  <p id="load-error" class="load-error" hidden></p>
+
+  <!-- ===================== Games ===================== -->
+  <section id="view-games" class="view games" hidden>
+    <aside class="slate" aria-label="Games of the day">
+      <div class="date-nav">
+        <button id="prev-day" class="step" aria-label="Previous day">‹</button>
+        <h2 id="date-label">&nbsp;</h2>
+        <button id="next-day" class="step" aria-label="Next day">›</button>
+      </div>
+      <div class="slate-head" aria-hidden="true"><span>Proj.</span><span>Final</span></div>
+      <ol id="game-list" class="game-list"></ol>
+      <div class="legend">
+        <span><i class="key hit"></i>picked the winner</span>
+        <span><i class="key miss"></i>missed the winner</span>
+      </div>
+    </aside>
+
+    <article class="game" aria-live="polite">
+      <div id="band" class="band"></div>
+      <div class="band-info"><p id="info-away"></p><p id="info-home"></p></div>
+      <p id="summary" class="summary"></p>
+
+      <div class="card box">
+        <div class="box-controls">
+          <div id="team-seg" class="seg team-seg" role="group" aria-label="Team"></div>
+          <div id="mode-seg" class="seg mode-seg" role="group" aria-label="What to show">
+            <button data-mode="proj">Projected</button>
+            <button data-mode="real">Actual</button>
+            <button data-mode="both">Actual vs projected</button>
+          </div>
+        </div>
+        <p id="team-note" class="note"></p>
+        <div class="table-wrap">
+          <table id="box" class="box-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint">Select a player to see all 16 stats against their 80% ranges.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================== Performance ===================== -->
+  <section id="view-performance" class="view performance" hidden>
+    <div id="figures" class="figures card"></div>
+
+    <div class="perf-grid">
+      <div class="card">
+        <h2 class="h">Player stats against a last-10-games average</h2>
+        <p class="note">Mean absolute error over every scored day. Lower is better; improvement is how much
+          smaller the model's error is. Select a stat to see it day by day.</p>
+        <div class="table-wrap">
+          <table id="perf-table" class="perf-table">
+            <thead><tr><th>Stat</th><th>Players</th><th>Model error</th><th>Average error</th><th>Improvement</th><th>In 80% range</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h">Improvement by stat</h2>
+        <p class="note">Percent less error than the last-10-games average.</p>
+        <div id="bars" class="bars"></div>
+      </div>
+    </div>
+
+    <div class="card daily">
+      <h2 id="daily-title" class="h">Day by day</h2>
+      <p class="note">Average error per scored day. The model line should sit under the average line.</p>
+      <div id="daily-chart" class="daily-chart"></div>
+    </div>
+  </section>
+
+  <!-- ===================== Method ===================== -->
+  <section id="view-method" class="view method" hidden>
+    <div class="card prose">
+      <h2>How it works</h2>
+      <p>Every morning a scheduled job downloads the NBA schedule, rosters and the previous night's box scores,
+        forecasts that day's games and scores yesterday's forecasts against what actually happened. The results
+        are committed to GitHub before tip-off, so every forecast on this site has a public timestamp and can't be
+        changed after the game.</p>
+
+      <h3>Player forecasts</h3>
+      <p>For every player on each roster, a LightGBM model forecasts 16 box-score stats. It's trained with
+        quantile loss at the 10th, 50th and 90th percentiles: the 50th is the forecast, and the other two form the
+        80% range. The ranges are calibrated with conformalized quantile regression on the previous season, so about
+        8 in 10 actual values should land inside them. The model performance tab checks that.</p>
+      <p>Player forecasts are then reconciled with the team-score forecast. Without this step, a roster full of
+        scorers can add up to a total no team would reach. The multiplier shown above each box score is that
+        adjustment.</p>
+
+      <h3>Game forecasts</h3>
+      <p>Team scores come from a structural formula: expected pace times each team's offensive and defensive
+        efficiency, plus home-court advantage. In validation it beat a gradient-boosted model. Win probabilities are
+        calibrated with Platt scaling, and a Brier score of 0.25 is what a coin flip would get.</p>
+
+      <h3>What it's compared against</h3>
+      <p>Every player stat is compared with that player's average over his last 10 games, a simple forecast that's
+        hard to beat. The improvement column shows how much less error the model makes than that average.</p>
+
+      <h3>Known limits</h3>
+      <ul>
+        <li>There's no availability model, so players who end up not playing still get a forecast. They show as DNP and
+          aren't counted in the errors.</li>
+        <li>Individual matchups aren't modeled.</li>
+        <li>Rookies without NBA games have no history to forecast from.</li>
+      </ul>
+
+      <h3>Data</h3>
+      <p>Historical box scores from the Kaggle dataset <em>Historical NBA Data and Player Box Scores</em> (1947 to
+        present) and live data from the NBA stats API through <code>nba_api</code>. The "Backtest" set holds forecasts
+        for March 2026 games, made after the fact to test the whole pipeline before the season started.</p>
+
+      <p class="byline">Built by Noé Villarreal, Data Science and Mathematics Engineering at Tecnológico de Monterrey.
+        <a href="https://github.com/noevillaes/nba-player-forecasting">Code on GitHub</a>,
+        <a href="https://www.linkedin.com/in/noevillaes">LinkedIn</a>.</p>
+    </div>
+
+    <aside class="card pipeline" aria-label="Daily pipeline">
+      <h2 class="h">Every morning</h2>
+      <p class="note">A scheduled task runs the whole pipeline before the first game of the day.</p>
+      <ol class="steps">
+        <li><b>Pull new data</b><span>Schedule, rosters and last night's box scores from the NBA stats API.</span></li>
+        <li><b>Build features</b><span>Rolling player and team features from every game played so far.</span></li>
+        <li><b>Forecast players</b><span>16 stats per player with 80% ranges, reconciled with the team scores.</span></li>
+        <li><b>Forecast games</b><span>Team scores, total, margin and win probability.</span></li>
+        <li><b>Score yesterday</b><span>Yesterday's forecasts are compared with the real box scores.</span></li>
+        <li><b>Publish</b><span>Everything is committed to GitHub and this site rebuilds a couple of minutes later.</span></li>
+      </ol>
+    </aside>
+  </section>
+</main>
+
+<footer id="status" class="status"></footer>
+<script src="app.js"></script>
+</body>
+</html>

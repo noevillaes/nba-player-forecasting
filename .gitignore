@@ -221,3 +221,6 @@ data/
 kaggle.json
 models/
 logs/
+
+# website build output (python web/build.py)
+_site/
