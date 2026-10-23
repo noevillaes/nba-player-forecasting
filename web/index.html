@@ -1,76 +1,79 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- include:head -->
 <title>NBA Forecasts</title>
 <meta name="description" content="Forecasts for every NBA game and player, published before tip-off and scored against the final box score.">
 <meta property="og:title" content="NBA Forecasts">
 <meta property="og:description" content="Forecasts for every NBA game and player, published before tip-off and scored against the final box score.">
-<meta name="theme-color" content="#F4F3EF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#151619" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
+<script type="module" src="js/main.js"></script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="nav">
-  <div class="nav-in">
-    <a class="brand" href="#view=games" translate="no">
-      <svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="11" width="24" height="6" rx="1"/><rect x="15" y="6" width="3" height="16" rx="1"/></svg>
-      NBA Forecasts
-    </a>
-    <nav class="tabs" aria-label="Sections">
-      <a href="#view=games" data-view="games">Games</a>
-      <a href="#view=performance" data-view="performance">Track record</a>
-      <a href="#view=method" data-view="method">How it works</a>
-    </nav>
-    <div class="nav-end">
-      <label class="sr-only" for="dataset">Forecast set</label>
-      <select id="dataset" name="dataset"></select>
-    </div>
-  </div>
-</header>
+<!-- include:header -->
 
 <main id="main" tabindex="-1">
-  <div id="load-error" class="load-error" role="alert" hidden>
+  <!-- The court: one band shared by every view, so its lines draw once -->
+  <section class="court" id="court">
+    <!-- include:court -->
+    <div class="wrap court-in">
+      <div class="court-tools">
+        <div class="day-nav" data-for="games">
+          <button id="prev-day" class="btn-on-court" type="button" disabled>‹ Previous day</button>
+          <button id="next-day" class="btn-on-court" type="button" disabled>Next day ›</button>
+        </div>
+        <label class="set-pick" data-for="games performance">
+          <span class="sr-only">Forecast set</span>
+          <select id="dataset" name="dataset"></select>
+        </label>
+      </div>
+
+      <header class="head" data-for="games">
+        <h1 id="date-label" class="head-title">Loading forecasts…</h1>
+        <dl id="day-facts" class="head-facts"></dl>
+      </header>
+      <header class="head" data-for="performance">
+        <h1 class="head-title">Track record</h1>
+        <p class="head-lede">Every forecast is scored the morning after the game. These numbers update each day.</p>
+      </header>
+      <header class="head" data-for="method">
+        <h1 class="head-title">How it works</h1>
+        <p class="head-lede">Every morning a scheduled job downloads the schedule, rosters and last night's box scores,
+          forecasts the day's games and scores yesterday's. Everything is committed to GitHub before tip-off, so every
+          forecast has a public timestamp.</p>
+      </header>
+      <p id="sim-note" class="sim-note" hidden><b>Simulated results.</b> The backtest forecasts for March 2026 were
+        made after those games were played, to test the pipeline before the season. They are not part of the live
+        track record.</p>
+    </div>
+  </section>
+
+  <div id="load-error" class="wrap notice error" role="alert" hidden>
     <p id="load-error-text"></p>
-    <button id="retry" class="btn">Try again</button>
+    <button id="retry" class="btn" type="button">Try again</button>
   </div>
-  <p id="sim-note" class="sim-note" hidden>Simulated results. The backtest forecasts for March 2026 were made after
-    those games were played, to test the pipeline before the season. They are not part of the live track record.</p>
 
   <!-- ===================== Games ===================== -->
   <section id="view-games" class="view" hidden aria-labelledby="date-label">
-    <div class="intro wrap">
-      <h1 id="date-label" class="display">Loading forecasts…</h1>
-      <p id="date-sub" class="lede"></p>
-      <div class="day-nav">
-        <button id="prev-day" class="btn">‹ Previous day</button>
-        <button id="next-day" class="btn">Next day ›</button>
-      </div>
-    </div>
-
     <div class="wrap">
-      <div class="slate-head" aria-hidden="true">
-        <span class="r">Away</span><span>Points</span><span>Win probability</span><span>Points</span><span>Home</span><span class="r">Forecast or result</span>
+      <div class="sheet slate-sheet">
+        <div class="slate-head" aria-hidden="true">
+          <span>Away</span><span id="pts-label-a">Points</span><span>Win probability</span><span id="pts-label-h">Points</span><span>Home</span><span>Forecast or result</span>
+        </div>
+        <p id="slate-cap" class="slate-cap"></p>
+        <ol id="game-list" class="slate" aria-label="Games and forecasts"></ol>
       </div>
-      <ol id="game-list" class="slate" aria-label="Games and forecasts"></ol>
     </div>
 
-    <article id="matchup" class="matchup" aria-live="polite">
-      <div class="wrap">
-        <header class="match-head">
-          <h2 id="match-title" class="title"></h2>
-          <p id="match-when" class="muted"></p>
-        </header>
-        <div id="scoreline" class="scoreline"></div>
-        <div id="probbar" class="probbar big" aria-hidden="true"></div>
-        <dl id="facts" class="facts"></dl>
-        <p id="summary" class="verdict"></p>
-      </div>
+    <article id="matchup" class="matchup wrap" aria-live="polite">
+      <header class="match-head">
+        <h2 id="match-title" class="title"></h2>
+        <p id="match-when" class="muted"></p>
+      </header>
+      <div id="scoreline" class="scoreline"></div>
+      <div id="probbar" class="probbar big" aria-hidden="true"><span></span><span></span></div>
+      <p id="prob-labels" class="prob-labels"></p>
+      <dl id="facts" class="facts"></dl>
+      <p id="summary" class="verdict"></p>
     </article>
 
     <section class="players wrap" aria-labelledby="players-title">
@@ -81,9 +84,9 @@
       <div class="box-controls">
         <div id="team-seg" class="seg" role="group" aria-label="Team"></div>
         <div id="mode-seg" class="seg" role="group" aria-label="What to show">
-          <button data-mode="proj">Projected</button>
-          <button data-mode="real">Actual</button>
-          <button data-mode="both">Actual vs projected</button>
+          <button type="button" data-mode="proj">Projected</button>
+          <button type="button" data-mode="real">Actual</button>
+          <button type="button" data-mode="both">Actual vs projected</button>
         </div>
       </div>
       <p id="team-note" class="note"></p>
@@ -97,33 +100,27 @@
   </section>
 
   <!-- ===================== Track record ===================== -->
-  <section id="view-performance" class="view" hidden aria-labelledby="perf-title">
-    <div class="intro wrap">
-      <h1 id="perf-title" class="display">Track record</h1>
-      <p class="lede">Every forecast is scored the morning after the game. These numbers update each day.</p>
-    </div>
+  <section id="view-performance" class="view" hidden>
     <div class="wrap">
-      <div id="figures" class="figures"></div>
+      <div id="figures" class="sheet figures"></div>
     </div>
 
-    <section class="band">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 class="title">Player stats against a 10-game average</h2>
-          <p class="muted">Average error over every scored day, compared with each player's average over his last 10
-            games. Lower error is better. Select a stat to see it day by day.</p>
-        </div>
-        <div class="table-wrap">
-          <table id="perf-table" class="perf-table">
-            <thead><tr><th scope="col">Stat</th><th scope="col">Model error</th><th scope="col">10-game average error</th>
-              <th scope="col" class="bar-col">Less error than the average</th><th scope="col">In 80% range</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
+    <section class="wrap block" aria-labelledby="stats-title">
+      <div class="section-head">
+        <h2 id="stats-title" class="title">Player stats against a 10-game average</h2>
+        <p class="muted">Average error over every scored day, compared with each player's average over his last 10
+          games. Lower error is better. Select a stat to see it day by day.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="perf-table" class="perf-table">
+          <thead><tr><th scope="col">Stat</th><th scope="col">Model error</th><th scope="col">10-game average error</th>
+            <th scope="col" class="bar-col">Less error than the average</th><th scope="col">In 80% range</th></tr></thead>
+          <tbody></tbody>
+        </table>
       </div>
     </section>
 
-    <section class="wrap daily">
+    <section class="wrap block" aria-labelledby="daily-title">
       <div class="section-head">
         <h2 id="daily-title" class="title">Day by day</h2>
         <p class="muted">Average error per scored day. The model line should sit under the average line. Dashed lines
@@ -134,14 +131,7 @@
   </section>
 
   <!-- ===================== How it works ===================== -->
-  <section id="view-method" class="view" hidden aria-labelledby="method-title">
-    <div class="intro wrap">
-      <h1 id="method-title" class="display">How it works</h1>
-      <p class="lede">Every morning a scheduled job downloads the schedule, rosters and last night's box scores,
-        forecasts the day's games and scores yesterday's forecasts. Everything is committed to GitHub before tip-off,
-        so every forecast has a public timestamp.</p>
-    </div>
-
+  <section id="view-method" class="view" hidden>
     <div class="wrap method">
       <div class="prose">
         <h2>Player forecasts</h2>
@@ -214,18 +204,6 @@
   </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap foot-in">
-    <p id="status" class="status" aria-live="polite"></p>
-    <p class="fine">NBA Forecasts is a personal project by Noé Villarreal. It is not affiliated with or endorsed by the
-      NBA or its teams. Forecasts are estimates and can be wrong.</p>
-    <nav class="foot-links" aria-label="Legal and source">
-      <a href="terms.html">Terms of Service</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="https://github.com/noevillaes/nba-player-forecasting">Source on GitHub</a>
-    </nav>
-  </div>
-</footer>
-<script src="app.js"></script>
+<!-- include:footer -->
 </body>
 </html>

@@ -2,8 +2,9 @@
 """
 Builds the static website.
 
-Copies the page files in web/ to an output folder and turns the pipeline CSVs
-into small JSON files the page loads on demand:
+Copies the page files in web/ to an output folder (filling in the shared pieces
+in web/partials/, marked <!-- include:NAME --> in the pages) and turns the
+pipeline CSVs into small JSON files the page loads on demand:
 
     data/<set>/meta.json          every game (forecast + result) and the daily scoreboard
     data/<set>/days/<date>.json   every player forecast for that day
@@ -22,12 +23,15 @@ import csv
 import datetime
 import json
 import os
+import re
 import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(ROOT, "web")
-STATIC = ["index.html", "terms.html", "privacy.html", "style.css", "app.js", "favicon.svg"]
-STATIC_DIRS = ["fonts"]
+PAGES = ["index.html", "terms.html", "privacy.html"]
+STATIC = ["style.css", "favicon.svg"]
+STATIC_DIRS = ["fonts", "js"]
+INCLUDE = re.compile(r"<!-- include:([a-z]+) -->")
 
 DATASETS = {
     "live": {
@@ -175,6 +179,23 @@ def model_versions(path, used):
     return out, recal
 
 
+def render_page(name):
+    """A page with its <!-- include:NAME --> markers replaced by web/partials/NAME.html or NAME.svg."""
+    def part(m):
+        for ext in (".html", ".svg"):
+            path = os.path.join(WEB, "partials", m.group(1) + ext)
+            if os.path.exists(path):
+                with open(path, encoding="utf-8") as f:
+                    return f.read().strip()
+        raise SystemExit(f"{name}: no partial called {m.group(1)!r} in web/partials/")
+
+    with open(os.path.join(WEB, name), encoding="utf-8") as f:
+        html = INCLUDE.sub(part, f.read())
+    if name != "index.html":  # mark the legal page being read in the shared footer
+        html = html.replace(f'<a href="{name}">', f'<a href="{name}" aria-current="page">', 1)
+    return html
+
+
 def dump(path, obj):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
@@ -188,6 +209,9 @@ def main():
     if os.path.isdir(out):
         shutil.rmtree(out)
     os.makedirs(out)
+    for page in PAGES:
+        with open(os.path.join(out, page), "w", encoding="utf-8") as f:
+            f.write(render_page(page))
     for f in STATIC:
         shutil.copy2(os.path.join(WEB, f), os.path.join(out, f))
     for d in STATIC_DIRS:
