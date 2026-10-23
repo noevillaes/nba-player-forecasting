@@ -20,6 +20,17 @@ const TEAM_ALT = {
   Thunder: "#EF3B24", Magic: "#5F6A72", "76ers": "#ED174C", Suns: "#E56020", "Trail Blazers": "#1A1A1A",
   Kings: "#63727A", Spurs: "#6F787E", Raptors: "#1A1A1A", Jazz: "#6B5B00", Wizards: "#E31837",
 };
+// three-letter codes for the team badges
+const TRI = {
+  Hawks: "ATL", Celtics: "BOS", Nets: "BKN", Hornets: "CHA", Bulls: "CHI", Cavaliers: "CLE",
+  Mavericks: "DAL", Nuggets: "DEN", Pistons: "DET", Warriors: "GSW", Rockets: "HOU", Pacers: "IND",
+  Clippers: "LAC", Lakers: "LAL", Grizzlies: "MEM", Heat: "MIA", Bucks: "MIL", Timberwolves: "MIN",
+  Pelicans: "NOP", Knicks: "NYK", Thunder: "OKC", Magic: "ORL", "76ers": "PHI", Suns: "PHX",
+  "Trail Blazers": "POR", Kings: "SAC", Spurs: "SAS", Raptors: "TOR", Jazz: "UTA", Wizards: "WAS",
+};
+const tri = (team) => TRI[team] || String(team).slice(0, 3).toUpperCase();
+const badge = (team, color) => `<i class="med" style="--c:${color || TEAM[team] || "#3A4A5C"}" aria-hidden="true">${esc(tri(team))}</i>`;
+
 const STAT_NAME = {
   MIN: "Minutes", PTS: "Points", REB: "Rebounds", OREB: "Off. rebounds", DREB: "Def. rebounds",
   AST: "Assists", STL: "Steals", BLK: "Blocks", TO: "Turnovers", PF: "Fouls", FGM: "FG made",
@@ -52,6 +63,14 @@ function niceDate(d, withYear) {
   const s = dt.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
   return withYear ? `${s}, ${dt.getFullYear()}` : s;
 }
+/** "Sat, Oct 24" (with the year for older sets) */
+function slateDate(d, withYear) {
+  const dt = new Date(`${d}T12:00:00`);
+  const s = dt.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  return withYear ? `${s}, ${dt.getFullYear()}` : s;
+}
+/** today in the viewer's calendar, as YYYY-MM-DD */
+const todayISO = () => { const t = new Date(); return new Date(t - t.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
 const shortDate = (d) => new Date(`${d}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
 /** "2026-10-23 10:43" -> "Friday, Oct 23 at 10:43 (UTC−6)" */
@@ -203,11 +222,16 @@ async function renderVersions() {
 async function renderGames(m, my) {
   const d = state.date;
   const i = m.dates.indexOf(d);
-  $("#date-label").textContent = d ? niceDate(d, state.set !== "live") : "No games yet";
+  $("#date-label").textContent = d ? slateDate(d, state.set !== "live") : "No games yet";
   $("#prev-day").disabled = i < 0 || i >= m.dates.length - 1;
   $("#next-day").disabled = i <= 0;
 
   const games = m.byDate.get(d) || [];
+  const finals = games.filter((g) => g.played);
+  const hits = finals.filter((g) => g.hit === 1).length;
+  $("#date-sub").textContent = !games.length ? "" : finals.length
+    ? `${games.length} games, winner picked in ${hits} of ${finals.length}`
+    : `${games.length} game${games.length > 1 ? "s" : ""}, forecasts published`;
   if (!games.some((g) => g.id === state.game)) {
     state.game = games[0]?.id ?? null;
     state.team = "away";
@@ -230,11 +254,11 @@ function renderSlate(games, key) {
   if (key !== slateKey) {
     slateKey = key;
     list.innerHTML = games.length ? games.map(slateItem).join("") :
-      `<li class="empty" style="padding:16px 18px">No games on this day.</li>`;
+      `<li class="empty">No games on this day.</li>`;
     list.scrollTop = 0;
     list.scrollLeft = 0;
   }
-  for (const b of $$(".g", list)) {
+  for (const b of $$(".chip", list)) {
     const on = b.dataset.id === state.game;
     b.setAttribute("aria-current", on ? "true" : "false");
     if (on) b.scrollIntoView({ block: "nearest", inline: "nearest" });
@@ -244,63 +268,81 @@ function renderSlate(games, key) {
 function slateItem(g) {
   const cls = g.played ? (g.hit === 1 ? "hit" : "miss") : "pending";
   const winner = g.played ? (g.ra > g.rh ? "away" : "home") : null;
+  const col = matchupColors(g.away, g.home);
   const row = (side, team, proj, real) => `
-    <span class="row${winner && winner !== side ? " lose" : ""}">
-      <span class="tm">${esc(team)}</span>
-      <span class="pj">${f1(proj)}</span>
-      ${g.played ? `<span class="sc">${round(real)}</span>` : `<span class="sc proj">${round(proj)}</span>`}
+    <span class="r${winner && winner !== side ? " lose" : ""}">
+      ${badge(team, col[side])}<span class="tm">${esc(team)}</span>
+      <span class="pj">${g.played ? f1(proj) : ""}</span>
+      <span class="sc">${g.played ? round(real) : round(proj)}</span>
     </span>`;
+  const line = g.played
+    ? `Final, <b>${g.hit === 1 ? "winner picked" : "winner missed"}</b>`
+    : `Projected, ${pct(isNum(g.prob) ? Math.max(g.prob, 1 - g.prob) : 0.5)} ${tri(g.prob >= 0.5 ? g.home : g.away)}`;
   const label = g.played
     ? `${g.away} ${g.ra}, ${g.home} ${g.rh}, final`
     : `${g.away} at ${g.home}, projected ${f1(g.pa)} to ${f1(g.ph)}`;
-  return `<li><button class="g ${cls}" data-id="${esc(g.id)}" aria-label="${esc(label)}">
-    ${row("away", g.away, g.pa, g.ra)}${row("home", g.home, g.ph, g.rh)}</button></li>`;
+  return `<li><button class="chip ${cls}" data-id="${esc(g.id)}" aria-label="${esc(label)}">
+    ${row("away", g.away, g.pa, g.ra)}${row("home", g.home, g.ph, g.rh)}
+    <span class="st">${line}</span></button></li>`;
 }
 
 function renderBand(g) {
-  const band = $("#band");
+  const hero = $("#band");
   if (!g) {
-    band.innerHTML = "";
+    hero.innerHTML = "";
+    hero.hidden = true;
     $("#info-away").textContent = "";
     $("#info-home").textContent = "";
     return;
   }
-  if (!band.children.length) {
-    band.innerHTML = `<div class="side away"><span class="tn"></span><span class="big"></span></div>
-                      <div class="side home"><span class="tn"></span><span class="big"></span></div>`;
+  hero.hidden = false;
+  if (!hero.children.length) {
+    const side = (cls) => `<div class="side ${cls}"><span class="code"></span>
+      <div class="who"><span class="tn"></span><span class="where"></span><span class="big"></span></div></div>`;
+    hero.innerHTML = side("away") + side("home") +
+      `<span class="circle" aria-hidden="true"></span><span class="state"></span><span class="odds"></span>`;
   }
   const col = matchupColors(g.away, g.home);
   const p = isNum(g.prob) ? g.prob : 0.5;
-  const [a, h] = band.children;
-  a.style.flex = `0 1 ${((1 - p) * 100).toFixed(1)}%`;
-  h.style.flex = "1 1 0";
-  a.style.background = col.away;
-  h.style.background = col.home;
-  for (const [el, team, real, proj] of [[a, g.away, g.ra, g.pa], [h, g.home, g.rh, g.ph]]) {
+  // the split sits at the away team's win probability (kept off the edges so names fit)
+  const x = Math.min(78, Math.max(22, (1 - p) * 100));
+  hero.style.setProperty("--x", `${x.toFixed(1)}%`);
+  const a = $(".away", hero), h = $(".home", hero);
+  a.style.backgroundColor = col.away;
+  h.style.backgroundColor = col.home;
+  for (const [el, team, real, proj, prob, where] of
+    [[a, g.away, g.ra, g.pa, 1 - p, "Away"], [h, g.home, g.rh, g.ph, p, "Home"]]) {
+    $(".code", el).textContent = tri(team);
     $(".tn", el).textContent = team;
+    $(".where", el).textContent = `${where}, ${pct(prob)} to win`;
     const big = $(".big", el);
     big.classList.toggle("proj", !g.played);
-    big.innerHTML = g.played ? round(real) : `${f1(proj)}<small>projected</small>`;
+    big.innerHTML = g.played ? round(real) : `${f1(proj)}<small>proj.</small>`;
   }
-  const info = (where, prob, pts, lo, hi) =>
-    `${where}, ${pct(prob)} to win<br>Projected ${f1(pts)} (80% range ${f1(lo)} to ${f1(hi)})`;
-  $("#info-away").innerHTML = info("Away", 1 - p, g.pa, g.pa10, g.pa90);
-  $("#info-home").innerHTML = info("Home", p, g.ph, g.ph10, g.ph90);
+  const today = todayISO();
+  $(".state", hero).textContent = g.played ? "Final"
+    : g.date === today ? "Tonight" : g.date > today ? "Upcoming" : "Result pending";
+  $(".odds", hero).textContent = `${tri(g.away)} ${pct(1 - p)} | ${pct(p)} ${tri(g.home)}`;
+  const info = (team, pts, lo, hi) =>
+    `<strong>${esc(team)}</strong> projected ${f1(pts)}, 80% range ${f1(lo)} to ${f1(hi)}`;
+  $("#info-away").innerHTML = info(g.away, g.pa, g.pa10, g.pa90);
+  $("#info-home").innerHTML = info(g.home, g.ph, g.ph10, g.ph90);
 }
 
 function renderSummary(g) {
   const el = $("#summary");
   if (!g) { el.textContent = ""; return; }
-  let s = `Projected total ${f1(g.total)}, ${byMargin(g.home, g.away, g.spread)}. `;
+  let s = esc(`Projected total ${f1(g.total)}, ${byMargin(g.home, g.away, g.spread)}. `);
   if (g.played) {
     const margin = g.rh - g.ra;
-    s += `Final total ${g.rh + g.ra} (off by ${f1(g.err_total)}); ${margin > 0 ? g.home : g.away} won by ` +
-      `${Math.abs(margin)} (margin off by ${f1(g.err_spread)}). ` +
-      (g.hit === 1 ? "The model picked the winner." : "The model picked the wrong winner.");
+    s += esc(`Final total ${g.rh + g.ra} (off by ${f1(g.err_total)}); ${margin > 0 ? g.home : g.away} won by ` +
+      `${Math.abs(margin)} (margin off by ${f1(g.err_spread)}). `) +
+      `<span class="verdict ${g.hit === 1 ? "hit" : "miss"}">` +
+      (g.hit === 1 ? "The model picked the winner." : "The model picked the wrong winner.") + "</span>";
   } else {
-    s += g.made ? `Not played yet. Forecast made ${madeAt(g.made)}.` : "Not played yet.";
+    s += esc(g.made ? `Not played yet. Forecast made ${madeAt(g.made)}.` : "Not played yet.");
   }
-  el.textContent = s;
+  el.innerHTML = s;
 }
 
 function renderBox(g, day) {
@@ -315,9 +357,12 @@ function renderBox(g, day) {
   }
   const col = matchupColors(g.away, g.home);
   const team = state.team === "home" ? g.home : g.away;
-  seg.innerHTML = ["away", "home"].map((side) =>
-    `<button data-team="${side}" aria-pressed="${state.team === side}" style="--accent:${col[side]}">` +
-    `${esc(side === "home" ? g.home : g.away)}</button>`).join("");
+  seg.innerHTML = ["away", "home"].map((side) => {
+    const t = side === "home" ? g.home : g.away;
+    return `<button data-team="${side}" aria-pressed="${state.team === side}" style="--accent:${col[side]}">` +
+      `${badge(t, col[side])}${esc(t)}</button>`;
+  }).join("");
+  table.style.setProperty("--accent", col[state.team]);
 
   const mode = g.played ? (state.mode || "both") : "proj";
   for (const b of $$("#mode-seg button")) {
@@ -440,10 +485,10 @@ function renderPerf(m) {
   };
   const acc = mean("hit"), brier = mean("brier"), et = mean("err_total"), es = mean("err_spread");
   const cov = n ? played.reduce((s, g) => s + (g.in_h ?? 0) + (g.in_a ?? 0), 0) / (2 * n) : null;
-  const fig = (v, l, s) => `<div class="figure"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`;
+  const fig = (v, l, s, key) => `<div class="figure${key ? " key" : ""}"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`;
   $("#figures").innerHTML = [
     fig(n, "Games scored", "played games with a forecast"),
-    fig(isNum(acc) ? pct(acc) : "–", "Winners picked", isNum(acc) ? `${Math.round(acc * n)} of ${n}` : ""),
+    fig(isNum(acc) ? pct(acc) : "–", "Winners picked", isNum(acc) ? `${Math.round(acc * n)} of ${n}` : "", true),
     fig(isNum(brier) ? brier.toFixed(3) : "–", "Brier score", "0.250 is a coin flip"),
     fig(isNum(et) ? et.toFixed(1) : "–", "Total points error", "average, in points"),
     fig(isNum(es) ? es.toFixed(1) : "–", "Margin error", "average, in points"),
@@ -455,7 +500,7 @@ function renderPerf(m) {
   $("#perf-table tbody").innerHTML = rows.map((r) => `
     <tr data-stat="${r.s}" tabindex="0" aria-selected="${r.s === state.stat}">
       <td>${STAT_NAME[r.s]}</td><td>${r.n}</td><td>${r.mae.toFixed(2)}</td><td>${r.base.toFixed(2)}</td>
-      <td${r.imp < 0 ? ' class="neg"' : ""}>${r.imp >= 0 ? "+" : "−"}${Math.abs(r.imp).toFixed(1)}%</td>
+      <td class="imp${r.imp < 0 ? " neg" : ""}">${r.imp >= 0 ? "+" : "−"}${Math.abs(r.imp).toFixed(1)}%</td>
       <td>${pct(r.cov)}</td></tr>`).join("") ||
     `<tr><td colspan="6" class="empty">No scored days yet.</td></tr>`;
 
@@ -564,9 +609,17 @@ function bind() {
   $("#next-day").addEventListener("click", () => stepDay(-1));
 
   $("#game-list").addEventListener("click", (e) => {
-    const b = e.target.closest(".g");
+    const b = e.target.closest(".chip");
     if (b && b.dataset.id !== state.game) go({ game: b.dataset.id, team: "away", open: null, mode: null });
   });
+  // a mouse wheel scrolls the ticker sideways
+  $("#game-list").addEventListener("wheel", (e) => {
+    const el = e.currentTarget;
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && el.scrollWidth > el.clientWidth) {
+      el.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }
+  }, { passive: false });
   $("#team-seg").addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (b) go({ team: b.dataset.team, open: null });

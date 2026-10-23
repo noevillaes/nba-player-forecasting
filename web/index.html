@@ -7,18 +7,18 @@
 <meta name="description" content="Daily NBA player and game forecasts with 80% ranges, published before tip-off and scored against what actually happened.">
 <meta property="og:title" content="NBA Forecasts">
 <meta property="og:description" content="Daily NBA player and game forecasts, published before tip-off and scored against the real box scores.">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A1F26" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0F1B2D" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#070C13" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="top">
-  <a class="brand" href="#view=games">NBA Forecasts</a>
+  <a class="brand" href="#view=games"><svg class="brand-ball" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="#E8772E"/><g fill="none" stroke="#0F1B2D" stroke-width="3.5"><path d="M32 3v58M3 32h58"/><path d="M13 11c9 7 9 35 0 42M51 11c-9 7-9 35 0 42"/></g></svg>NBA Forecasts</a>
   <nav class="tabs" aria-label="Sections">
     <a href="#view=games" data-view="games">Games</a>
     <a href="#view=performance" data-view="performance">Model performance</a>
@@ -36,29 +36,24 @@
 
   <!-- ===================== Games ===================== -->
   <section id="view-games" class="view games" hidden>
-    <aside class="slate" aria-label="Games of the day">
+    <div class="slate" aria-label="Games of the day">
       <div class="date-nav">
         <button id="prev-day" class="step" aria-label="Previous day">‹</button>
-        <h2 id="date-label">&nbsp;</h2>
+        <div class="date-box"><h2 id="date-label">&nbsp;</h2><p id="date-sub" class="date-sub"></p></div>
         <button id="next-day" class="step" aria-label="Next day">›</button>
       </div>
-      <div class="slate-head" aria-hidden="true"><span>Proj.</span><span>Final</span></div>
-      <ol id="game-list" class="game-list"></ol>
-      <div class="legend">
-        <span><i class="key hit"></i>picked the winner</span>
-        <span><i class="key miss"></i>missed the winner</span>
-      </div>
-    </aside>
+      <div class="ticker-wrap"><ol id="game-list" class="ticker"></ol></div>
+    </div>
 
     <article class="game" aria-live="polite">
-      <div id="band" class="band"></div>
-      <div class="band-info"><p id="info-away"></p><p id="info-home"></p></div>
+      <div id="band" class="hero"></div>
+      <div class="assist"><p id="info-away"></p><p id="info-home"></p></div>
       <p id="summary" class="summary"></p>
 
       <div class="card box">
         <div class="box-controls">
-          <div id="team-seg" class="seg team-seg" role="group" aria-label="Team"></div>
-          <div id="mode-seg" class="seg mode-seg" role="group" aria-label="What to show">
+          <div id="team-seg" class="team-seg" role="group" aria-label="Team"></div>
+          <div id="mode-seg" class="mode-seg" role="group" aria-label="What to show">
             <button data-mode="proj">Projected</button>
             <button data-mode="real">Actual</button>
             <button data-mode="both">Actual vs projected</button>
