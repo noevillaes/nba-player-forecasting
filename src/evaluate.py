@@ -33,14 +33,17 @@ def cargar() -> pd.DataFrame:
     return agregar_b1(pd.read_parquet(FEAT))
 
 
-def datos_evaluables() -> pd.DataFrame:
+def solo_evaluables(df: pd.DataFrame) -> pd.DataFrame:
     """Filas donde el jugador jugó y todos los baselines tienen historia.
     Mismas filas para todos los modelos: comparación justa."""
-    df = cargar()
     columnas_base = ([f"b1_{o}" for o in OBJETIVOS] + ["min_prom_10"]
                      + [f"{o}_pm_10" for o in OBJETIVOS[1:]])
     evaluables = (df["y_jugo"] == 1) & df[columnas_base].notna().all(axis=1)
-    df = df[evaluables]
+    return df[evaluables]
+
+
+def datos_evaluables() -> pd.DataFrame:
+    df = solo_evaluables(cargar())
     print(f"Filas evaluables: {len(df):,}")
     return df
 

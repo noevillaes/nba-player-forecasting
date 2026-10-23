@@ -27,7 +27,7 @@ NOMBRES = {"numMinutes": "MIN", "fieldGoalsMade": "FGM",
            "turnovers": "TO", "foulsPersonal": "PF", "points": "PTS"}
 ORDEN = {nombre: i for i, nombre in enumerate(NOMBRES.values())}
 COLS_ID = ["fecha", "gameId", "personId", "jugador", "equipo", "rival",
-           "local", "estado", "ajuste_equipo"]
+           "local", "estado", "ajuste_equipo", "modelo"]
 
 
 def leer_archivos(patron: str) -> pd.DataFrame:
@@ -59,6 +59,8 @@ def marcador_jugadores(backtest: bool, sufijo: str):
         print("No hay pronósticos de jugadores que evaluar")
         return
     pr["personId"] = pr["personId"].astype("int64")
+    # versión del modelo que hizo cada pronóstico (los archivos anteriores a la v2 no la traían)
+    pr["modelo"] = pr["modelo"].fillna("v1") if "modelo" in pr else "v1"
     print(f"Jugadores: {pr['fecha'].nunique()} días, {len(pr):,} jugadores-partido")
 
     reales = cargar_reales(set(pr["gameId"]))
@@ -90,7 +92,8 @@ def marcador_jugadores(backtest: bool, sufijo: str):
     diario = (ev.groupby(["fecha", "estadistica"])
                 .agg(jugadores=("real", "size"), MAE=("error_abs", "mean"),
                      MAE_baseline=("error_abs_baseline", "mean"),
-                     cobertura_80=("dentro_80", "mean"))
+                     cobertura_80=("dentro_80", "mean"),
+                     modelo=("modelo", "first"))
                 .reset_index())
     diario["mejora_pct"] = (1 - diario["MAE"] / diario["MAE_baseline"]) * 100
 

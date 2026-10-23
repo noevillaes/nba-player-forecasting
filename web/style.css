@@ -290,6 +290,8 @@ tr.detail > td { text-align: left; padding: 16px 6px 22px; background: var(--sur
 .prose p, .prose li { font-size: 16px; line-height: 1.6; max-width: 68ch; }
 .prose ul { padding-left: 20px; }
 .prose code { font-size: 14px; background: var(--hover); padding: 1px 4px; border-radius: 3px; }
+.versions { padding-left: 20px; }
+.versions li { margin-bottom: 6px; }
 .byline { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--ink-2); }
 
 /* ---------- smaller screens ---------- */

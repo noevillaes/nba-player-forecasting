@@ -148,7 +148,7 @@ async function render() {
     else a.removeAttribute("aria-current");
   }
   for (const v of VIEWS) $(`#view-${v}`).hidden = v !== state.view;
-  if (state.view === "method") document.title = "How it works | NBA Forecasts";
+  if (state.view === "method") { document.title = "How it works | NBA Forecasts"; renderVersions(); }
 
   let m;
   try {
@@ -178,7 +178,25 @@ function renderStatus(m) {
   const parts = [];
   if (m.latest) parts.push(`Latest forecasts made ${madeAt(m.latest)}.`);
   parts.push(`${m.dates.length} days, ${m.games.length} games forecast, ${scored} already scored.`);
+  const active = (m.versions || []).find((v) => v.active);
+  if (active && state.set === "live") parts.push(`Player model ${active.v}.`);
   $("#status").textContent = parts.join(" ");
+}
+
+/* ------------------------- Model versions ------------------------- */
+async function renderVersions() {
+  let m;
+  try { m = await loadMeta("live"); } catch { return; }
+  const list = $("#versions");
+  const vs = m.versions || [];
+  list.innerHTML = vs.map((v) => {
+    let when = "not used yet";
+    if (v.from) when = v.active ? `in use since ${shortDate(v.from)}` : `${shortDate(v.from)} to ${shortDate(v.to)}`;
+    return `<li><b>${esc(v.v)}</b>, ${when}${v.active ? " (current)" : ""}. ${esc(v.text)}</li>`;
+  }).join("");
+  $("#recal-note").textContent = m.recal
+    ? `The current version's ranges were last recalibrated on ${shortDate(m.recal.from)}, with ${m.recal.rows.toLocaleString("en-US")} player-games.`
+    : "The current version's ranges haven't been recalibrated yet: that waits for at least 1,000 scored player-games.";
 }
 
 /* ----------------------------- Games ------------------------------ */
@@ -484,11 +502,18 @@ function drawDaily(rows) {
       s += `<text x="${X(i)}" y="${H - 8}" text-anchor="middle">${shortDate(r.d)}</text>`;
     }
   });
+  // a dashed line where a new model version starts
+  rows.forEach((r, i) => {
+    if (i === 0 || r.m === rows[i - 1].m) return;
+    const x = rows.length === 1 ? X(i) : (X(i) + X(i - 1)) / 2;
+    s += `<line x1="${x}" x2="${x}" y1="${pad.t}" y2="${pad.t + ih}" style="stroke:var(--ink-2)" stroke-dasharray="2 3"/>`;
+    s += `<text x="${x + 5}" y="${pad.t + 10}" style="fill:var(--ink-2)">${esc(r.m)}</text>`;
+  });
   const path = (k) => rows.map((r, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(r[k]).toFixed(1)}`).join("");
   s += `<path d="${path("base")}" fill="none" style="stroke:var(--ink-3)" stroke-width="2" stroke-dasharray="5 4"/>`;
   s += `<path d="${path("mae")}" fill="none" style="stroke:var(--bar)" stroke-width="2.5"/>`;
   rows.forEach((r, i) => {
-    const t = `<title>${shortDate(r.d)}: model ${r.mae.toFixed(2)}, last-10 average ${r.base.toFixed(2)}, ${r.n} players</title>`;
+    const t = `<title>${shortDate(r.d)}: model ${r.m || ""} ${r.mae.toFixed(2)}, last-10 average ${r.base.toFixed(2)}, ${r.n} players</title>`;
     s += `<circle cx="${X(i)}" cy="${Y(r.base)}" r="3.5" style="fill:var(--surface);stroke:var(--ink-3)" stroke-width="1.5">${t}</circle>`;
     s += `<circle cx="${X(i)}" cy="${Y(r.mae)}" r="4" style="fill:var(--bar)">${t}</circle>`;
   });

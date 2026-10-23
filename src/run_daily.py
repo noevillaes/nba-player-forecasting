@@ -50,6 +50,12 @@ def main():
                 sys.exit(1)
             print(f"OK  {paso}")
 
+        # Cada semana: recalibra los intervalos con los errores en vivo
+        if correr([sys.executable, "src/recalibrar.py", "--fecha", args.fecha], log) == 0:
+            print("OK  src/recalibrar.py")
+        else:
+            print(f"FALLÓ recalibrar.py (se usan los intervalos de antes). Revisa {ruta_log}")
+
         if hay_partidos(args.fecha):
             if correr([sys.executable, "src/predict.py", "--fecha", args.fecha], log) != 0:
                 print(f"FALLÓ predict.py. Revisa {ruta_log}")
@@ -70,6 +76,14 @@ def main():
             if correr(["git", "commit", "-m", f"Pronósticos y marcador {args.fecha}"], log) == 0:
                 correr(["git", "push"], log)
                 print("OK  publicado en GitHub")
+
+        # Cada mes: entrena un retador y lo activa solo si le gana al modelo actual.
+        # Va después de publicar para no retrasar los pronósticos de hoy; si gana,
+        # se usa desde mañana y el registro se sube con el commit de mañana.
+        if correr([sys.executable, "src/reentrenar.py", "--fecha", args.fecha], log) == 0:
+            print("OK  src/reentrenar.py")
+        else:
+            print(f"FALLÓ reentrenar.py (se sigue usando el modelo actual). Revisa {ruta_log}")
 
     print(f"Listo en {(datetime.now() - inicio).seconds // 60} min. Log: {ruta_log}")
 

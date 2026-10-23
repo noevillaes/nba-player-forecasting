@@ -17,6 +17,7 @@ import pandas as pd
 
 import features
 import game_model
+import registro
 import team_features
 from clean import temporada as temporada_de
 from conformal import entrenar, predecir, NIVEL
@@ -101,10 +102,15 @@ def asegurar_k_mediana(paquete: dict, objetivo: int, ruta: Path) -> dict:
     return paquete
 
 
-def obtener_modelo(objetivo: int) -> dict:
-    ruta = MODELOS / f"modelo_{objetivo}.joblib"
+def obtener_modelo(objetivo: int) -> tuple:
+    """(paquete, versión) de la versión activa en results/registro_modelos.json.
+    La v1 se entrena sola la primera vez; las demás las crea reentrenar.py."""
+    version, ruta = registro.version_activa(objetivo)
     if ruta.exists():
-        return asegurar_k_mediana(joblib.load(ruta), objetivo, ruta)
+        return asegurar_k_mediana(joblib.load(ruta), objetivo, ruta), version
+    if version != "v1":
+        raise SystemExit(f"Falta {ruta} (versión {version}). "
+                         "Créala con: python src/reentrenar.py --inicio")
 
     print(f"Entrenando modelo de jugadores para {objetivo} (solo esta vez)...")
     df = datos_evaluables()
@@ -126,7 +132,7 @@ def obtener_modelo(objetivo: int) -> dict:
 
     MODELOS.mkdir(exist_ok=True)
     joblib.dump(paquete, ruta)
-    return asegurar_k_mediana(paquete, objetivo, ruta)
+    return asegurar_k_mediana(paquete, objetivo, ruta), version
 
 
 def obtener_paquete_juegos(objetivo: int) -> dict:
@@ -142,7 +148,9 @@ def obtener_paquete_juegos(objetivo: int) -> dict:
 
 # ---------- Pronósticos ----------
 
-def pronosticar(tabla: pd.DataFrame, paquete: dict) -> pd.DataFrame:
+def pronosticar(tabla: pd.DataFrame, paquete: dict, recalibracion: dict = None) -> pd.DataFrame:
+    """recalibracion: {objetivo: puntos} de recalibrar.py; ensancha (o angosta)
+    los intervalos ya publicados según los errores recientes en vivo."""
     X = tabla[paquete["cols"]]
     out = tabla[["fecha", "gameId", "personId", "firstName", "lastName",
                  "playerteamId", "opponentteamId", "local"]].copy()
@@ -162,6 +170,11 @@ def pronosticar(tabla: pd.DataFrame, paquete: dict) -> pd.DataFrame:
     out["ajuste_equipo"] = k_rel ** LAMBDA_RECONCILIACION
     for c in ["points", "points_q10", "points_q90"]:
         out[c] = out[c] * out["ajuste_equipo"]
+
+    # Recalibración semanal con los errores en vivo (sobre el intervalo final)
+    for obj, a in (recalibracion or {}).items():
+        out[f"{obj}_q10"] = np.minimum((out[f"{obj}_q10"] - a).clip(lower=0), out[obj])
+        out[f"{obj}_q90"] = np.maximum(out[f"{obj}_q90"] + a, out[obj])
 
     columnas_num = [c for c in out.columns if c.startswith(tuple(OBJETIVOS))]
     out[columnas_num] = out[columnas_num].round(1)
@@ -253,11 +266,16 @@ def main():
     SALIDA.mkdir(exist_ok=True)
 
     # Jugadores
-    pred = pronosticar(tabla, obtener_modelo(objetivo))
+    paquete, version = obtener_modelo(objetivo)
+    recal = {} if args.backtest else registro.ajuste_vigente(
+        registro.temporada(registro.cargar(), objetivo), version, str(fecha.date()))
+    print(f"Modelo {version}" + (f" con recalibración de {len(recal)} estadísticas" if recal else ""))
+    pred = pronosticar(tabla, paquete, recal)
     sin_hist = int((~pred["con_historial"]).sum())
     pred = pred[pred["con_historial"]].drop(columns="con_historial")
     pred.insert(5, "equipo", pred["playerteamId"].astype("int64").map(nombres))
     pred.insert(6, "rival", pred["opponentteamId"].astype("int64").map(nombres))
+    pred["modelo"] = version
     pred["generado"] = generado
     ruta = SALIDA / f"{fecha.date()}{sufijo}.csv"
     pred.to_csv(ruta, index=False)

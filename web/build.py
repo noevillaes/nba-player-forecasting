@@ -31,6 +31,7 @@ STATIC = ["index.html", "style.css", "app.js", "favicon.svg"]
 DATASETS = {
     "live": {
         "label": "Live 2026-27",
+        "registry": "results/registro_modelos.json",
         "players": "predictions/historial.csv",
         "games": "predictions/historial_juegos.csv",
         "score": "results/marcador.csv",
@@ -111,7 +112,16 @@ def build_set(key, cfg, out):
     score = [{
         "d": r["fecha"], "s": r["estadistica"], "n": int(float(r["jugadores"] or 0)),
         "mae": num(r["MAE"], 3), "base": num(r["MAE_baseline"], 3), "cov": num(r["cobertura_80"], 3),
+        "m": r.get("modelo") or "v1",
     } for r in (score_rows or [])]
+
+    # first and last day each model version made forecasts
+    used = {}
+    for r in player_rows:
+        v = r.get("modelo") or "v1"
+        a, b = used.get(v, (r["fecha"], r["fecha"]))
+        used[v] = (min(a, r["fecha"]), max(b, r["fecha"]))
+    versions, recal = model_versions(cfg.get("registry"), used)
 
     dates = sorted({g["date"] for g in games} | set(days), reverse=True)
     made = max((g["made"] for g in games if g["made"]), default="")
@@ -120,11 +130,48 @@ def build_set(key, cfg, out):
     os.makedirs(os.path.join(folder, "days"), exist_ok=True)
     dump(os.path.join(folder, "meta.json"), {
         "label": cfg["label"], "dates": dates, "latest": made, "games": games, "score": score,
+        "versions": versions, "recal": recal,
     })
     for d, players in days.items():
         dump(os.path.join(folder, "days", f"{d}.json"), {"date": d, "players": list(players.values())})
     print(f"  {key}: {len(dates)} days, {len(games)} games, {len(player_rows)} player rows")
     return True
+
+
+def model_versions(path, used):
+    """Model versions for the site, in English, from results/registro_modelos.json
+    (written by the pipeline) plus the days each version was actually used."""
+    reg = {}
+    if path and os.path.isfile(os.path.join(ROOT, path)):
+        with open(os.path.join(ROOT, path), encoding="utf-8") as f:
+            reg = json.load(f)
+    season = reg.get(max(reg, key=int)) if reg else {}
+    listed = season.get("versiones") or [{"version": "v1", "features": 77}]
+    out = []
+    for v in listed:
+        name = v["version"]
+        feats = v.get("features") or (77 if name == "v1" else None)
+        if v.get("descripcion_en"):
+            text = v["descripcion_en"]
+        elif v.get("protocolo") == "mensual":
+            text = (f"Monthly retrain with this season's games through {v.get('datos_hasta')}. "
+                    f"It made {abs(v.get('cambio_vs_anterior_pct', 0)):.1f}% less error than the "
+                    f"previous version on two weeks neither model had seen, so it replaced it.")
+        else:
+            text = ("Start-of-season model: trained on the 8 seasons before last season, "
+                    "with its 80% ranges calibrated on last season.")
+        if feats and not v.get("descripcion_en"):
+            text += f" {feats} features."
+        first, last = used.get(name, (None, None))
+        out.append({"v": name, "from": first, "to": last, "text": text,
+                    "active": name == season.get("activo", "v1")})
+    active = season.get("activo", "v1")
+    recs = [r for r in season.get("recalibraciones", []) if r["version"] == active]
+    recal = None
+    if recs:
+        r = max(recs, key=lambda r: r["desde"])
+        recal = {"from": r["desde"], "rows": r["filas"], "count": len(recs)}
+    return out, recal
 
 
 def dump(path, obj):

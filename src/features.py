@@ -32,6 +32,20 @@ def ventana(df: pd.DataFrame, col: str, n: int, func: str = "mean") -> pd.Series
     return getattr(r, func)().reset_index(level=0, drop=True)
 
 
+def suavizado(df: pd.DataFrame, col: str, vida_media: float) -> pd.Series:
+    """Promedio exponencial de los partidos ANTERIORES: cada partido pesa la mitad
+    que uno jugado `vida_media` partidos después. Sin cortes bruscos de ventana."""
+    r = previo(df, col).groupby(df["personId"]).ewm(halflife=vida_media, min_periods=1)
+    return r.mean().reset_index(level=0, drop=True)
+
+
+# Grupos de features agregados en la v2 (octubre 2026). Se pueden activar o
+# desactivar como bloque para compararlos en evaluate_features.py
+ROL = ["min_prom_3", "min_tendencia", "min_suav_3", "min_suav_10",
+       "titular_ultimo", "jugo_ultimo"]
+LARGO = ([f"{s}_pm_82" for s in STATS] + [f"{s}_pm_suav_10" for s in STATS])
+
+
 def construir(df: pd.DataFrame) -> pd.DataFrame:
     df = df.sort_values(["personId", "gameDateTimeEst"]).reset_index(drop=True)
     df["fecha"] = df["gameDateTimeEst"].dt.normalize()
@@ -71,6 +85,23 @@ def construir(df: pd.DataFrame) -> pd.DataFrame:
     # 5. Contexto del partido (se conoce antes de jugarlo)
     f["local"] = df["home"].astype(int)
     f["playoffs"] = df["tipo"].eq("playoffs").astype(int)
+
+    # 6. Cambios de rol: reaccionan en días, no en semanas
+    #    (un jugador que pasa a la banca o regresa de lesión)
+    f["min_prom_3"] = ventana(df, "numMinutes", 3)
+    f["min_tendencia"] = f["min_prom_3"] - f["min_prom_20"]
+    f["min_suav_3"] = suavizado(df, "numMinutes", 3)
+    f["min_suav_10"] = suavizado(df, "numMinutes", 10)
+    f["titular_ultimo"] = previo(df, "titular")
+    f["jugo_ultimo"] = previo(df, "jugo")
+
+    # 7. Nivel de largo plazo: producción por minuto con memoria larga.
+    #    82 partidos ≈ una temporada; el suavizado no tiene cortes bruscos
+    mins_82 = ventana(df, "numMinutes", 82, "sum").replace(0, np.nan)
+    mins_suav = suavizado(df, "numMinutes", 10).replace(0, np.nan)
+    for stat in STATS:
+        f[f"{stat}_pm_82"] = ventana(df, stat, 82, "sum") / mins_82
+        f[f"{stat}_pm_suav_10"] = suavizado(df, stat, 10) / mins_suav
 
     # Prueba anti-fuga: el primer partido de cada jugador no tiene historia
     primeros = df.groupby("personId").cumcount().eq(0)

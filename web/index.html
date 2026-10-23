@@ -101,7 +101,8 @@
 
     <div class="card daily">
       <h2 id="daily-title" class="h">Day by day</h2>
-      <p class="note">Average error per scored day. The model line should sit under the average line.</p>
+      <p class="note">Average error per scored day. The model line should sit under the average line; dashed
+        lines mark the days a new model version took over.</p>
       <div id="daily-chart" class="daily-chart"></div>
     </div>
   </section>
@@ -118,11 +119,25 @@
       <h3>Player forecasts</h3>
       <p>For every player on each roster, a LightGBM model forecasts 16 box-score stats. It's trained with
         quantile loss at the 10th, 50th and 90th percentiles: the 50th is the forecast, and the other two form the
-        80% range. The ranges are calibrated with conformalized quantile regression on the previous season, so about
-        8 in 10 actual values should land inside them. The model performance tab checks that.</p>
+        80% range.</p>
+      <p>The model sees each player's recent form at several speeds: averages over his last 3, 5, 10 and 20 games,
+        smoothed averages that fade older games gradually, and per-minute production over the last 82 games. Short
+        windows catch role changes within days, like a starter moved to the bench, and long ones keep a hot or cold
+        streak from being taken at face value. All of them only use games played before the one being forecast.</p>
       <p>Player forecasts are then reconciled with the team-score forecast. Without this step, a roster full of
         scorers can add up to a total no team would reach. The multiplier shown above each box score is that
         adjustment.</p>
+
+      <h3>Ranges that stay honest</h3>
+      <p>The ranges are calibrated with conformalized quantile regression, so about 8 in 10 actual values should land
+        inside them. At the start of the season the calibration uses the previous season. Then, once a week, it's
+        redone with the last 28 days of live forecasts, which the model never saw, so the ranges adapt if this season
+        is more or less predictable than the last one.</p>
+
+      <h3>A model that learns during the season</h3>
+      <p>Once a month a challenger model is trained with everything up to two weeks ago, this season included. Both
+        models then forecast those last two weeks, which neither has seen. The challenger only takes over if it makes
+        less error. Each forecast records which version made it, so the track record stays honest.</p>
 
       <h3>Game forecasts</h3>
       <p>Team scores come from a structural formula: expected pace times each team's offensive and defensive
@@ -132,6 +147,10 @@
       <h3>What it's compared against</h3>
       <p>Every player stat is compared with that player's average over his last 10 games, a simple forecast that's
         hard to beat. The improvement column shows how much less error the model makes than that average.</p>
+
+      <h3>Model versions</h3>
+      <ol id="versions" class="versions"></ol>
+      <p id="recal-note" class="note"></p>
 
       <h3>Known limits</h3>
       <ul>
@@ -157,10 +176,12 @@
       <ol class="steps">
         <li><b>Pull new data</b><span>Schedule, rosters and last night's box scores from the NBA stats API.</span></li>
         <li><b>Build features</b><span>Rolling player and team features from every game played so far.</span></li>
+        <li><b>Recalibrate ranges</b><span>Once a week, with the last 28 days of live errors.</span></li>
         <li><b>Forecast players</b><span>16 stats per player with 80% ranges, reconciled with the team scores.</span></li>
         <li><b>Forecast games</b><span>Team scores, total, margin and win probability.</span></li>
         <li><b>Score yesterday</b><span>Yesterday's forecasts are compared with the real box scores.</span></li>
         <li><b>Publish</b><span>Everything is committed to GitHub and this site rebuilds a couple of minutes later.</span></li>
+        <li><b>Retrain</b><span>Once a month, a challenger model trained with this season's games. It only replaces the current one if it wins.</span></li>
       </ol>
     </aside>
   </section>
