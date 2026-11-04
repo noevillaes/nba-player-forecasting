@@ -21,6 +21,7 @@ Only uses the standard library.
 import argparse
 import csv
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -32,6 +33,10 @@ PAGES = ["index.html", "terms.html", "privacy.html"]
 STATIC = ["style.css", "favicon.svg"]
 STATIC_DIRS = ["fonts", "js"]
 INCLUDE = re.compile(r"<!-- include:([a-z]+) -->")
+# style.css and the js modules get ?v=<hash of the site's code>, so a browser never mixes
+# a new page with an old stylesheet or script it kept in its cache
+ASSET_REF = re.compile(r'((?:href|src)="(?:style\.css|js/[a-z]+\.js))(")')
+JS_IMPORT = re.compile(r'(from\s+"\./[a-z]+\.js)(")')
 
 DATASETS = {
     "live": {
@@ -179,6 +184,19 @@ def model_versions(path, used):
     return out, recal
 
 
+def code_version():
+    """Short hash of everything the browser caches between deploys (pages, partials, css, js)."""
+    h = hashlib.sha256()
+    for folder, _, names in sorted(os.walk(WEB)):
+        if "__pycache__" in folder or os.sep + "fonts" in folder:
+            continue
+        for n in sorted(names):
+            if n.endswith((".html", ".css", ".js", ".svg")):
+                with open(os.path.join(folder, n), "rb") as f:
+                    h.update(n.encode() + f.read())
+    return h.hexdigest()[:10]
+
+
 def render_page(name):
     """A page with its <!-- include:NAME --> markers replaced by web/partials/NAME.html or NAME.svg."""
     def part(m):
@@ -209,13 +227,21 @@ def main():
     if os.path.isdir(out):
         shutil.rmtree(out)
     os.makedirs(out)
+    v = code_version()
     for page in PAGES:
         with open(os.path.join(out, page), "w", encoding="utf-8") as f:
-            f.write(render_page(page))
+            f.write(ASSET_REF.sub(rf"\1?v={v}\2", render_page(page)))
     for f in STATIC:
         shutil.copy2(os.path.join(WEB, f), os.path.join(out, f))
     for d in STATIC_DIRS:
         shutil.copytree(os.path.join(WEB, d), os.path.join(out, d))
+    js = os.path.join(out, "js")
+    for n in os.listdir(js):        # versioned imports between modules too
+        p = os.path.join(js, n)
+        with open(p, encoding="utf-8") as f:
+            code = f.read()
+        with open(p, "w", encoding="utf-8") as f:
+            f.write(JS_IMPORT.sub(rf"\1?v={v}\2", code))
     open(os.path.join(out, ".nojekyll"), "w").close()
 
     print(f"Building site in {out}")

@@ -48,6 +48,8 @@ function asciiBand(court) {
   const cv = document.createElement("canvas");
   cv.className = "ascii";
   cv.setAttribute("aria-hidden", "true");
+  // out of the flow even if the stylesheet is missing or stale: never let it size the band
+  cv.style.cssText = "position:absolute;left:0;top:0;z-index:-1;pointer-events:none;display:block";
   court.prepend(cv);
   const ctx = cv.getContext("2d");
 
@@ -59,6 +61,7 @@ function asciiBand(court) {
 
   function size() {
     const r = court.getBoundingClientRect();
+    if (Math.round(r.width) === W && Math.round(r.height) === H && cv.width) return;
     W = Math.round(r.width); H = Math.round(r.height);
     if (W < 2 || H < 2) return;
     dpr = Math.min(devicePixelRatio || 1, 2);
