@@ -524,6 +524,15 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
 .today-note .ico { color: var(--accent-band); }
 .today-note b { font-weight: 650; color: var(--accent-band); }
 
+/* back from a player to the list */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: var(--s4); color: var(--on-band-2); text-decoration: none;
+  font: 500 var(--fs-12) var(--mono); letter-spacing: var(--label-track); text-transform: uppercase; transition: color var(--fast);
+}
+.back-link:hover { color: var(--on-band); }
+.back-link .ico { transition: transform var(--fast) var(--ease); }
+.back-link:hover .ico { transform: translateX(-3px); }
+
 /* ============================== calibration ============================== */
 .calib { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: var(--s7); align-items: start; }
 .calib-chart { background: var(--raised); border: 1px solid var(--rule); padding: var(--s4); }

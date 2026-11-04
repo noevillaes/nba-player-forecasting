@@ -129,7 +129,9 @@ function bind() {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; // new tab/window
       e.preventDefault();
       const view = a.dataset.view || "games";
-      if (view !== state.view) go({ view }, { push: true, kind: "view", toTop: true });
+      // the Players tab always opens the list, even from a player's page
+      if (view === "players" && state.player) go({ view, player: null }, { push: true, kind: "view", toTop: true });
+      else if (view !== state.view) go({ view }, { push: true, kind: "view", toTop: true });
     });
   }
   $("#dataset").addEventListener("change", (e) =>
@@ -145,7 +147,8 @@ function bind() {
     const a = e.target.closest("a[data-player]");
     if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
-    go({ view: "players", player: a.dataset.player }, { push: true, kind: "view", toTop: true });
+    // data-player="" is the way back to the list
+    go({ view: "players", player: a.dataset.player || null }, { push: true, kind: "view", toTop: true });
   });
 
   $("#game-list").addEventListener("click", (e) => {

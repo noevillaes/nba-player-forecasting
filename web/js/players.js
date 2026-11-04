@@ -37,6 +37,7 @@ export async function renderPlayers(isCurrent) {
 /* No player picked: the search box and the top projected scorers      */
 /* ------------------------------------------------------------------ */
 function renderEmpty(msg) {
+  $("#player-back").hidden = true;
   $("#player-title").textContent = "Players";
   $("#player-lede").hidden = false;
   $("#player-lede").textContent = msg ||
@@ -71,6 +72,7 @@ function renderPlayer(p) {
   const games = p.g;
   const played = games.filter((x) => x.st === "played");
 
+  $("#player-back").hidden = false;
   $("#player-title").textContent = p.n;
   $("#player-lede").hidden = true;
   document.title = `${p.n} | NBA Forecasts`;
