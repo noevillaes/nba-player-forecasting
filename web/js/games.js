@@ -246,11 +246,18 @@ function renderBox(g, day) {
   table.tHead.innerHTML = head();
   table.tBodies[0].innerHTML = players.length ? players.map((p) => `
     <tr class="p${p.st === "dnp" ? " dnp" : ""}" data-id="${esc(p.id)}">
-      <td><button type="button" class="pname" aria-expanded="false" aria-controls="d-${esc(p.id)}">${esc(p.n)}</button>${p.st === "dnp" ? "<small>did not play</small>" : ""}</td>
+      <td><button type="button" class="pname" aria-expanded="false" aria-controls="d-${esc(p.id)}">${nameParts(p.n)}</button>${p.st === "dnp" ? "<small>did not play</small>" : ""}</td>
       ${BOX.map((c) => cell(p, c, mode)).join("")}
     </tr>`).join("")
     : `<tr><td colspan="${BOX.length + 1}" class="empty">There are no player forecasts for ${esc(team)} in this game. Players without NBA games have no history to forecast from.</td></tr>`;
   syncDetail(day, g, team);
+}
+
+/** "Shai Gilgeous-Alexander" -> first and last name in their own spans, so phones can stack them. */
+function nameParts(n) {
+  const i = String(n).indexOf(" ");
+  if (i < 0) return `<span class="ln">${esc(n)}</span>`;
+  return `<span class="fn">${esc(n.slice(0, i))}</span> <span class="ln">${esc(n.slice(i + 1))}</span>`;
 }
 
 /** Open or close the expanded player without rebuilding the table. */

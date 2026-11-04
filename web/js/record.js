@@ -112,9 +112,10 @@ export function drawDaily() {
   });
   const path = (k) => rows.map((r, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(r[k]).toFixed(1)}`).join("");
   s += `<path class="avg-line" d="${path("base")}"/><path class="model-line" d="${path("mae")}" pathLength="1"/>`;
+  // hover guide (moved by the tooltip code below)
+  s += `<line class="guide" x1="0" x2="0" y1="${pad.t}" y2="${pad.t + ih}" visibility="hidden"/>`;
   rows.forEach((r, i) => {
-    const t = `<title>${shortDate(r.d)}: model ${esc(r.m || "")} ${r.mae.toFixed(2)}, 10-game average ${r.base.toFixed(2)}, ${r.n} players</title>`;
-    s += `<circle class="avg-dot" cx="${X(i)}" cy="${Y(r.base)}" r="3.5">${t}</circle><circle class="model-dot" cx="${X(i)}" cy="${Y(r.mae)}" r="4">${t}</circle>`;
+    s += `<circle class="avg-dot" data-i="${i}" cx="${X(i)}" cy="${Y(r.base)}" r="3.5"/><circle class="model-dot" data-i="${i}" cx="${X(i)}" cy="${Y(r.mae)}" r="4"/>`;
   });
   const last = rows[rows.length - 1];
   let ym = Y(last.mae) + 4, yb = Y(last.base) + 4;
@@ -122,7 +123,70 @@ export function drawDaily() {
   const lx = X(rows.length - 1) + 12;
   s += `<text class="lbl model" x="${lx}" y="${ym}">Model ${last.mae.toFixed(2)}</text>`;
   s += `<text class="lbl avg" x="${lx}" y="${yb}">10-game avg ${last.base.toFixed(2)}</text>`;
-  el.innerHTML = `${s}</svg>`;
+  el.innerHTML = `${s}</svg><div class="chart-tip" role="status" aria-live="polite" hidden></div>`;
+  chart = { rows, X, Y, W, pad, i: null };
+  bindTip(el);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tooltip: hover, touch or arrow keys pick a day                      */
+/* ------------------------------------------------------------------ */
+let chart = null;
+function showTip(el, i) {
+  const tip = $(".chart-tip", el), svg = $("svg", el), guide = $(".guide", el);
+  if (!chart || !tip || !svg) return;
+  if (i == null) {
+    tip.hidden = true;
+    guide?.setAttribute("visibility", "hidden");
+    $$(".on", svg).forEach((c) => c.classList.remove("on"));
+    chart.i = null;
+    return;
+  }
+  const { rows, X, Y, W } = chart;
+  const r = rows[i];
+  chart.i = i;
+  guide.setAttribute("x1", X(i)); guide.setAttribute("x2", X(i));
+  guide.setAttribute("visibility", "visible");
+  $$("circle", svg).forEach((c) => c.classList.toggle("on", +c.dataset.i === i));
+  const less = r.base ? (1 - r.mae / r.base) : 0;
+  tip.innerHTML = `<p class="tt-d">${shortDate(r.d)}${r.m ? ` · ${esc(r.m)}` : ""}</p>
+    <p class="tt-row"><i class="tt-model"></i>Model <b>${r.mae.toFixed(2)}</b></p>
+    <p class="tt-row"><i class="tt-avg"></i>10-game avg <b>${r.base.toFixed(2)}</b></p>
+    <p class="tt-f ${less >= 0 ? "good" : "bad"}">${pct(Math.abs(less))} ${less >= 0 ? "less" : "more"} error · ${count(r.n)} players</p>`;
+  tip.hidden = false;
+  const scale = svg.getBoundingClientRect().width / W;
+  const px = X(i) * scale, py = Math.min(Y(r.mae), Y(r.base)) * scale;
+  const tw = tip.offsetWidth, th = tip.offsetHeight, box = el.clientWidth;
+  const left = px + 14 + tw > Math.min(box - 8, (W - chart.pad.r) * scale) ? px - 14 - tw : px + 14;   // keep clear of the end labels
+  tip.style.transform = `translate(${Math.max(4, left).toFixed(0)}px, ${Math.max(4, py - th / 2).toFixed(0)}px)`;
+}
+function bindTip(el) {
+  if (el.dataset.tip) return;
+  el.dataset.tip = "1";
+  el.tabIndex = 0;
+  el.setAttribute("aria-label", "Day by day chart. Use the left and right arrow keys to read each day.");
+  const nearest = (e) => {
+    const svg = $("svg", el);
+    if (!svg || !chart) return null;
+    const b = svg.getBoundingClientRect();
+    const x = (e.clientX - b.left) * (chart.W / b.width);
+    let best = 0;
+    chart.rows.forEach((_, i) => { if (Math.abs(chart.X(i) - x) < Math.abs(chart.X(best) - x)) best = i; });
+    return best;
+  };
+  el.addEventListener("pointermove", (e) => { const i = nearest(e); if (i !== chart?.i) showTip(el, i); });
+  el.addEventListener("pointerdown", (e) => showTip(el, nearest(e)));
+  el.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") showTip(el, null); });
+  el.addEventListener("keydown", (e) => {
+    if (!chart || !["ArrowLeft", "ArrowRight", "Home", "End", "Escape"].includes(e.key)) return;
+    e.preventDefault();
+    e.stopPropagation();   // don't change the day on the Games view's arrow keys
+    const n = chart.rows.length - 1, cur = chart.i ?? n;
+    const i = e.key === "Escape" ? null : e.key === "Home" ? 0 : e.key === "End" ? n
+      : Math.max(0, Math.min(n, cur + (e.key === "ArrowLeft" ? -1 : 1) * (chart.i == null ? 0 : 1)));
+    showTip(el, i);
+  });
+  el.addEventListener("blur", () => showTip(el, null));
 }
 
 function niceStep(x) {

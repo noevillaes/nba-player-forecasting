@@ -478,13 +478,81 @@ function footerWord() {
   const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); w.classList.add("in"); } }, { threshold: 0.4 });
   io.observe(w);
 }
+// inverse of cubic-bezier(.5, 0, .5, 1): the time at which the beam reaches a fraction of the rail
+function beamTime(f) {
+  const bez = (t, a, b) => 3 * a * t * (1 - t) ** 2 + 3 * b * t * t * (1 - t) + t ** 3;
+  let lo = 0, hi = 1;
+  for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (bez(m, 0, 1) < f) lo = m; else hi = m; }
+  return bez((lo + hi) / 2, 0.5, 0.5);   // y(t) = f solved for t; the time is x(t)
+}
 function pipeline() {
   const p = $(".pipeline");
   if (!p) return;
+  const steps = $(".steps", p);
   $$(".steps li", p).forEach((li, i) => li.style.setProperty("--i", i));
+  if (steps && !$(".beam", steps)) {
+    const beam = document.createElement("span");
+    beam.className = "beam";
+    beam.setAttribute("aria-hidden", "true");
+    steps.append(beam);
+    const time = () => {
+      const rail = steps.offsetHeight - 24 - 30;
+      steps.style.setProperty("--rail", `${rail}px`);
+      // light each badge as the beam's head (60px into the beam) passes its centre
+      $$("li", steps).forEach((li) => {
+        const y = li.offsetTop + 11 + 11 - 24;               // badge centre, measured from the rail top
+        const f = clamp((y + 40 - 60) / (rail + 40));
+        li.style.setProperty("--gd", `${(3.4 + beamTime(f) * 0.8 * 3.6).toFixed(2)}s`);
+      });
+    };
+    time();
+    new ResizeObserver(time).observe(steps);
+  }
   if (still()) { p.classList.add("run"); return; }
   const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); p.classList.add("run"); } }, { threshold: 0.25 });
   io.observe(p);
+}
+
+/* ================================================================== */
+/* Spotlight on the track-record cards                                */
+/* ================================================================== */
+function spotlight() {
+  const f = $("#figures");
+  if (!f || !matchMedia("(hover: hover)").matches) return;
+  f.addEventListener("pointermove", (e) => {
+    for (const c of $$(".figure", f)) {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty("--sx", `${(e.clientX - r.left).toFixed(0)}px`);
+      c.style.setProperty("--sy", `${(e.clientY - r.top).toFixed(0)}px`);
+    }
+  }, { passive: true });
+}
+
+/* ================================================================== */
+/* Wide tables: show when there's more to the right                   */
+/* ================================================================== */
+function tableHints() {
+  for (const wrap of $$(".table-wrap")) {
+    let hint = null;
+    if (wrap.querySelector("#box")) {
+      hint = document.createElement("p");
+      hint.className = "swipe-hint";
+      hint.setAttribute("aria-hidden", "true");
+      hint.innerHTML = 'Swipe for all 16 stats<svg class="ico" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>';
+      wrap.before(hint);
+    }
+    const sync = () => {
+      const more = wrap.scrollLeft + wrap.clientWidth < wrap.scrollWidth - 4;
+      wrap.classList.toggle("more", more);
+      wrap.classList.toggle("scrolled", wrap.scrollLeft > 2);
+      if (hint) hint.classList.toggle("gone", wrap.scrollLeft > 24 || wrap.scrollWidth <= wrap.clientWidth + 4);
+    };
+    wrap.addEventListener("scroll", sync, { passive: true });
+    new ResizeObserver(sync).observe(wrap);
+    const table = $("table", wrap);
+    if (table) new MutationObserver(sync).observe(table, { childList: true, subtree: true });
+    sync();
+  }
 }
 
 /* ================================================================== */
@@ -528,6 +596,8 @@ function init() {
 
   footerWord();
   pipeline();
+  spotlight();
+  tableHints();
 
   let last = performance.now();
   const loop = (now) => {
