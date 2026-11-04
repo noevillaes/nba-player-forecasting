@@ -91,3 +91,10 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+-----------------------------------------------------------------------
+Also licensed under the SIL Open Font License 1.1 (text above):
+- instrument-serif.woff2, instrument-serif-italic.woff2:
+  Copyright 2022 The Instrument Serif Project Authors (https://github.com/Instrument/instrument-serif)
+- plex-mono.woff2 (IBM Plex Mono):
+  Copyright © 2017 IBM Corp. with Reserved Font Name "Plex"

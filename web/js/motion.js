@@ -1,0 +1,536 @@
+// Motion layer. Reads the page the other modules render and animates it; it never changes data.
+//
+//   ascii ball    a basketball drawn in ASCII on the band, with a wake that follows the cursor
+//                 (after stackedlol/ascii-sharks)
+//   lens          the topographic lines turn orange under the cursor (Lando Norris' cursor reveal)
+//   block reveal  titles are uncovered word by word by solid blocks (Lando Norris)
+//   word paint    long text darkens word by word as it scrolls through (Spade)
+//   count up      the numbers that matter count up when they change (Spade)
+//   ticker        the day's scores run as a marquee that speeds up with the scroll (Lando Norris)
+//   floating nav  the nav turns into a glass pill once the page scrolls (HorizonX)
+//   decode        mono labels decode on hover (HorizonX, affectUI)
+//   live run      the "Every morning" steps check off in order (affectUI)
+//   footer        the footer opens from a card to the full width (Spade, Lando Norris)
+//
+// Everything stops for prefers-reduced-motion and pauses while off screen.
+
+const RM = matchMedia("(prefers-reduced-motion: reduce)");
+const still = () => RM.matches;
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeOut = (t) => 1 - Math.pow(1 - t, 4);
+
+const pointer = { x: -1e4, y: -1e4, px: -1e4, py: -1e4, vx: 0, active: false, t: 0 };
+addEventListener("pointermove", (e) => {
+  pointer.vx = e.clientX - pointer.x;
+  pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true; pointer.t = performance.now();
+}, { passive: true });
+document.documentElement.addEventListener("pointerleave", () => { pointer.active = false; });
+
+/* ================================================================== */
+/* ASCII basketball + cursor wake + lens                              */
+/* ================================================================== */
+const BODY = ".:;t%SX8#@";   // sparse in shadow, dense in light (lit glyphs on a dark band), after ascii-sharks
+const WAKE = " .·:+*";
+const NOISE = "!#$%&*+-:;=?@^~01";
+
+function asciiBand(court) {
+  if (court.dataset.ascii) return;
+  court.dataset.ascii = "1";
+  const svg = $(".court-lines", court);
+  if (svg) {                       // lens: a second copy of the lines, shown only around the cursor
+    const lens = svg.cloneNode(true);
+    lens.classList.add("lens");
+    svg.after(lens);
+  }
+  const cv = document.createElement("canvas");
+  cv.className = "ascii";
+  cv.setAttribute("aria-hidden", "true");
+  court.prepend(cv);
+  const ctx = cv.getContext("2d");
+
+  let W = 0, H = 0, dpr = 1, cw = 7, ch = 12, cols = 0, rows = 0, wake = new Float32Array(0), next = new Float32Array(0);
+  let visible = true, raf = 0, last = 0, born = 0;
+  let yaw = 0.6, spin = 0.45, tilt = 0.32, tiltTo = 0.32;
+  const lensPos = { x: -999, y: -999, o: 0 };
+  const font = '500 11px "Plex Mono", ui-monospace, monospace';
+
+  function size() {
+    const r = court.getBoundingClientRect();
+    W = Math.round(r.width); H = Math.round(r.height);
+    if (W < 2 || H < 2) return;
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = `${W}px`; cv.style.height = `${H}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.font = font; ctx.textBaseline = "middle"; ctx.textAlign = "center";
+    cw = ctx.measureText("M").width || 6.6; ch = 12;
+    cols = Math.ceil(W / cw); rows = Math.ceil(H / ch);
+    wake = new Float32Array(cols * rows); next = new Float32Array(cols * rows);
+    if (still()) draw(0);
+  }
+
+  // the part of the band that isn't covered by a sheet
+  function open() {
+    const flat = court.dataset.view === "method" || court.dataset.state === "error" || court.classList.contains("legal-head");
+    const ov = flat ? 0 : parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--overlap")) || 0;
+    return H - ov;
+  }
+  function ball() {
+    const h = open();
+    if (W <= 680) {
+      // phones: only the Games band has a free corner (beside the day's numbers)
+      if (court.dataset.view !== "games" || court.dataset.state === "error") return { cx: -999, cy: -999, r: 0, a: 0 };
+      const r = Math.min(W * 0.2, 74);
+      return { cx: W - r - 14, cy: h - r - 22, r, a: 0.6 };
+    }
+    // between the controls row and the sheet, right of the title
+    const tools = $(".court-tools", court);
+    const top = tools && tools.offsetHeight ? tools.getBoundingClientRect().bottom - court.getBoundingClientRect().top + 18 : 24;
+    const r = Math.max(60, Math.min((h - top - 18) / 2, W * 0.15, 200));
+    return { cx: W * 0.79, cy: top + r, r, a: 1 };
+  }
+
+  function stepWake(dt) {
+    const r = court.getBoundingClientRect();
+    const lx = pointer.x - r.left, ly = pointer.y - r.top;
+    const inside = pointer.active && lx >= 0 && ly >= 0 && lx < W && ly < open();
+    if (inside && performance.now() - pointer.t < 120) {
+      const c0 = Math.floor(lx / cw), r0 = Math.floor(ly / ch);
+      for (let y = -3; y <= 3; y++) for (let x = -5; x <= 5; x++) {
+        const c = c0 + x, rr = r0 + y;
+        if (c < 0 || rr < 0 || c >= cols || rr >= rows) continue;
+        const d = Math.hypot(x * 0.66, y);
+        wake[rr * cols + c] = Math.min(1, wake[rr * cols + c] + Math.max(0, 0.95 - d * 0.22));
+      }
+    }
+    const k = Math.pow(0.955, dt * 60);
+    for (let y = 1; y < rows - 1; y++) for (let x = 1; x < cols - 1; x++) {
+      const i = y * cols + x;
+      const n = (wake[i - 1] + wake[i + 1] + wake[i - cols] + wake[i + cols]) * 0.25;
+      next[i] = (wake[i] * 0.7 + n * 0.3) * k;
+    }
+    [wake, next] = [next, wake];
+    // lens follows the cursor with a little lag
+    lensPos.x = lerp(lensPos.x === -999 ? lx : lensPos.x, lx, 0.14);
+    lensPos.y = lerp(lensPos.y === -999 ? ly : lensPos.y, ly, 0.14);
+    lensPos.o = lerp(lensPos.o, inside ? 1 : 0, 0.08);
+    court.style.setProperty("--mx", `${lensPos.x.toFixed(1)}px`);
+    court.style.setProperty("--my", `${lensPos.y.toFixed(1)}px`);
+    court.style.setProperty("--lens", lensPos.o.toFixed(3));
+  }
+
+  function draw(dt) {
+    ctx.clearRect(0, 0, W, H);
+    const b = ball();
+    const age = (performance.now() - born) / 1000;
+
+    // wake
+    ctx.fillStyle = "#F4F3F1";
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      const v = wake[y * cols + x];
+      if (v < 0.04) continue;
+      const px = (x + 0.5) * cw, py = (y + 0.5) * ch;
+      if (Math.hypot(px - b.cx, py - b.cy) < b.r + 4) continue;
+      ctx.globalAlpha = Math.min(0.9, v * 1.5);
+      ctx.fillStyle = v > 0.55 ? "#E0956A" : "#F4F3F1";
+      ctx.fillText(WAKE[Math.min(WAKE.length - 1, 1 + Math.floor(v * (WAKE.length - 1)))], px, py);
+    }
+
+    // the ball: each cell samples a rotating sphere
+    const pr = court.getBoundingClientRect();
+    const near = pointer.active ? clamp(1 - Math.hypot(pointer.x - pr.left - b.cx, pointer.y - pr.top - b.cy) / (b.r * 2.2)) : 0;
+    tiltTo = 0.32 + (pointer.active ? clamp((pointer.y - pr.top - b.cy) / b.r, -1, 1) * 0.35 * near : 0);
+    tilt = lerp(tilt, tiltTo, 0.06);
+    if (near > 0.3 && Math.abs(pointer.vx) > 0 && performance.now() - pointer.t < 80) spin += pointer.vx * 0.012 * near;
+    spin = lerp(spin, 0.45, 0.02);
+    yaw += spin * dt;
+
+    const cb = Math.cos(tilt), sb = Math.sin(tilt), ca = Math.cos(yaw), sa = Math.sin(yaw);
+    const L = [-0.48, -0.58, 0.66];
+    const seam = Math.max(0.06, 0.62 * ch / b.r);
+    if (!b.r) { ctx.globalAlpha = 1; return; }
+    const c0 = Math.floor((b.cx - b.r) / cw), c1 = Math.ceil((b.cx + b.r) / cw);
+    const r0 = Math.floor((b.cy - b.r) / ch), r1 = Math.ceil((b.cy + b.r) / ch);
+    const scramble = clamp(1 - age / 1.6);
+    for (let y = r0; y <= r1; y++) {
+      for (let x = c0; x <= c1; x++) {
+        const px = (x + 0.5) * cw, py = (y + 0.5) * ch;
+        const nx = (px - b.cx) / b.r, ny = (py - b.cy) / b.r, d2 = nx * nx + ny * ny;
+        if (d2 > 1) continue;
+        const nz = Math.sqrt(1 - d2);
+        // undo tilt (around x), then yaw (around y): object-space point on the ball
+        const y1 = ny * cb - nz * sb, z1 = ny * sb + nz * cb;
+        const qx = nx * ca + z1 * sa, qz = -nx * sa + z1 * ca, qy = y1;
+        const isSeam = Math.abs(qx) < seam || Math.abs(qy) < seam ||
+          Math.abs(Math.abs(qz) - (0.6 + 0.32 * qy * qy)) < seam;
+        const light = clamp(nx * L[0] + ny * L[1] + nz * L[2]);
+        const shade = clamp(0.26 + light * 0.8);
+        let g, a;
+        if (isSeam) continue;
+        {
+          const j = ((x * 73856093) ^ (y * 19349663)) & 3;            // fixed per-cell jitter: texture, not noise
+          g = BODY[clamp(Math.round(shade * (BODY.length - 1)) + (j === 3 ? -1 : j === 2 ? 1 : 0), 0, BODY.length - 1)];
+          a = (0.28 + shade * 0.72) * b.a;
+          ctx.fillStyle = "#E0956A";
+        }
+        if (d2 > 0.9) { g = ":"; a *= 0.75; }
+        if (scramble > 0 && Math.random() < scramble) { g = NOISE[(Math.random() * NOISE.length) | 0]; ctx.fillStyle = "#F4F3F1"; a *= 0.6; }
+        ctx.globalAlpha = a;
+        ctx.fillText(g, px, py);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
+    last = now;
+    stepWake(dt);
+    draw(dt);
+    raf = requestAnimationFrame(frame);
+  }
+  function run() {
+    cancelAnimationFrame(raf);
+    if (still()) { born = -1e6; draw(0); return; }
+    if (!visible || document.hidden) return;
+    last = performance.now();
+    raf = requestAnimationFrame(frame);
+  }
+
+  new ResizeObserver(size).observe(court);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; run(); }).observe(court);
+  document.addEventListener("visibilitychange", run);
+  RM.addEventListener("change", run);
+  born = performance.now();
+  size();
+  (document.fonts ? document.fonts.load(font) : Promise.resolve()).finally(() => { size(); run(); });
+}
+
+/* ================================================================== */
+/* Block reveal (titles)                                              */
+/* ================================================================== */
+function splitWords(el) {
+  const frag = document.createDocumentFragment();
+  let i = 0;
+  const word = (node) => {
+    const w = document.createElement("span");
+    w.className = "w";
+    w.style.setProperty("--wi", i++);
+    const inner = document.createElement("span");
+    inner.className = "wi";
+    inner.append(node);
+    w.append(inner);
+    return w;
+  };
+  for (const n of [...el.childNodes]) {
+    if (n.nodeType === 3) {
+      for (const part of n.data.split(/(\s+)/)) {
+        if (!part) continue;
+        frag.append(/^\s+$/.test(part) ? document.createTextNode(part) : word(document.createTextNode(part)));
+      }
+    } else if (n.nodeType === 1) frag.append(word(n));
+  }
+  el.replaceChildren(frag);
+  el.dataset.split = el.textContent;
+}
+
+function play(el) {
+  el.classList.remove("rv-play", "rv-wait");
+  void el.offsetWidth;   // restart the animation
+  el.classList.add("rv-play");
+}
+
+const titleIO = new IntersectionObserver((entries) => {
+  for (const e of entries) if (e.isIntersecting) { titleIO.unobserve(e.target); play(e.target); }
+}, { rootMargin: "0px 0px -12% 0px" });
+
+/** Split a title and reveal it now (on the band) or when it scrolls in (on the paper). */
+function reveal(el, { now = false } = {}) {
+  el.classList.add("rv");
+  splitWords(el);
+  if (still()) return;
+  if (now) { play(el); return; }
+  el.classList.add("rv-wait");
+  titleIO.observe(el);
+}
+
+/** Titles whose text other modules rewrite: reveal again only when the words really change. */
+function watchTitle(el, opts) {
+  let shown = el.textContent;
+  reveal(el, opts);
+  new MutationObserver(() => {
+    if (el.dataset.split === el.textContent && el.querySelector(".w")) return;   // our own split
+    const changed = el.textContent !== shown;
+    shown = el.textContent;
+    el.classList.add("rv");
+    splitWords(el);
+    if (!changed || still()) { el.classList.remove("rv-wait"); return; }
+    const r = el.getBoundingClientRect();
+    if (opts?.now || (r.top < innerHeight && r.bottom > 0)) play(el);
+    else { el.classList.add("rv-wait"); titleIO.observe(el); }
+  }).observe(el, { childList: true, characterData: true, subtree: true });
+}
+
+/* ================================================================== */
+/* Word paint (scroll-linked)                                         */
+/* ================================================================== */
+const painted = [];
+function paintWords(el) {
+  if (el.dataset.paint) return;
+  el.dataset.paint = "1";
+  const words = [];
+  const walk = (node) => {
+    for (const n of [...node.childNodes]) {
+      if (n.nodeType === 1) { walk(n); continue; }
+      if (n.nodeType !== 3 || !n.data.trim()) continue;
+      const frag = document.createDocumentFragment();
+      for (const part of n.data.split(/(\s+)/)) {
+        if (!part) continue;
+        if (/^\s+$/.test(part)) { frag.append(part); continue; }
+        const s = document.createElement("span");
+        s.className = "pw";
+        s.textContent = part;
+        words.push(s);
+        frag.append(s);
+      }
+      n.replaceWith(frag);
+    }
+  };
+  walk(el);
+  el.classList.add("paint");
+  painted.push({ el, words, lit: -1 });
+}
+function paintTick() {
+  const vh = innerHeight;
+  for (const p of painted) {
+    const r = p.el.getBoundingClientRect();
+    if (r.bottom < -50 || r.top > vh + 50 || !r.height) continue;
+    const t = clamp((vh * 0.95 - r.top) / (r.height + vh * 0.2));
+    const lit = Math.round(t * p.words.length);
+    if (lit === p.lit) continue;
+    p.words.forEach((w, i) => w.classList.toggle("on", i < lit));
+    p.lit = lit;
+  }
+}
+
+/* ================================================================== */
+/* Count up                                                           */
+/* ================================================================== */
+const NUM = /\d[\d,]*(?:\.\d+)?/g;
+function countUp(root, sel, dur = 1000) {
+  if (still()) return;
+  for (const el of $$(sel, root)) {
+    const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (tw.nextNode()) {
+      const n = tw.currentNode;
+      if (n.parentElement.closest("small") || n.data.includes(":") || !/\d/.test(n.data)) continue;
+      nodes.push({ n, orig: n.data });
+    }
+    if (!nodes.length) continue;
+    const t0 = performance.now();
+    const tick = (now) => {
+      const t = clamp((now - t0) / dur), e = easeOut(t);
+      for (const { n, orig } of nodes) {
+        n.data = t >= 1 ? orig : orig.replace(NUM, (m) => {
+          const dec = (m.split(".")[1] || "").length;
+          const v = parseFloat(m.replace(/,/g, "")) * e;
+          return m.includes(",") ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }) : v.toFixed(dec);
+        });
+      }
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+}
+/** Count whenever a region is re-rendered with different content. */
+function watchCount(container, sel, dur) {
+  if (!container) return;
+  let seen = "";
+  const go = () => {
+    const html = container.innerHTML;
+    if (!html || html === seen) return;
+    seen = html;
+    const r = container.getBoundingClientRect();
+    if (r.top < innerHeight && r.bottom > 0) countUp(container, sel, dur);
+    else {
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); countUp(container, sel, dur); } });
+      io.observe(container);
+    }
+  };
+  new MutationObserver(go).observe(container, { childList: true });
+  go();
+}
+
+/* ================================================================== */
+/* Ticker                                                             */
+/* ================================================================== */
+const ticker = { el: null, track: null, x: 0, w: 0, vel: 0, dir: 1, visible: false };
+function buildTicker() {
+  const list = $("#game-list");
+  if (!list) return;
+  const rows = $$(".row", list);
+  if (!ticker.el) {
+    ticker.el = document.createElement("div");
+    ticker.el.className = "ticker";
+    ticker.el.setAttribute("aria-hidden", "true");
+    ticker.track = document.createElement("div");
+    ticker.track.className = "ticker-track";
+    ticker.el.append(ticker.track);
+    $("#view-games > .wrap").after(ticker.el);
+    new IntersectionObserver(([e]) => { ticker.visible = e.isIntersecting; }).observe(ticker.el);
+  }
+  ticker.el.hidden = !rows.length;
+  if (!rows.length) return;
+  const txt = (el) => (el?.firstChild?.nodeType === 3 ? el.firstChild.data : el?.textContent || "").trim();
+  const items = rows.map((b) => {
+    const away = $(".t.away span:last-child", b)?.textContent || "";
+    const home = $(".t.home span:last-child", b)?.textContent || "";
+    const ca = $(".t.away .dot", b)?.style.getPropertyValue("--c") || "";
+    const chh = $(".t.home .dot", b)?.style.getPropertyValue("--c") || "";
+    const final = !!$(".s small", b);
+    return `<span class="tk${final ? "" : " tk-proj"}"><i class="dot" style="--c:${ca}"></i><b>${away}</b>` +
+      `<em>${txt($(".s.away", b))}</em><span class="tk-dash">${final ? "–" : "proj."}</span><em>${txt($(".s.home", b))}</em>` +
+      `<b>${home}</b><i class="dot" style="--c:${chh}"></i></span><span class="tk-sep">✺</span>`;
+  }).join("");
+  ticker.track.innerHTML = items + items;
+  ticker.w = ticker.track.scrollWidth / 2;
+  ticker.x = 0;
+}
+let lastScroll = scrollY;
+function tickerTick(dt) {
+  if (!ticker.el || ticker.el.hidden || !ticker.visible || still()) return;
+  const dy = scrollY - lastScroll;
+  if (dy) ticker.dir = dy > 0 ? 1 : -1;
+  ticker.vel = lerp(ticker.vel, Math.min(40, Math.abs(dy)) * 18, 0.12);
+  ticker.x -= (60 + ticker.vel) * dt * ticker.dir;
+  if (ticker.w) { ticker.x %= ticker.w; if (ticker.x > 0) ticker.x -= ticker.w; }
+  ticker.track.style.transform = `translate3d(${ticker.x.toFixed(1)}px,0,0) skewX(${(-ticker.dir * Math.min(ticker.vel, 500) / 120).toFixed(2)}deg)`;
+}
+
+/* ================================================================== */
+/* Decode (hover)                                                     */
+/* ================================================================== */
+const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/<>";
+function decode(el) {
+  if (still() || el.dataset.decoding) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  let node = null;
+  while (tw.nextNode()) if (tw.currentNode.data.trim()) node = tw.currentNode;
+  if (!node) return;
+  const orig = node.data;
+  if (!el.hasAttribute("aria-label") && el.matches("button")) el.setAttribute("aria-label", el.textContent.trim());
+  el.dataset.decoding = "1";
+  const t0 = performance.now(), dur = 420;
+  const tick = (now) => {
+    const t = clamp((now - t0) / dur);
+    const fixed = Math.floor(t * orig.length);
+    node.data = [...orig].map((c, i) => (i < fixed || c === " " ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join("");
+    if (t < 1) requestAnimationFrame(tick);
+    else { node.data = orig; delete el.dataset.decoding; }
+  };
+  requestAnimationFrame(tick);
+}
+
+/* ================================================================== */
+/* Nav, footer, pipeline                                              */
+/* ================================================================== */
+function navTick() {
+  const nav = $(".nav");
+  if (nav) nav.classList.toggle("float", scrollY > 90 && innerWidth > 680);
+}
+function footTick() {
+  const f = $(".foot");
+  if (!f) return;
+  const r = f.getBoundingClientRect();
+  const t = still() ? 1 : clamp((innerHeight - r.top) / (Math.min(r.height, innerHeight) * 0.9));
+  f.style.setProperty("--open", t.toFixed(3));
+}
+function footerWord() {
+  const w = $(".foot-word");
+  if (!w || w.dataset.split) return;
+  w.dataset.split = "1";
+  let i = 0;
+  const wrap = (n) => {
+    const frag = document.createDocumentFragment();
+    for (const ch of n.textContent) {
+      const s = document.createElement("span");
+      s.className = "ch";
+      s.style.setProperty("--ci", i++);
+      s.textContent = ch === " " ? " " : ch;
+      frag.append(s);
+    }
+    n.replaceChildren(frag);
+  };
+  $$("b, i", w).forEach(wrap);
+  if (still()) { w.classList.add("in"); return; }
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); w.classList.add("in"); } }, { threshold: 0.4 });
+  io.observe(w);
+}
+function pipeline() {
+  const p = $(".pipeline");
+  if (!p) return;
+  $$(".steps li", p).forEach((li, i) => li.style.setProperty("--i", i));
+  if (still()) { p.classList.add("run"); return; }
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); p.classList.add("run"); } }, { threshold: 0.25 });
+  io.observe(p);
+}
+
+/* ================================================================== */
+/* Wire up                                                            */
+/* ================================================================== */
+function init() {
+  document.documentElement.classList.add("motion");
+  for (const c of $$(".court")) asciiBand(c);
+
+  // titles on the band reveal immediately; titles on the paper when they scroll in
+  const date = $("#date-label");
+  if (date) watchTitle(date, { now: true });
+  for (const h of $$(".court .head-title:not(#date-label)")) {
+    reveal(h, { now: true });
+    const head = h.closest(".head");
+    if (head) new MutationObserver(() => { if (!head.hidden && !still()) play(h); }).observe(head, { attributes: true, attributeFilter: ["hidden"] });
+  }
+  for (const t of $$("main .title, .prose h2")) {
+    if (t.id === "match-title" || t.id === "daily-title") watchTitle(t);
+    else reveal(t);
+  }
+
+  for (const p of $$(".section-head .muted, .method .prose > p:not([id])")) paintWords(p);
+
+  watchCount($("#day-facts"), "dd", 900);
+  watchCount($("#figures"), ".v", 1200);
+  watchCount($("#scoreline"), ".big", 1100);
+  watchCount($("#facts"), "dd", 900);
+
+  const list = $("#game-list");
+  if (list) { new MutationObserver(buildTicker).observe(list, { childList: true }); buildTicker(); }
+
+  addEventListener("pointerover", (e) => {
+    const t = e.target.closest(".tabs a, .btn-on-court, .seg button, .foot-links a, .btn");
+    if (t && !t.contains(e.relatedTarget)) decode(t);
+  });
+  addEventListener("focusin", (e) => {
+    const t = e.target.closest?.(".tabs a, .btn-on-court, .seg button, .foot-links a, .btn");
+    if (t && t.matches(":focus-visible")) decode(t);
+  });
+
+  footerWord();
+  pipeline();
+
+  let last = performance.now();
+  const loop = (now) => {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    navTick(); footTick(); paintTick(); tickerTick(dt);
+    lastScroll = scrollY;
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+else init();
