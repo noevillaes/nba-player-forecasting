@@ -371,7 +371,10 @@ function watchCount(container, sel, dur) {
 /* ================================================================== */
 /* Ticker                                                             */
 /* ================================================================== */
-const ticker = { el: null, track: null, x: 0, w: 0, vel: 0, dir: 1, visible: false };
+const ticker = { el: null, track: null, x: 0, w: 0, vel: 0, dir: 1, visible: false, r: 0 };
+// separator: a basketball that rolls with the marquee
+const BALL = '<svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12.5" class="b-skin"/>' +
+  '<path class="b-seam" d="M1.5 14h25M14 1.5v25M6.2 4.6c3.9 4.9 3.9 13.9 0 18.8M21.8 4.6c-3.9 4.9-3.9 13.9 0 18.8"/></svg>';
 function buildTicker() {
   const list = $("#game-list");
   if (!list) return;
@@ -397,10 +400,11 @@ function buildTicker() {
     const final = !!$(".s small", b);
     return `<span class="tk${final ? "" : " tk-proj"}"><i class="dot" style="--c:${ca}"></i><b>${away}</b>` +
       `<em>${txt($(".s.away", b))}</em><span class="tk-dash">${final ? "–" : "proj."}</span><em>${txt($(".s.home", b))}</em>` +
-      `<b>${home}</b><i class="dot" style="--c:${chh}"></i></span><span class="tk-sep">✺</span>`;
+      `<b>${home}</b><i class="dot" style="--c:${chh}"></i></span><span class="tk-sep">${BALL}</span>`;
   }).join("");
   ticker.track.innerHTML = items + items;
   ticker.w = ticker.track.scrollWidth / 2;
+  ticker.r = ($(".tk-sep svg", ticker.track)?.getBoundingClientRect().width || 40) / 2;
   ticker.x = 0;
 }
 let lastScroll = scrollY;
@@ -411,6 +415,7 @@ function tickerTick(dt) {
   ticker.vel = lerp(ticker.vel, Math.min(40, Math.abs(dy)) * 18, 0.12);
   ticker.x -= (60 + ticker.vel) * dt * ticker.dir;
   if (ticker.w) { ticker.x %= ticker.w; if (ticker.x > 0) ticker.x -= ticker.w; }
+  ticker.track.style.setProperty("--roll", `${(ticker.x / ticker.r * 57.2958).toFixed(1)}deg`);   // roll without slipping
   ticker.track.style.transform = `translate3d(${ticker.x.toFixed(1)}px,0,0) skewX(${(-ticker.dir * Math.min(ticker.vel, 500) / 120).toFixed(2)}deg)`;
 }
 

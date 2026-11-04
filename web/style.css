@@ -563,7 +563,10 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
 .tk-proj em { color: var(--ink-2); }
 .tk-dash { align-self: center; font: 500 .26em var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
 .tk .dot { align-self: center; width: .16em; height: .16em; }
-.tk-sep { align-self: center; padding-inline: .6em; color: var(--accent); font-size: clamp(18px, 2.4vw, 32px); }
+.tk-sep { align-self: center; display: inline-flex; padding-inline: .55em; font-size: clamp(18px, 2.4vw, 32px); }
+.tk-sep svg { width: 1.35em; height: 1.35em; transform: rotate(var(--roll, 0deg)); }
+.tk-sep .b-skin { fill: #C8693C; }
+.tk-sep .b-seam { fill: none; stroke: #23281F; stroke-width: 1.6; stroke-linecap: round; }
 
 /* floating nav: a glass pill once the page scrolls */
 .nav { transition: background-color .45s var(--ease), border-color .45s var(--ease); }
