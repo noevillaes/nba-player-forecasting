@@ -563,9 +563,8 @@ function init() {
   for (const c of $$(".court")) asciiBand(c);
 
   // titles on the band reveal immediately; titles on the paper when they scroll in
-  const date = $("#date-label");
-  if (date) watchTitle(date, { now: true });
-  for (const h of $$(".court .head-title:not(#date-label)")) {
+  for (const id of ["#date-label", "#player-title"]) { const t = $(id); if (t) watchTitle(t, { now: true }); }
+  for (const h of $$(".court .head-title:not(#date-label):not(#player-title)")) {
     reveal(h, { now: true });
     const head = h.closest(".head");
     if (head) new MutationObserver(() => { if (!head.hidden && !still()) play(h); }).observe(head, { attributes: true, attributeFilter: ["hidden"] });
@@ -581,6 +580,8 @@ function init() {
   watchCount($("#figures"), ".v", 1200);
   watchCount($("#scoreline"), ".big", 1100);
   watchCount($("#facts"), "dd", 900);
+  watchCount($("#player-facts"), "dd", 900);
+  watchCount($("#player-sum"), "dd", 900);
 
   const list = $("#game-list");
   if (list) { new MutationObserver(buildTicker).observe(list, { childList: true }); buildTicker(); }

@@ -2,10 +2,10 @@
 
 import { STAT_NAME } from "./stats.js";
 
-export const VIEWS = ["games", "performance", "method"];
+export const VIEWS = ["games", "performance", "players", "method"];
 
 export const state = {
-  view: "games", set: "live", date: null, game: null, team: "away", mode: null, open: null, stat: "PTS",
+  view: "games", set: "live", date: null, game: null, team: "away", mode: null, open: null, stat: "PTS", player: null,
 };
 
 export function readHash() {
@@ -16,6 +16,7 @@ export function readHash() {
   state.game = p.get("game");
   state.team = p.get("team") === "home" ? "home" : "away";
   state.stat = STAT_NAME[p.get("stat")] ? p.get("stat") : "PTS";
+  state.player = /^\d+$/.test(p.get("player") || "") ? p.get("player") : null;
   state.open = null;
   state.mode = null;
 }
@@ -30,6 +31,10 @@ export function writeHash(push = false) {
     if (state.team === "home") p.set("team", "home");
   }
   if (state.view === "performance" && state.stat !== "PTS") p.set("stat", state.stat);
+  if (state.view === "players") {
+    if (state.player) p.set("player", state.player);
+    if (state.stat !== "PTS") p.set("stat", state.stat);
+  }
   const h = `#${p}`;
   if (h !== location.hash) history[push ? "pushState" : "replaceState"](null, "", h);
 }
@@ -72,6 +77,11 @@ export const loadMeta = (set) => once(metaURL(set), (m) => {
   }
   return m;
 });
+
+/** The search index and one player's season (players/<id>.json). */
+export const loadPlayers = (set) => once(`data/${set}/players.json`);
+export const loadPlayer = (set, id) => once(`data/${set}/players/${id}.json`);
+export const isReadyPlayer = (set, id) => ready.has(`data/${set}/players/${id}.json`);
 
 /** A day with games but no player file (it happens before the first forecast run) is shown as empty. */
 export const loadDay = (set, d) => once(dayURL(set, d)).catch(() => ({ date: d, players: [] }));

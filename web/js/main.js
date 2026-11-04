@@ -4,10 +4,11 @@ import { VIEWS, state, readHash, writeHash, loadSets, loadMeta, loadDay, isReady
 import { renderGames, resetGames, skeletonSlate, toggleDetail } from "./games.js";
 import { renderRecord, drawDaily } from "./record.js";
 import { renderVersions } from "./method.js";
+import { renderPlayers, setNavigator, redrawPlayer } from "./players.js";
 import { darkScheme } from "./teams.js";
 import { $, $$, esc, published, reduceMotion } from "./format.js";
 
-const TITLES = { games: "NBA Forecasts", performance: "Track record | NBA Forecasts", method: "How it works | NBA Forecasts" };
+const TITLES = { games: "NBA Forecasts", performance: "Track record | NBA Forecasts", players: "Players | NBA Forecasts", method: "How it works | NBA Forecasts" };
 let token = 0;
 
 /* ------------------------------------------------------------------ */
@@ -60,6 +61,8 @@ async function render() {
     prefetchNeighbors(m);
   } else if (state.view === "performance") {
     renderRecord(m);
+  } else if (state.view === "players") {
+    await renderPlayers(isCurrent);
   }
   if (isCurrent()) writeHash();
 }
@@ -135,6 +138,16 @@ function bind() {
   $("#next-day").addEventListener("click", () => stepDay(-1));
   $("#retry").addEventListener("click", () => render());
 
+  // a player: from the search box, the top scorers list, or "Season history" in a box score
+  setNavigator((changes, { replace = false } = {}) =>
+    go({ view: "players", ...changes }, replace ? {} : { push: true, kind: "view", toTop: true }));
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-player]");
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    go({ view: "players", player: a.dataset.player }, { push: true, kind: "view", toTop: true });
+  });
+
   $("#game-list").addEventListener("click", (e) => {
     const b = e.target.closest(".row");
     if (!b) return;
@@ -173,7 +186,7 @@ function bind() {
   let t;
   addEventListener("resize", () => {
     clearTimeout(t);
-    t = setTimeout(() => { if (state.view === "performance") drawDaily(); }, 150);
+    t = setTimeout(() => { if (state.view === "performance") drawDaily(); redrawPlayer(); }, 150);
   });
 }
 

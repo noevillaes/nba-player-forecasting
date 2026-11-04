@@ -21,19 +21,32 @@
           <button id="prev-day" class="btn-on-court" type="button" disabled><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg><span>Previous day</span></button>
           <button id="next-day" class="btn-on-court" type="button" disabled><span>Next day</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
         </div>
-        <label class="set-pick" data-for="games performance">
+        <label class="set-pick" data-for="games performance players">
           <span class="sr-only">Forecast set</span>
           <select id="dataset" name="dataset"></select>
         </label>
       </div>
 
       <header class="head" data-for="games">
+        <p id="today-note" class="today-note" hidden></p>
         <h1 id="date-label" class="head-title">Loading forecasts…</h1>
         <dl id="day-facts" class="head-facts"></dl>
       </header>
       <header class="head" data-for="performance">
         <h1 class="head-title"><span class="sans">Track</span> record</h1>
         <p class="head-lede">Every forecast is scored the morning after the game. These numbers update each day.</p>
+      </header>
+      <header class="head" data-for="players">
+        <h1 id="player-title" class="head-title">Players</h1>
+        <p id="player-lede" class="head-lede">Every player with a forecast this season: what the model expected, game by game, against what happened.</p>
+        <div class="search" role="search">
+          <label class="sr-only" for="player-q">Search a player</label>
+          <svg class="ico search-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="player-q" type="search" placeholder="Search any player" autocomplete="off" spellcheck="false"
+            role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="player-list">
+          <ul id="player-list" class="search-list" role="listbox" aria-label="Players" hidden></ul>
+        </div>
+        <dl id="player-facts" class="head-facts"></dl>
       </header>
       <header class="head" data-for="method">
         <h1 class="head-title">How it <span class="sans">works</span></h1>
@@ -105,6 +118,24 @@
       <div id="figures" class="sheet figures"></div>
     </div>
 
+    <section class="wrap block" aria-labelledby="calib-title">
+      <div class="section-head">
+        <h2 id="calib-title" class="title">Are the win probabilities honest?</h2>
+        <p class="muted">Games grouped by how likely the model said the favorite was to win. On an honest model the dots
+          sit on the diagonal: favorites given 70% should win about 7 games in 10. Bigger dots hold more games.</p>
+      </div>
+      <div class="calib">
+        <div id="calib-chart" class="calib-chart"></div>
+        <div class="table-wrap calib-side">
+          <table id="calib-table" class="calib-table">
+            <thead><tr><th scope="col">Favorite given</th><th scope="col">Games</th><th scope="col">Model said</th><th scope="col">Favorites won</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p id="calib-note" class="note"></p>
+        </div>
+      </div>
+    </section>
+
     <section class="wrap block" aria-labelledby="stats-title">
       <div class="section-head">
         <h2 id="stats-title" class="title">Player stats against a 10-game average</h2>
@@ -127,6 +158,36 @@
           mark the days a new model version took over.</p>
       </div>
       <div id="daily-chart" class="daily-chart"></div>
+    </section>
+  </section>
+
+  <!-- ===================== Players ===================== -->
+  <section id="view-players" class="view" hidden>
+    <div class="wrap">
+      <div id="player-sheet" class="sheet player-sheet">
+        <div id="player-empty" class="player-empty">
+          <p class="title-sm">Highest projected scorers</p>
+          <ul id="top-players" class="top-players"></ul>
+        </div>
+        <div id="player-main" hidden>
+          <div id="stat-chips" class="stat-chips" role="group" aria-label="Stat"></div>
+          <div id="player-chart" class="player-chart"></div>
+          <dl id="player-sum" class="facts player-sum"></dl>
+        </div>
+      </div>
+    </div>
+
+    <section id="log-block" class="wrap block" aria-labelledby="log-title" hidden>
+      <div class="section-head">
+        <h2 id="log-title" class="title">Game by game</h2>
+        <p class="muted">Every forecast for this player, newest first. Red marks an actual value outside the 80% range.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="player-log" class="log-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </section>
   </section>
 

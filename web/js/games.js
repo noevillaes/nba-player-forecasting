@@ -41,6 +41,14 @@ export async function renderGames(m, isCurrent) {
 /* ------------------------------------------------------------------ */
 function renderHead(m, d, games) {
   const i = m.dates.indexOf(d);
+  // a day without games: say so, instead of silently showing the last slate
+  const st = m.status, note = $("#today-note");
+  const quiet = state.set === "live" && st && st.games === 0 && st.date === todayISO() && d !== st.date;
+  note.hidden = !quiet;
+  if (quiet) {
+    note.innerHTML = `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>` +
+      `<span>No NBA games today. ${st.next ? `Next slate <b>${esc(longDate(st.next))}</b>, ${st.next_games} games.` : "The schedule has no more games."}</span>`;
+  }
   $("#date-label").textContent = d ? longDate(d, state.set !== "live") : "No forecasts yet";
   $("#prev-day").disabled = i < 0 || i >= m.dates.length - 1;
   $("#next-day").disabled = i <= 0;
@@ -303,7 +311,8 @@ function detail(p, team) {
     : p.st === "dnp" ? `${team}, did not play` : `${team}, game not played yet`;
   return `<div class="detail-inner">
     <div class="detail-head">
-      <p><strong>${esc(p.n)}</strong> <span class="who">${esc(who)}</span></p>
+      <p><strong>${esc(p.n)}</strong> <span class="who">${esc(who)}</span>
+        <a class="season-link" href="#view=players&player=${esc(p.id)}${state.set !== "live" ? `&set=${esc(state.set)}` : ""}" data-player="${esc(p.id)}">Season history<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></p>
       <p class="strip-legend">
         <span><i class="lg-range"></i>80% range</span><span><i class="lg-fc"></i>forecast</span>
         <span><i class="lg-act"></i>actual</span><span><i class="lg-act out"></i>actual outside the range</span>

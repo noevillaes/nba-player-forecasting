@@ -28,6 +28,7 @@ export function renderRecord(m) {
   if (builtFor !== m) {
     builtFor = m;
     renderFigures(m);
+    renderCalibration(m);
     renderTable(m);
   }
   const rows = $$("#perf-table tbody tr[data-stat]");
@@ -187,6 +188,65 @@ function bindTip(el) {
     showTip(el, i);
   });
   el.addEventListener("blur", () => showTip(el, null));
+}
+
+/* ------------------------------------------------------------------ */
+/* Calibration: did favorites win as often as the model said?          */
+/* ------------------------------------------------------------------ */
+const BINS = [[0.5, 0.6], [0.6, 0.7], [0.7, 0.8], [0.8, 1.0001]];
+let calibBins = [];
+function renderCalibration(m) {
+  const games = m.games.filter((g) => g.played && isNum(g.prob) && isNum(g.rh) && isNum(g.ra) && g.rh !== g.ra);
+  calibBins = BINS.map(([a, b]) => {
+    const inBin = games.filter((g) => { const f = Math.max(g.prob, 1 - g.prob); return f >= a && f < b; });
+    const said = inBin.length ? inBin.reduce((s, g) => s + Math.max(g.prob, 1 - g.prob), 0) / inBin.length : null;
+    const won = inBin.filter((g) => (g.prob >= 0.5 ? g.rh > g.ra : g.ra > g.rh)).length;
+    return { a, b: Math.min(1, b), n: inBin.length, said, won, rate: inBin.length ? won / inBin.length : null };
+  });
+  const tb = $("#calib-table tbody");
+  if (!games.length) {
+    tb.innerHTML = '<tr><td colspan="4" class="empty">No games scored yet.</td></tr>';
+    $("#calib-chart").innerHTML = "";
+    $("#calib-note").textContent = "";
+    return;
+  }
+  tb.innerHTML = calibBins.map((r) => `<tr>
+    <td>${Math.round(r.a * 100)}–${Math.round(r.b * 100)}%</td>
+    <td class="num">${r.n}</td>
+    <td class="num">${r.n ? pct(r.said) : NONE}</td>
+    <td class="num">${r.n ? `${pct(r.rate)}<small>${r.won} of ${r.n}</small>` : NONE}</td></tr>`).join("");
+  const expected = games.reduce((s, g) => s + Math.max(g.prob, 1 - g.prob), 0);
+  const won = calibBins.reduce((s, r) => s + r.won, 0);
+  $("#calib-note").textContent = `Across ${count(games.length)} games the model expected its favorites to win ` +
+    `${expected.toFixed(1)}; they won ${won}. With this few games per group, a gap of 10 points or more can still be luck.`;
+  drawCalibration();
+}
+
+export function drawCalibration() {
+  const el = $("#calib-chart");
+  if (!el || !calibBins.length) return;
+  const S = 320, pad = { l: 40, r: 14, t: 14, b: 34 };
+  const iw = S - pad.l - pad.r, ih = S - pad.t - pad.b;
+  const X = (v) => pad.l + ((v - 0.5) / 0.5) * iw;
+  const Y = (v) => pad.t + ih - (Math.max(0, v - 0) / 1) * ih;   // actual win rate runs 0 to 100%
+  let s = `<svg viewBox="0 0 ${S} ${S}" role="img" aria-label="Calibration: the win probability given to favorites against how often they won">`;
+  for (const v of [0, 0.25, 0.5, 0.75, 1]) {
+    s += `<line class="grid" x1="${pad.l}" x2="${S - pad.r}" y1="${Y(v)}" y2="${Y(v)}"/>`;
+    s += `<text x="${pad.l - 7}" y="${Y(v) + 4}" text-anchor="end">${v * 100}%</text>`;
+  }
+  for (const v of [0.5, 0.6, 0.7, 0.8, 0.9, 1]) s += `<text x="${X(v)}" y="${S - 16}" text-anchor="middle">${Math.round(v * 100)}%</text>`;
+  s += `<text class="axis" x="${pad.l + iw / 2}" y="${S - 2}" text-anchor="middle">Model said the favorite would win</text>`;
+  s += `<text class="axis" transform="translate(11 ${pad.t + ih / 2}) rotate(-90)" text-anchor="middle">Favorites actually won</text>`;
+  s += `<line class="diag" x1="${X(0.5)}" y1="${Y(0.5)}" x2="${X(1)}" y2="${Y(1)}" pathLength="1"/>`;
+  const maxN = Math.max(...calibBins.map((r) => r.n), 1);
+  calibBins.forEach((r, i) => {
+    if (!r.n) return;
+    const rad = 5 + 13 * Math.sqrt(r.n / maxN);
+    s += `<line class="gap" x1="${X(r.said)}" x2="${X(r.said)}" y1="${Y(r.said)}" y2="${Y(r.rate)}"/>`;
+    s += `<circle class="cal-dot" style="--i:${i}" cx="${X(r.said)}" cy="${Y(r.rate)}" r="${rad.toFixed(1)}"><title>${Math.round(r.a * 100)}–${Math.round(r.b * 100)}%: said ${pct(r.said)}, won ${pct(r.rate)} (${r.won} of ${r.n})</title></circle>`;
+    s += `<text class="cal-n" x="${X(r.said)}" y="${Y(r.rate) + 4}" text-anchor="middle">${r.n}</text>`;
+  });
+  el.innerHTML = `${s}</svg>`;
 }
 
 function niceStep(x) {

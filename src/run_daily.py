@@ -3,9 +3,12 @@
 Uso normal:   python src/run_daily.py
 Prueba:       python src/run_daily.py --fecha 2026-10-20 --sin-push"""
 import argparse
+import json
 import os
+import socket
 import subprocess
 import sys
+import time
 from datetime import date, datetime
 from pathlib import Path
 
@@ -27,10 +30,54 @@ def correr(args: list, log) -> int:
     return r.returncode
 
 
+TIPOS = ["regular", "playoffs", "playin"]
+
+
+def esperar_internet(log, espera=30, maximo=10 * 60) -> bool:
+    """Al despertar, la laptop tarda en reconectar el Wi-Fi: reintenta cada 30 s hasta 10 min
+    antes de rendirse, en vez de fallar con el primer error de DNS."""
+    inicio = time.monotonic()
+    intento = 0
+    while True:
+        intento += 1
+        try:
+            socket.create_connection(("stats.nba.com", 443), timeout=8).close()
+            if intento > 1:
+                log.write(f"Internet disponible tras {intento} intentos ({time.monotonic() - inicio:.0f} s)\n")
+            return True
+        except OSError as e:
+            if time.monotonic() - inicio + espera > maximo:
+                log.write(f"Sin internet tras {maximo // 60} min: {e}\n")
+                return False
+            msg = f"Sin internet (intento {intento}: {e}). Reintento en {espera} s."
+            print(msg)
+            log.write(msg + "\n")
+            log.flush()
+            time.sleep(espera)
+
+
 def hay_partidos(fecha: str) -> bool:
     cal = pd.read_parquet("data/raw/schedule_2026_27.parquet")
     hoy = cal["fecha"] == pd.Timestamp(fecha)
-    return bool((hoy & cal["tipo"].isin(["regular", "playoffs", "playin"])).any())
+    return bool((hoy & cal["tipo"].isin(TIPOS)).any())
+
+
+def escribir_estado(fecha: str):
+    """results/estado.json: qué encontró la corrida de hoy, para que el sitio explique los días sin partidos."""
+    cal = pd.read_parquet("data/raw/schedule_2026_27.parquet")
+    cal = cal[cal["tipo"].isin(TIPOS)]
+    hoy = pd.Timestamp(fecha)
+    despues = cal[cal["fecha"] > hoy]
+    sig = despues["fecha"].min() if len(despues) else None
+    estado = {
+        "fecha": fecha,
+        "corrida": datetime.now().astimezone().isoformat(timespec="minutes"),
+        "partidos_hoy": int((cal["fecha"] == hoy).sum()),
+        "siguiente": sig.date().isoformat() if sig is not None else None,
+        "partidos_siguiente": int((cal["fecha"] == sig).sum()) if sig is not None else 0,
+    }
+    Path("results").mkdir(exist_ok=True)
+    Path("results/estado.json").write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def main():
@@ -44,6 +91,9 @@ def main():
     inicio = datetime.now()
 
     with open(ruta_log, "a", encoding="utf-8") as log:
+        if not esperar_internet(log):
+            print(f"FALLÓ: sin internet después de 10 minutos. Revisa {ruta_log}")
+            sys.exit(1)
         for paso in PASOS:
             if correr([sys.executable, paso], log) != 0:
                 print(f"FALLÓ {paso}. Revisa {ruta_log}")
@@ -63,6 +113,7 @@ def main():
             print("OK  src/predict.py")
         else:
             print(f"No hay partidos el {args.fecha}.")
+        escribir_estado(args.fecha)
 
         # El marcador corre siempre: evalúa los partidos ya jugados
         if any(Path("predictions").glob("????-??-??.csv")):

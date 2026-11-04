@@ -45,6 +45,7 @@ DATASETS = {
         "players": "predictions/historial.csv",
         "games": "predictions/historial_juegos.csv",
         "score": "results/marcador.csv",
+        "status": "results/estado.json",
     },
     "backtest": {
         "label": "Backtest, March 2026 (simulated)",
@@ -133,6 +134,37 @@ def build_set(key, cfg, out):
         used[v] = (min(a, r["fecha"]), max(b, r["fecha"]))
     versions, recal = model_versions(cfg.get("registry"), used)
 
+    # one file per player with his whole season, plus a small index for the search box
+    gmap = {g["id"]: g for g in games}
+    people = {}
+    for d in sorted(days):
+        for (gid, pid), p in days[d].items():
+            g = gmap.get(gid, {})
+            home = bool(p["home"])
+            opp = g.get("away") if home else g.get("home")
+            q = people.setdefault(pid, {"id": pid, "n": p["n"], "t": p["t"], "g": []})
+            q["n"], q["t"] = p["n"], p["t"]          # latest name and team win
+            q["g"].append({"d": d, "g": gid, "o": opp, "h": int(home), "st": p["st"],
+                           "s": {c: v[:5] + v[6:7] for c, v in p["s"].items()}})   # forecast, q10, q90, base, actual, inside
+    pdir = os.path.join(out, "data", key, "players")
+    os.makedirs(pdir, exist_ok=True)
+    index = []
+    for pid, q in people.items():
+        dump(os.path.join(pdir, f"{pid}.json"), q)
+        played = [x for x in q["g"] if x["st"] == "played"]
+        pts = [x["s"]["PTS"][0] for x in q["g"] if x["s"].get("PTS") and x["s"]["PTS"][0] is not None]
+        index.append({"id": pid, "n": q["n"], "t": q["t"], "k": len(q["g"]), "p": len(played),
+                      "fp": round(sum(pts) / len(pts), 1) if pts else 0})
+    index.sort(key=lambda x: x["n"])
+    dump(os.path.join(out, "data", key, "players.json"), index)
+
+    status = None
+    if cfg.get("status") and os.path.isfile(os.path.join(ROOT, cfg["status"])):
+        with open(os.path.join(ROOT, cfg["status"]), encoding="utf-8") as f:
+            e = json.load(f)
+        status = {"date": e.get("fecha"), "ran": e.get("corrida"), "games": e.get("partidos_hoy"),
+                  "next": e.get("siguiente"), "next_games": e.get("partidos_siguiente")}
+
     dates = sorted({g["date"] for g in games} | set(days), reverse=True)
     made = max((g["made"] for g in games if g["made"]), default="")
 
@@ -140,11 +172,11 @@ def build_set(key, cfg, out):
     os.makedirs(os.path.join(folder, "days"), exist_ok=True)
     dump(os.path.join(folder, "meta.json"), {
         "label": cfg["label"], "dates": dates, "latest": made, "games": games, "score": score,
-        "versions": versions, "recal": recal,
+        "versions": versions, "recal": recal, "status": status,
     })
     for d, players in days.items():
         dump(os.path.join(folder, "days", f"{d}.json"), {"date": d, "players": list(players.values())})
-    print(f"  {key}: {len(dates)} days, {len(games)} games, {len(player_rows)} player rows")
+    print(f"  {key}: {len(dates)} days, {len(games)} games, {len(player_rows)} player rows, {len(people)} players")
     return True
 
 
