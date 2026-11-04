@@ -2,6 +2,8 @@
   "fecha": "2026-11-03",
   "corrida": "2026-11-03T22:40-06:00",
   "partidos_hoy": 0,
+  "hora_hoy": null,
   "siguiente": "2026-11-04",
-  "partidos_siguiente": 14
+  "partidos_siguiente": 14,
+  "hora_siguiente": "2026-11-04T19:00:00-05:00"
 }

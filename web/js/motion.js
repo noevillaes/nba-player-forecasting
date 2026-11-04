@@ -6,7 +6,7 @@
 //   block reveal  titles are uncovered word by word by solid blocks (Lando Norris)
 //   word paint    long text darkens word by word as it scrolls through (Spade)
 //   count up      the numbers that matter count up when they change (Spade)
-//   ticker        the day's scores run as a marquee that speeds up with the scroll (Lando Norris)
+//   (the day's scores run along the bottom line: see bcast.js)
 //   floating nav  the nav turns into a glass pill once the page scrolls (HorizonX)
 //   decode        mono labels decode on hover (HorizonX, affectUI)
 //   live run      the "Every morning" steps check off in order (affectUI)
@@ -32,6 +32,8 @@ document.documentElement.addEventListener("pointerleave", () => { pointer.active
 /* ================================================================== */
 /* ASCII basketball + cursor wake + lens                              */
 /* ================================================================== */
+// leather: deep burnt orange in shadow up to bright orange in the light
+const BALL_TONES = ["#6A2C10", "#93401A", "#BC5421", "#DB6A2B", "#F08944"];
 const BODY = ".:;t%SX8#@";   // sparse in shadow, dense in light (lit glyphs on a dark band), after ascii-sharks
 const WAKE = " .·:+*";
 const NOISE = "!#$%&*+-:;=?@^~01";
@@ -153,7 +155,7 @@ function asciiBand(court) {
 
     const cb = Math.cos(tilt), sb = Math.sin(tilt), ca = Math.cos(yaw), sa = Math.sin(yaw);
     const L = [-0.48, -0.58, 0.66];
-    const seam = Math.max(0.06, 0.62 * ch / b.r);
+    const seam = Math.max(0.085, 0.95 * ch / b.r);   // wide enough to read as grooves at any size
     if (!b.r) { ctx.globalAlpha = 1; return; }
     const c0 = Math.floor((b.cx - b.r) / cw), c1 = Math.ceil((b.cx + b.r) / cw);
     const r0 = Math.floor((b.cy - b.r) / ch), r1 = Math.ceil((b.cy + b.r) / ch);
@@ -167,17 +169,19 @@ function asciiBand(court) {
         // undo tilt (around x), then yaw (around y): object-space point on the ball
         const y1 = ny * cb - nz * sb, z1 = ny * sb + nz * cb;
         const qx = nx * ca + z1 * sa, qz = -nx * sa + z1 * ca, qy = y1;
+        // a real 8-panel ball: two great circles (vertical and horizontal) and the two side
+        // curves "( )" that bow out at the equator and pull in toward the poles
         const isSeam = Math.abs(qx) < seam || Math.abs(qy) < seam ||
-          Math.abs(Math.abs(qz) - (0.6 + 0.32 * qy * qy)) < seam;
+          Math.abs(Math.abs(qx) - (0.72 - 0.3 * qy * qy)) < seam * 0.9;
         const light = clamp(nx * L[0] + ny * L[1] + nz * L[2]);
-        const shade = clamp(0.26 + light * 0.8);
+        const shade = clamp(0.18 + light * 0.9);
         let g, a;
         if (isSeam) continue;
         {
           const j = ((x * 73856093) ^ (y * 19349663)) & 3;            // fixed per-cell jitter: texture, not noise
           g = BODY[clamp(Math.round(shade * (BODY.length - 1)) + (j === 3 ? -1 : j === 2 ? 1 : 0), 0, BODY.length - 1)];
-          a = (0.28 + shade * 0.72) * b.a;
-          ctx.fillStyle = "#E0956A";
+          a = (0.55 + shade * 0.45) * b.a;
+          ctx.fillStyle = BALL_TONES[Math.min(BALL_TONES.length - 1, Math.floor(shade * BALL_TONES.length))];
         }
         if (d2 > 0.9) { g = ":"; a *= 0.75; }
         if (scramble > 0 && Math.random() < scramble) { g = NOISE[(Math.random() * NOISE.length) | 0]; ctx.fillStyle = "#F4F3F1"; a *= 0.6; }
@@ -369,57 +373,6 @@ function watchCount(container, sel, dur) {
 }
 
 /* ================================================================== */
-/* Ticker                                                             */
-/* ================================================================== */
-const ticker = { el: null, track: null, x: 0, w: 0, vel: 0, dir: 1, visible: false, r: 0 };
-// separator: a basketball that rolls with the marquee
-const BALL = '<svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12.5" class="b-skin"/>' +
-  '<path class="b-seam" d="M1.5 14h25M14 1.5v25M6.2 4.6c3.9 4.9 3.9 13.9 0 18.8M21.8 4.6c-3.9 4.9-3.9 13.9 0 18.8"/></svg>';
-function buildTicker() {
-  const list = $("#game-list");
-  if (!list) return;
-  const rows = $$(".row", list);
-  if (!ticker.el) {
-    ticker.el = document.createElement("div");
-    ticker.el.className = "ticker";
-    ticker.el.setAttribute("aria-hidden", "true");
-    ticker.track = document.createElement("div");
-    ticker.track.className = "ticker-track";
-    ticker.el.append(ticker.track);
-    $("#view-games > .wrap").after(ticker.el);
-    new IntersectionObserver(([e]) => { ticker.visible = e.isIntersecting; }).observe(ticker.el);
-  }
-  ticker.el.hidden = !rows.length;
-  if (!rows.length) return;
-  const txt = (el) => (el?.firstChild?.nodeType === 3 ? el.firstChild.data : el?.textContent || "").trim();
-  const items = rows.map((b) => {
-    const away = $(".t.away span:last-child", b)?.textContent || "";
-    const home = $(".t.home span:last-child", b)?.textContent || "";
-    const ca = $(".t.away .dot", b)?.style.getPropertyValue("--c") || "";
-    const chh = $(".t.home .dot", b)?.style.getPropertyValue("--c") || "";
-    const final = !!$(".s small", b);
-    return `<span class="tk${final ? "" : " tk-proj"}"><i class="dot" style="--c:${ca}"></i><b>${away}</b>` +
-      `<em>${txt($(".s.away", b))}</em><span class="tk-dash">${final ? "–" : "proj."}</span><em>${txt($(".s.home", b))}</em>` +
-      `<b>${home}</b><i class="dot" style="--c:${chh}"></i></span><span class="tk-sep">${BALL}</span>`;
-  }).join("");
-  ticker.track.innerHTML = items + items;
-  ticker.w = ticker.track.scrollWidth / 2;
-  ticker.r = ($(".tk-sep svg", ticker.track)?.getBoundingClientRect().width || 40) / 2;
-  ticker.x = 0;
-}
-let lastScroll = scrollY;
-function tickerTick(dt) {
-  if (!ticker.el || ticker.el.hidden || !ticker.visible || still()) return;
-  const dy = scrollY - lastScroll;
-  if (dy) ticker.dir = dy > 0 ? 1 : -1;
-  ticker.vel = lerp(ticker.vel, Math.min(40, Math.abs(dy)) * 18, 0.12);
-  ticker.x -= (60 + ticker.vel) * dt * ticker.dir;
-  if (ticker.w) { ticker.x %= ticker.w; if (ticker.x > 0) ticker.x -= ticker.w; }
-  ticker.track.style.setProperty("--roll", `${(ticker.x / ticker.r * 57.2958).toFixed(1)}deg`);   // roll without slipping
-  ticker.track.style.transform = `translate3d(${ticker.x.toFixed(1)}px,0,0) skewX(${(-ticker.dir * Math.min(ticker.vel, 500) / 120).toFixed(2)}deg)`;
-}
-
-/* ================================================================== */
 /* Decode (hover)                                                     */
 /* ================================================================== */
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/<>";
@@ -583,8 +536,6 @@ function init() {
   watchCount($("#player-facts"), "dd", 900);
   watchCount($("#player-sum"), "dd", 900);
 
-  const list = $("#game-list");
-  if (list) { new MutationObserver(buildTicker).observe(list, { childList: true }); buildTicker(); }
 
   addEventListener("pointerover", (e) => {
     const t = e.target.closest(".tabs a, .btn-on-court, .seg button, .foot-links a, .btn");
@@ -600,12 +551,8 @@ function init() {
   spotlight();
   tableHints();
 
-  let last = performance.now();
-  const loop = (now) => {
-    const dt = Math.min(0.05, (now - last) / 1000);
-    last = now;
-    navTick(); footTick(); paintTick(); tickerTick(dt);
-    lastScroll = scrollY;
+  const loop = () => {
+    navTick(); footTick(); paintTick();
     requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);

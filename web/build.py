@@ -163,7 +163,8 @@ def build_set(key, cfg, out):
         with open(os.path.join(ROOT, cfg["status"]), encoding="utf-8") as f:
             e = json.load(f)
         status = {"date": e.get("fecha"), "ran": e.get("corrida"), "games": e.get("partidos_hoy"),
-                  "next": e.get("siguiente"), "next_games": e.get("partidos_siguiente")}
+                  "next": e.get("siguiente"), "next_games": e.get("partidos_siguiente"),
+                  "next_time": e.get("hora_siguiente"), "today_time": e.get("hora_hoy")}
 
     dates = sorted({g["date"] for g in games} | set(days), reverse=True)
     made = max((g["made"] for g in games if g["made"]), default="")

@@ -69,12 +69,21 @@ def escribir_estado(fecha: str):
     hoy = pd.Timestamp(fecha)
     despues = cal[cal["fecha"] > hoy]
     sig = despues["fecha"].min() if len(despues) else None
+    def primer_salto(dia):
+        """Hora del primer partido de ese día (el calendario viene en hora del Este, sin zona)."""
+        h = cal.loc[cal["fecha"] == dia, "gameDateTimeEst"]
+        if not len(h):
+            return None
+        return h.min().tz_localize("America/New_York").isoformat()
+
     estado = {
         "fecha": fecha,
         "corrida": datetime.now().astimezone().isoformat(timespec="minutes"),
         "partidos_hoy": int((cal["fecha"] == hoy).sum()),
+        "hora_hoy": primer_salto(hoy),
         "siguiente": sig.date().isoformat() if sig is not None else None,
         "partidos_siguiente": int((cal["fecha"] == sig).sum()) if sig is not None else 0,
+        "hora_siguiente": primer_salto(sig) if sig is not None else None,
     }
     Path("results").mkdir(exist_ok=True)
     Path("results/estado.json").write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
