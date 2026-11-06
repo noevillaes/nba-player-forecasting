@@ -1,9 +1,9 @@
 {
-  "fecha": "2026-11-04",
-  "corrida": "2026-11-04T12:44-06:00",
-  "partidos_hoy": 14,
-  "hora_hoy": "2026-11-04T19:00:00-05:00",
-  "siguiente": "2026-11-05",
-  "partidos_siguiente": 2,
-  "hora_siguiente": "2026-11-05T21:00:00-05:00"
+  "fecha": "2026-11-06",
+  "corrida": "2026-11-06T13:54-06:00",
+  "partidos_hoy": 9,
+  "hora_hoy": "2026-11-06T19:00:00-05:00",
+  "siguiente": "2026-11-07",
+  "partidos_siguiente": 7,
+  "hora_siguiente": "2026-11-07T17:00:00-05:00"
 }
