@@ -13,7 +13,9 @@ VENTANA_TRAIN = 8               # temporadas previas usadas para entrenar
 CUANTILES = [(0.1, "_q10"), (0.5, ""), (0.9, "_q90")]
 
 NO_FEATURES = {"personId", "firstName", "lastName", "gameId", "fecha",
-               "temporada", "tipo", "playerteamId", "opponentteamId"}
+               "temporada", "tipo", "playerteamId", "opponentteamId",
+               # totales de equipo para reconciliar rebotes y asistencias, no features
+               "propio_reb_10", "propio_ast_10", "rival_reb_10", "rival_ast_10"}
 
 PARAMS = dict(n_estimators=400, learning_rate=0.05, num_leaves=63,
               min_child_samples=100, subsample=0.8, subsample_freq=1,

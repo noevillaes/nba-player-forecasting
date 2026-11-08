@@ -4,7 +4,7 @@
 import { state, loadPlayers, loadPlayer, isReadyPlayer } from "./store.js";
 import { STAT_NAME, DETAIL_ORDER } from "./stats.js";
 import { $, $$, esc, isNum, NONE, fmt, f1, round, pct, shortDate, longDate, todayISO, tipTime } from "./format.js";
-import { injury } from "./games.js";
+import { injury, whyBlock } from "./games.js";
 
 let navigate = () => {};
 /** main.js hands over its navigation, so picks go through the same URL state and transitions. */
@@ -124,7 +124,8 @@ function renderNext(games) {
       const [fc, lo, hi] = next.s[c];
       return `<div><dt>${STAT_NAME[c]}</dt><dd class="num">${f1(fc)}</dd><dd class="rng">${fmt(lo)} to ${fmt(hi)}</dd></div>`;
     }).join("")}</dl>
-    <p class="note">Forecast and 80% range.${next.inj ? " He's on the morning injury report, and the model doesn't account for injuries yet." : ""}</p>`;
+    ${next.why?.PTS ? `<div class="why why-next">${whyBlock(next.why.PTS, "PTS")}</div>` : ""}
+    <p class="note">Forecast and 80% range.${next.why?.PTS ? " The list shows what moved the points forecast, starting from a typical player, before the team-total adjustment." : ""}${next.inj ? " He's on the morning injury report." : ""}</p>`;
 }
 
 function rowsFor(games, c) {

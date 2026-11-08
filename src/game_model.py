@@ -7,10 +7,15 @@ LightGBM no le ganó a una fórmula estructural, así que el pronóstico es
 con intervalo conformal y probabilidad de victoria calibrada con regresión
 logística sobre la diferencia (Platt scaling).
 
+Ajuste por ausencias (nov 2026): a cada equipo se le suman a·(puntos esperados de sus
+ausentes) + b·(los del rival) + c, con a, b y c ajustados en las temporadas de entrenamiento.
+Validación 2019-2025: error del margen 11.28 -> 11.24, Brier 0.2264 -> 0.2256, mejor en 6 de 7.
+Temporada 2026-27 hasta el 7 nov: margen 12.57 -> 12.51, Brier 0.2331 -> 0.2321.
+
 Validación:  python src/game_model.py"""
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
 
 import team_features as tf
 from clean import temporada as temporada_de
@@ -45,9 +50,26 @@ def tabla_equipos(t: pd.DataFrame, eq: pd.DataFrame) -> pd.DataFrame:
     return d
 
 
+def con_ausencias(d: pd.DataFrame, a: pd.DataFrame = None) -> pd.DataFrame:
+    """Agrega aus_pts (puntos esperados de los ausentes del equipo) y opp_aus_pts (del rival).
+    a: columnas gameId, teamId, aus_pts (de disponibilidad.por_equipo). Sin datos, cero."""
+    d = d.drop(columns=[c for c in ("aus_pts", "opp_aus_pts") if c in d.columns])
+    if a is None or a.empty:
+        return d.assign(aus_pts=0.0, opp_aus_pts=0.0)
+    a = a[["gameId", "teamId", "aus_pts"]]
+    d = d.merge(a, on=["gameId", "teamId"], how="left").merge(
+        a.rename(columns={"teamId": "opponentTeamId", "aus_pts": "opp_aus_pts"}),
+        on=["gameId", "opponentTeamId"], how="left")
+    d[["aus_pts", "opp_aus_pts"]] = d[["aus_pts", "opp_aus_pts"]].fillna(0.0)
+    return d
+
+
 def historico() -> pd.DataFrame:
+    import disponibilidad
+    from evaluate import cargar
     t = tf.metricas_por_partido(tf.cargar_equipos())
     d = tabla_equipos(t, tf.ventanas_previas(t))
+    d = con_ausencias(d, disponibilidad.por_equipo(cargar()))
     return d[d["propio_pace_10"].notna() & d["rival_pace_10"].notna()]
 
 
@@ -71,9 +93,16 @@ def a_partidos(d: pd.DataFrame, centro, lo=None, hi=None) -> pd.DataFrame:
     return j.reset_index()
 
 
+AUS = ["aus_pts", "opp_aus_pts"]
+
+
 def puntos(d: pd.DataFrame, paq: dict) -> pd.Series:
     h = paq["ventaja_local"] / 2
-    return d["total_formula"] + np.where(d["local"] == 1, h, -h)
+    p = d["total_formula"] + np.where(d["local"] == 1, h, -h)
+    if "aus_coef" in paq and all(c in d.columns for c in AUS):
+        a, b, c = paq["aus_coef"]
+        p = p + a * d["aus_pts"] + b * d["opp_aus_pts"] + c
+    return p
 
 
 def entrenar_paquete(d: pd.DataFrame, objetivo: int) -> dict:
@@ -85,6 +114,9 @@ def entrenar_paquete(d: pd.DataFrame, objetivo: int) -> dict:
 
     paq = {"ventaja_local": float(fit.loc[fit["local"] == 1, OBJ].mean()
                                   - fit.loc[fit["local"] == 0, OBJ].mean())}
+    if all(c in fit.columns for c in AUS):
+        reg = LinearRegression().fit(fit[AUS], fit[OBJ] - puntos(fit, paq))
+        paq["aus_coef"] = [float(reg.coef_[0]), float(reg.coef_[1]), float(reg.intercept_)]
     pc = puntos(calib, paq)
     r = (calib[OBJ] - pc).abs()
     paq["ajuste"] = float(np.quantile(r, min(1.0, NIVEL * (1 + 1 / len(r)))))

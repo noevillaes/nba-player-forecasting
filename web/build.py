@@ -51,6 +51,7 @@ DATASETS = {
         "status": "results/estado.json",
         "lines": "predictions/lineas.csv",
         "injuries": "predictions/lesiones_{date}.csv",
+        "why": "predictions/{date}.csv",
     },
     "backtest": {
         "label": "Backtest, March 2026 (simulated)",
@@ -69,6 +70,21 @@ def person_key(name, team):
     n = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower()
     n = SUFFIX.sub("", re.sub(r"[^a-z ]", "", n.replace("-", " ")))
     return " ".join(n.split()) + "|" + (team or "").lower()
+
+
+WHY = {"PTS": "points", "REB": "reboundsTotal", "AST": "assists"}
+
+
+def parse_why(text):
+    """'10.1|forma:+19.3;minutos:+2.6' -> [10.1, [['forma', 19.3], ['minutos', 2.6]]]"""
+    if not text or "|" not in text:
+        return None
+    base, parts = text.split("|", 1)
+    items = []
+    for part in filter(None, parts.split(";")):
+        name, _, value = part.partition(":")
+        items.append([name, num(value, 1)])
+    return [num(base, 1), items]
 
 
 def read_times(path):
@@ -149,6 +165,18 @@ def build_set(key, cfg, out):
             num(r["real"], 1), num(r["error_abs"], 2), num(r["dentro_80"]),
         ]
 
+    # why: what moved each forecast (src/explicar.py), from the day's forecast file
+    if cfg.get("why"):
+        for d, day in days.items():
+            for r in read(cfg["why"].format(date=d)) or []:
+                p = day.get((r.get("gameId"), str(int(float(r["personId"])))))
+                if not p:
+                    continue
+                why = {k: parse_why(r.get(f"pq_{col}")) for k, col in WHY.items()}
+                why = {k: v for k, v in why.items() if v}
+                if why:
+                    p["why"] = why
+
     if cfg.get("injuries"):
         for d, day in days.items():
             report = read(cfg["injuries"].format(date=d))
@@ -188,6 +216,8 @@ def build_set(key, cfg, out):
                            "s": {c: v[:5] + v[6:7] for c, v in p["s"].items()}})   # forecast, q10, q90, base, actual, inside
             if p.get("inj"):
                 q["g"][-1]["inj"] = p["inj"]
+            if p.get("why") and p["st"] == "pending":       # only the next game needs it on the player page
+                q["g"][-1]["why"] = p["why"]
             if g.get("time"):
                 q["g"][-1]["tm"] = g["time"]
     pdir = os.path.join(out, "data", key, "players")

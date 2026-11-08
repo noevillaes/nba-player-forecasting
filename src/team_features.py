@@ -17,7 +17,8 @@ NUM = ["teamScore", "opponentScore", "fieldGoalsAttempted",
        "freeThrowsAttempted", "reboundsOffensive", "reboundsTotal",
        "turnovers", "assists", "threePointersMade", "numMinutes"]
 COLS = ["pace", "ortg", "drtg", "reb_permitidos",
-        "ast_permitidas", "triples_permitidos"]
+        "ast_permitidas", "triples_permitidos",
+        "reb", "ast"]   # propios: solo para reconciliar rebotes y asistencias (no son features)
 
 
 def cargar_equipos(desde: str = "1995-10-01") -> pd.DataFrame:
@@ -56,6 +57,8 @@ def metricas_por_partido(t: pd.DataFrame) -> pd.DataFrame:
     t["reb_permitidos"] = t["opp_reboundsTotal"]
     t["ast_permitidas"] = t["opp_assists"]
     t["triples_permitidos"] = t["opp_threePointersMade"]
+    t["reb"] = t["reboundsTotal"]
+    t["ast"] = t["assists"]
     return t
 
 

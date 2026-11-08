@@ -373,7 +373,7 @@ abbr[title] { text-decoration: none; }
 .seg button[aria-pressed="true"]:hover:not(:disabled) { color: var(--on-band); }   /* stays readable under the pointer */
 .seg button:disabled { color: var(--ink-3); opacity: .55; cursor: default; }
 
-.table-wrap { overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+.table-wrap { position: relative; overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
 table { border-collapse: collapse; width: 100%; }
 th { font-size: var(--fs-11); color: var(--ink-3); padding: 12px 6px 10px; text-align: center; border-bottom: 1px solid var(--ink); white-space: nowrap; }
 td { padding: 10px 6px; text-align: center; border-bottom: 1px solid var(--rule); }
@@ -876,6 +876,42 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
 .next-stats dd.rng { font: 500 var(--fs-11) var(--mono); color: var(--ink-3); }
 .next-card .note { margin: var(--s3) 0 0; font-size: var(--fs-13); }
 
+.team-sheet { padding: var(--s3) var(--s5); }
+#team-main { padding-top: var(--s3); }
+#team-main ul:last-child { margin-bottom: 0; }
+/* teams */
+.team-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px var(--s5); }
+.team-grid a { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--s2); align-items: center; padding: var(--s3) 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
+.team-grid a:hover .tg-name { text-decoration: underline; }
+.tg-name { font-weight: 650; }
+.tg-rec { grid-column: 2; font: 500 var(--fs-11) var(--mono); color: var(--ink-3); }
+#team-main .title-sm { margin: 0 0 var(--s3); }
+#team-main .title-sm + ul { margin-bottom: var(--s5); }
+.team-next, .team-players { list-style: none; margin: 0; padding: 0; display: grid; }
+.team-next a { display: grid; grid-template-columns: 170px minmax(0, 1fr) 110px 100px; gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; font-variant-numeric: tabular-nums; }
+.tn-when, .tn-p { color: var(--ink-3); font-size: var(--fs-13); }
+.tn-opp { font-weight: 650; }
+.team-players { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--s5); }
+.team-players a { display: flex; justify-content: space-between; gap: var(--s2); padding: var(--s2) 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
+.team-players a span { color: var(--ink-3); font-size: var(--fs-13); white-space: nowrap; }
+.team-log td.hit { color: var(--hit); } .team-log td.miss { color: var(--miss); }
+
+/* why a forecast: the start, the biggest pushes, the landing */
+.why { margin-top: var(--s5); padding-top: var(--s4); border-top: 1px solid var(--rule); }
+.why-title { margin: 0 0 var(--s3); font: 500 var(--fs-11) var(--mono); letter-spacing: var(--label-track); text-transform: uppercase; color: var(--ink-3); }
+.why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s5); }
+.why-head { display: flex; justify-content: space-between; margin: 0 0 var(--s2); font-size: var(--fs-14); }
+.why-head span { font-weight: 750; font-variant-numeric: tabular-nums; }
+.why-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.why-list li { display: grid; grid-template-columns: minmax(0, 1fr) 56px 44px; align-items: center; gap: var(--s2); font-size: var(--fs-13); color: var(--ink-2); }
+.why-list li:first-child { grid-template-columns: minmax(0, 1fr) 44px; }
+.why-list .wv { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+.why-list .wbar { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.why-list .wbar i { display: block; height: 100%; background: var(--hit); }
+.why-list li.down .wbar i { background: var(--miss); margin-left: auto; }
+.why-next { margin-top: var(--s4); padding-top: var(--s3); }
+.why .note { margin: var(--s3) 0 0; font-size: var(--fs-13); }
+
 /* the week's best and worst calls */
 .week-calls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s5); }
 .wc { padding: var(--s4) var(--s5); border: 1px solid var(--rule); border-top: 3px solid var(--hit); border-radius: 0; background: var(--raised); }
@@ -909,12 +945,17 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
 
 @media (max-width: 680px) {
   .week-calls { grid-template-columns: minmax(0, 1fr); }
+  .why-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s4); }
+  .team-grid, .team-players { grid-template-columns: minmax(0, 1fr); }
+  .team-next a { grid-template-columns: minmax(0, 1fr) auto; }
+  .team-next .tn-when { grid-column: 1 / -1; }
   .next-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .next-card { padding: var(--s4); }
   .row .res .tip { display: inline; margin: 0 var(--s2) 0 0; }
   .top-players { grid-template-columns: minmax(0, 1fr); }
   .top-players li:nth-child(even) { border-left: 0; }
   .player-sheet { padding: var(--s4); }
+  .team-sheet { padding: var(--s2) var(--s4); }
   .search { margin-top: var(--s5); }
   .search input { height: 50px; font-size: 16px; }
   .search-ico { top: 17px; }

@@ -331,7 +331,29 @@ function detail(p, team) {
       </p>
     </div>
     <div class="strips">${DETAIL_ORDER.filter((c) => p.s[c]).map((c) => strip(c, unpack(p.s[c]), p.st)).join("")}</div>
+    ${p.why ? `<div class="why"><h4 class="why-title">Why this forecast</h4>
+      <div class="why-grid">${["PTS", "REB", "AST"].filter((c) => p.why[c]).map((c) => whyBlock(p.why[c], c)).join("")}</div>
+      <p class="note">What moved the model's central forecast, starting from a typical player. The published number then
+        follows the team's expected total${p.adj ? ` (×${p.adj.toFixed(2)} on points)` : ""}.</p></div>` : ""}
   </div>`;
+}
+
+const WHY_NAME = {
+  forma: "Recent production", minutos: "Minutes and role", rival: "Opponent", equipo: "His team",
+  companeros: "Teammates out", rival_bajas: "Opponent's players out", descanso: "Rest", local: "Home court",
+  temporada: "Playoffs", otros: "Other",
+};
+/** One stat's explanation: the typical-player start, the biggest pushes, and where they land. */
+export function whyBlock([base, items], c) {
+  const end = items.reduce((s, [, v]) => s + v, base);
+  const big = Math.max(...items.map(([, v]) => Math.abs(v)), 0.1);
+  return `<div class="why-stat"><p class="why-head"><b>${STAT_NAME[c]}</b><span>${f1(end)}</span></p>
+    <ol class="why-list">
+      <li><span class="wl">Typical player</span><span class="wv">${f1(base)}</span></li>
+      ${items.map(([k, v]) => `<li class="${v >= 0 ? "up" : "down"}"><span class="wl">${esc(WHY_NAME[k] || k)}</span>
+        <span class="wbar" aria-hidden="true"><i style="width:${Math.round((Math.abs(v) / big) * 100)}%"></i></span>
+        <span class="wv">${v >= 0 ? "+" : "−"}${f1(Math.abs(v))}</span></li>`).join("")}
+    </ol></div>`;
 }
 
 function strip(c, v, status) {

@@ -27,12 +27,13 @@ import joblib
 import numpy as np
 import pandas as pd
 
+import disponibilidad
 import registro
 from clean import temporada as temporada_de
 from conformal import entrenar, predecir, NIVEL
 from evaluate import cargar, solo_evaluables, OBJETIVOS
 from models import columnas_features, VENTANA_TRAIN
-from reconcile import factor_k
+from reconcile import factor_k, clave_k, RECONCILIADAS, VERSION_K
 
 CADA_DIAS = 28
 DIAS_VALIDACION = 14
@@ -52,8 +53,11 @@ def entrenar_paquete(fit, calib, calib_todos, cols) -> dict:
         paquete["modelos"][obj] = mods
         paquete["ajuste"][obj] = float(np.quantile(E, min(1.0, NIVEL * (1 + 1 / len(E)))))
         print(f"  {obj}: ajuste conformal {paquete['ajuste'][obj]:+.2f}")
-    pc = predecir(paquete["modelos"]["points"], calib_todos[cols], "points")
-    paquete["k_mediana"] = float(factor_k(calib_todos, pc["points"]).median())
+    for stat in RECONCILIADAS:       # referencias para reconciliar puntos, rebotes y asistencias
+        pc = predecir(paquete["modelos"][stat], calib_todos[cols], stat)
+        fuera = disponibilidad.ausentes_historicos(calib_todos)
+        paquete[clave_k(stat)] = float(factor_k(calib_todos, pc[stat], stat, fuera).median())
+    paquete["version_k"] = VERSION_K
     return paquete
 
 

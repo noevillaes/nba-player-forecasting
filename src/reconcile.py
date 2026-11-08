@@ -25,17 +25,43 @@ LAMBDAS = [0, 0.25, 0.5, 0.75, 1.0]
 OBJ = "points"
 
 
-def total_esperado(d: pd.DataFrame) -> pd.Series:
+# Estadísticas que se reconcilian con un total de equipo, y su λ elegido en validación.
+# Rebotes y asistencias (temporada 2025 sin ver, λ 0.5): rebotes 1.833 -> 1.822, asistencias 1.291 -> 1.282
+RECONCILIADAS = {"points": 0.5, "reboundsTotal": 0.5, "assists": 0.5}
+DIAS_ACTIVO = 10
+VERSION_K = 3        # sube cuando cambia cómo se calcula k: las referencias se recalculan solas
+
+
+def total_esperado(d: pd.DataFrame, stat: str = "points") -> pd.Series:
+    if stat == "reboundsTotal":     # lo que suele agarrar el equipo y lo que suele permitir el rival
+        return (d["propio_reb_10"] + d["rival_reb_permitidos_10"]) / 2
+    if stat == "assists":
+        return (d["propio_ast_10"] + d["rival_ast_permitidas_10"]) / 2
     ritmo = (d["propio_pace_10"] + d["rival_pace_10"]) / 2
     eficiencia = (d["propio_ortg_10"] + d["rival_drtg_10"]) / 2
     return ritmo * eficiencia / 100
 
 
-def factor_k(d: pd.DataFrame, pred: pd.Series) -> pd.Series:
-    """k por fila (igual para todos los jugadores del mismo equipo-partido)."""
-    aporte = d["jugo_prop_10"].fillna(0) * pred
+def factor_k(d: pd.DataFrame, pred: pd.Series, stat: str = "points", fuera: pd.Series = None) -> pd.Series:
+    """k por fila (igual para todos los jugadores del mismo equipo-partido).
+    Solo suman los que aparecieron en un box score en los últimos 10 días: en vivo la plantilla
+    trae jugadores (two-way, G League) que casi nunca están en el box score que se usó para
+    calibrar, e inflaban la suma (el factor de puntos promediaba 0.96 en vivo).
+
+    fuera: los que no van a jugar (en vivo, el reporte de lesiones; al calibrar, los de rotación
+    que no jugaron). No suman, así que el total del equipo se reparte entre los que sí juegan.
+    En la temporada 2026-27 (modelo v2, sin verla), con λ 0.5: puntos 4.393 -> 4.380,
+    rebotes 1.824 -> 1.819, asistencias 1.2865 -> 1.2838."""
+    activo = d["dias_descanso"].lt(DIAS_ACTIVO) if "dias_descanso" in d else True
+    juega = 1.0 if fuera is None else (~fuera.reindex(d.index, fill_value=False)).astype(float)
+    aporte = d["jugo_prop_10"].fillna(0) * pred * activo * juega
     suma = aporte.groupby([d["gameId"], d["playerteamId"]]).transform("sum")
-    return total_esperado(d) / suma.replace(0, np.nan)
+    return total_esperado(d, stat) / suma.replace(0, np.nan)
+
+
+def clave_k(stat: str) -> str:
+    """Nombre de la referencia en el paquete del modelo (la de puntos conserva su nombre)."""
+    return "k_mediana" if stat == "points" else f"k_mediana_{stat}"
 
 
 def main():

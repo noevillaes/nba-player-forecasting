@@ -42,4 +42,7 @@ export function matchupColors(away, home) {
   return { away: visible(a), home: visible(h) };
 }
 
+/** A team's own colour, readable on the current theme. */
+export const colorOf = (team) => visible(PRIMARY[team] || FALLBACK);
+
 export const dot = (color) => `<i class="dot" style="--c:${color}" aria-hidden="true"></i>`;

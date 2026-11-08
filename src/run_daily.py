@@ -140,6 +140,9 @@ def main():
                 print("OK  src/score.py")
             else:
                 print(f"FALLÓ score.py (los pronósticos sí se generaron). Revisa {ruta_log}")
+            # El modelo contra las líneas de puntos de jugadores (solo para medir; no va al sitio)
+            if Path("predictions/props.csv").exists() and correr([sys.executable, "src/props.py"], log) == 0:
+                print("OK  src/props.py")
 
         if not args.sin_push:
             correr(["git", "add", "predictions", "results"], log)

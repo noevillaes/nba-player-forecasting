@@ -2,10 +2,10 @@
 
 import { STAT_NAME } from "./stats.js";
 
-export const VIEWS = ["games", "performance", "players", "method"];
+export const VIEWS = ["games", "performance", "players", "teams", "method"];
 
 export const state = {
-  view: "games", set: "live", date: null, game: null, team: "away", mode: null, open: null, stat: "PTS", player: null,
+  view: "games", set: "live", date: null, game: null, team: "away", mode: null, open: null, stat: "PTS", player: null, club: null,
 };
 
 export function readHash() {
@@ -17,6 +17,7 @@ export function readHash() {
   state.team = p.get("team") === "home" ? "home" : "away";
   state.stat = STAT_NAME[p.get("stat")] ? p.get("stat") : "PTS";
   state.player = /^\d+$/.test(p.get("player") || "") ? p.get("player") : null;
+  state.club = p.get("club");
   state.open = null;
   state.mode = null;
 }
@@ -31,6 +32,7 @@ export function writeHash(push = false) {
     if (state.team === "home") p.set("team", "home");
   }
   if (state.view === "performance" && state.stat !== "PTS") p.set("stat", state.stat);
+  if (state.view === "teams" && state.club) p.set("club", state.club);
   if (state.view === "players") {
     if (state.player) p.set("player", state.player);
     if (state.stat !== "PTS") p.set("stat", state.stat);

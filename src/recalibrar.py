@@ -29,6 +29,12 @@ HISTORIAL = "predictions/historial.csv"
 VENTANA_DIAS = 28
 CADA_DIAS = 7
 MIN_FILAS = 1000
+NIVEL_LADO = 0.9     # cada lado del intervalo apunta a fallar 10%
+
+
+def lados(a) -> list:
+    """Un ajuste guardado como número (igual para los dos lados) o como [abajo, arriba]."""
+    return [a, a] if isinstance(a, (int, float)) else list(a)
 
 
 def main():
@@ -68,15 +74,22 @@ def main():
     ajustes, filas = {}, []
     for est, d in h.groupby("estadistica"):
         obj = corto[est]
-        # ajuste que tenía cada pronóstico cuando se publicó
-        usado = d["fecha"].map(lambda f: registro.ajuste_vigente(t, version, f).get(obj, 0.0))
+        # ajuste [abajo, arriba] que tenía cada pronóstico cuando se publicó (antes de la v3: un número)
+        usado = d["fecha"].map(lambda f: lados(registro.ajuste_vigente(t, version, f).get(obj, 0.0)))
         y, lo, hi = d["real"], d["q10"], d["q90"]
-        E = np.maximum(lo - y, y - hi) + usado          # error sin la recalibración previa
-        q = float(np.quantile(E, min(1.0, NIVEL * (1 + 1 / len(E)))))
-        ajustes[obj] = round(q, 3)
+        lo_crudo = lo + usado.str[0]                   # el intervalo sin la recalibración previa
+        hi_crudo = hi - usado.str[1]
+        # Cada lado apunta a fallar 10%. Lo que el lado de abajo no puede fallar (estadísticas que
+        # se quedan en 0) se pasa al de arriba, para que el total ronde el 20% de fallas.
+        # Validación (semana del 1 nov, sin ver): cobertura promedio a 1.9 puntos del 80% (antes 5.6).
+        q_lo = float(np.quantile(lo_crudo - y, NIVEL_LADO))
+        abajo = float((y < (lo_crudo - q_lo).clip(lower=0)).mean())
+        meta_arriba = max(0.2 - abajo, 0.1) if abajo < 0.1 else 0.1
+        q_hi = float(np.quantile(y - hi_crudo, 1 - meta_arriba))
+        ajustes[obj] = [round(q_lo, 3), round(q_hi, 3)]
         filas.append({"estadistica": est, "jugadores": len(d),
                       "cobertura_actual": ((y >= lo) & (y <= hi)).mean(),
-                      "ajuste_anterior": usado.iloc[-1], "ajuste_nuevo": q})
+                      "ajuste_abajo": q_lo, "ajuste_arriba": q_hi})
 
     t["recalibraciones"].append({"desde": hoy.strftime("%Y-%m-%d"), "version": version,
                                  "filas": int(n), "ajustes": ajustes})

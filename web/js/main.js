@@ -5,10 +5,11 @@ import { renderGames, resetGames, skeletonSlate, toggleDetail } from "./games.js
 import { renderRecord, drawDaily } from "./record.js";
 import { renderVersions } from "./method.js";
 import { renderPlayers, setNavigator, redrawPlayer } from "./players.js";
+import { renderTeams } from "./teamview.js";
 import { darkScheme } from "./teams.js";
 import { $, $$, esc, published, reduceMotion } from "./format.js";
 
-const TITLES = { games: "NBA Forecasts", performance: "Track record | NBA Forecasts", players: "Players | NBA Forecasts", method: "How it works | NBA Forecasts" };
+const TITLES = { games: "NBA Forecasts", performance: "Track record | NBA Forecasts", players: "Players | NBA Forecasts", teams: "Teams | NBA Forecasts", method: "How it works | NBA Forecasts" };
 let token = 0;
 
 /* ------------------------------------------------------------------ */
@@ -63,6 +64,8 @@ async function render() {
     renderRecord(m);
   } else if (state.view === "players") {
     await renderPlayers(isCurrent);
+  } else if (state.view === "teams") {
+    await renderTeams(m, isCurrent);
   }
   if (isCurrent()) writeHash();
 }
@@ -149,6 +152,16 @@ function bind() {
     e.preventDefault();
     // data-player="" is the way back to the list
     go({ view: "players", player: a.dataset.player || null }, { push: true, kind: "view", toTop: true });
+  });
+
+  // links between views (team pages, a game from a team's results): same transition as the tabs
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#view="]:not([data-player])');
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    const p = new URLSearchParams(a.getAttribute("href").slice(1));
+    go({ view: p.get("view"), club: p.get("club"), date: p.get("date") ?? state.date, game: p.get("game"), open: null, mode: null },
+      { push: true, kind: "view", toTop: true });
   });
 
   $("#game-list").addEventListener("click", (e) => {

@@ -21,7 +21,7 @@
           <button id="prev-day" class="btn-on-court" type="button" disabled><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg><span>Previous day</span></button>
           <button id="next-day" class="btn-on-court" type="button" disabled><span>Next day</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
         </div>
-        <label class="set-pick" data-for="games performance players">
+        <label class="set-pick" data-for="games performance players teams">
           <span class="sr-only">Forecast set</span>
           <select id="dataset" name="dataset"></select>
         </label>
@@ -48,6 +48,12 @@
           <ul id="player-list" class="search-list" role="listbox" aria-label="Players" hidden></ul>
         </div>
         <dl id="player-facts" class="head-facts"></dl>
+      </header>
+      <header class="head" data-for="teams">
+        <a id="team-back" class="back-link" href="#view=teams" hidden><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All teams</a>
+        <h1 id="team-title" class="head-title">Teams</h1>
+        <p id="team-lede" class="head-lede">Every club's games, with the forecast next to the final and how often the model picked the winner.</p>
+        <dl id="team-facts" class="head-facts"></dl>
       </header>
       <header class="head" data-for="method">
         <h1 class="head-title">How it <span class="sans">works</span></h1>
@@ -202,6 +208,33 @@
     </section>
   </section>
 
+  <!-- ===================== Teams ===================== -->
+  <section id="view-teams" class="view" hidden>
+    <div class="wrap">
+      <div class="sheet team-sheet">
+        <ul id="team-grid" class="team-grid"></ul>
+        <div id="team-main" hidden>
+          <h2 class="title-sm">Next games</h2>
+          <ul id="team-next" class="team-next"></ul>
+          <h2 class="title-sm">Players</h2>
+          <ul id="team-players" class="team-players"></ul>
+        </div>
+      </div>
+    </div>
+    <section id="team-log-block" class="wrap block" aria-labelledby="team-log-title" hidden>
+      <div class="section-head">
+        <h2 id="team-log-title" class="title">Results</h2>
+        <p class="muted">Every scored game, newest first: the forecast score, the final, and the win chance the model gave the team.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="team-log" class="log-table team-log">
+          <thead><tr><th scope="col">Date</th><th scope="col">Opponent</th><th scope="col">Forecast</th><th scope="col">Final</th><th scope="col">Win chance</th><th scope="col">Pick</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
   <!-- ===================== How it works ===================== -->
   <section id="view-method" class="view" hidden>
     <div class="wrap method">
@@ -213,14 +246,22 @@
           smoothed averages that fade older games gradually, and per-minute production over the last 82 games. Short
           windows catch role changes within days, like a starter moved to the bench. Long ones keep a hot or cold
           streak in proportion. All of them only use games played before the one being forecast.</p>
-        <p>Player forecasts are then reconciled with the team-score forecast, so a roster full of scorers can't add up
-          to a total no team would reach. The multiplier shown above each box score is that adjustment.</p>
+        <p>Points, rebounds and assists are then reconciled with what the team is expected to produce, so a roster full
+          of scorers can't add up to a total no team would reach. The multiplier shown above each box score is the
+          adjustment on points.</p>
+        <p>That's also how it handles who's missing. Players listed out or doubtful on the morning injury report get
+          no forecast and don't count toward the team's total, so what they usually produce goes to the teammates who
+          do play. On this season's games so far, that cut the error on points from 4.39 to 4.38.</p>
+        <p>Each box score also shows why: the central forecast for points, rebounds and assists, starting from a
+          typical player and broken into what moved it, like recent production, minutes and role, teammates out or
+          the opponent.</p>
 
         <h2>Ranges that stay honest</h2>
         <p>The ranges are calibrated with conformalized quantile regression, so about 8 in 10 actual values should
           land inside them. At the start of the season the calibration uses the previous season. Once a week it's
           redone with the last 28 days of live forecasts, which the model never saw, so the ranges adapt if this
-          season is more or less predictable than the last.</p>
+          season is more or less predictable than the last. Each end of the range is adjusted on its own, so misses
+          don't pile up on one side.</p>
 
         <h2>A model that learns during the season</h2>
         <p>Once a month a challenger model is trained with everything up to two weeks ago, this season included. Both
@@ -229,7 +270,8 @@
 
         <h2>Game forecasts</h2>
         <p>Team scores come from a structural formula: expected pace times each team's offensive and defensive
-          efficiency, plus home-court advantage. In validation it beat a gradient-boosted model. Win probabilities
+          efficiency, plus home-court advantage, minus what the players ruled out usually score. In validation it
+          beat a gradient-boosted model. Win probabilities
           are calibrated with Platt scaling. A Brier score of 0.250 is what a coin flip would get.</p>
 
         <h2>What it's compared against</h2>
@@ -242,8 +284,8 @@
 
         <h2>Known limits</h2>
         <ul>
-          <li>There's no availability model, so players who end up not playing still get a forecast. They show as DNP
-            and aren't counted in the errors.</li>
+          <li>Availability comes from the morning injury report. Players ruled out later, or listed as questionable
+            who end up sitting, still get a forecast. They show as DNP and aren't counted in the errors.</li>
           <li>Individual matchups aren't modeled.</li>
           <li>Rookies without NBA games have no history to forecast from.</li>
         </ul>
@@ -264,7 +306,7 @@
           <li><b>Pull new data</b><span>Schedule, rosters and last night's box scores from the NBA stats API.</span></li>
           <li><b>Build features</b><span>Rolling player and team features from every game played so far.</span></li>
           <li><b>Recalibrate ranges</b><span>Once a week, with the last 28 days of live errors.</span></li>
-          <li><b>Forecast players</b><span>16 stats per player with 80% ranges, reconciled with the team scores.</span></li>
+          <li><b>Forecast players</b><span>16 stats per player with 80% ranges, without the players ruled out, reconciled with the team scores.</span></li>
           <li><b>Forecast games</b><span>Team scores, total, margin and win probability.</span></li>
           <li><b>Blend with the market</b><span>Game forecasts are combined with the morning's sportsbook lines, weighted by how each has done this season; player points follow their team's blended score.</span></li>
           <li><b>Score yesterday</b><span>Yesterday's forecasts are compared with the real box scores.</span></li>
