@@ -19,16 +19,6 @@ const SECONDARY = {
 };
 const FALLBACK = "#5F646C";
 
-// three-letter codes, for the terminal view of the slate
-const CODE = {
-  Hawks: "ATL", Celtics: "BOS", Nets: "BKN", Hornets: "CHA", Bulls: "CHI", Cavaliers: "CLE", Mavericks: "DAL",
-  Nuggets: "DEN", Pistons: "DET", Warriors: "GSW", Rockets: "HOU", Pacers: "IND", Clippers: "LAC", Lakers: "LAL",
-  Grizzlies: "MEM", Heat: "MIA", Bucks: "MIL", Timberwolves: "MIN", Pelicans: "NOP", Knicks: "NYK", Thunder: "OKC",
-  Magic: "ORL", "76ers": "PHI", Suns: "PHX", "Trail Blazers": "POR", Kings: "SAC", Spurs: "SAS", Raptors: "TOR",
-  Jazz: "UTA", Wizards: "WAS",
-};
-export const code = (team) => CODE[team] || String(team).slice(0, 3).toUpperCase();
-
 export const darkScheme = matchMedia("(prefers-color-scheme: dark)");
 
 const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
