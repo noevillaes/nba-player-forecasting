@@ -53,13 +53,6 @@ export const tipTime = (iso) => {
   return t && !isNaN(t) ? `${etFmt.format(t)} ET` : "";
 };
 
-/** A betting line from the home team's spread: "76ers −9.5", or "Pick'em". */
-export function lineText(home, away, sp) {
-  if (!isNum(sp)) return NONE;
-  if (Math.abs(sp) < 0.05) return "Pick'em";
-  return `${sp < 0 ? home : away} −${fmt(Math.abs(sp))}`;
-}
-
 export function byMargin(home, away, m) {
   if (!isNum(m)) return NONE;
   if (Math.abs(m) < 0.05) return "Even";

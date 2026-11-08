@@ -2,7 +2,7 @@
 
 import { state } from "./store.js";
 import { STAT_NAME, RECORD_ORDER } from "./stats.js";
-import { $, $$, esc, isNum, NONE, pct, count, shortDate, fmt, f1, lineText } from "./format.js";
+import { $, $$, esc, isNum, NONE, pct, count, shortDate, fmt, f1 } from "./format.js";
 
 let builtFor = null;   // the meta object the table was built from
 let lastRows = [];     // daily rows of the selected stat, kept for redrawing on resize
@@ -28,7 +28,6 @@ export function renderRecord(m) {
   if (builtFor !== m) {
     builtFor = m;
     renderFigures(m);
-    renderVsLine(m);
     renderWeek(m);
     renderCalibration(m);
     renderTable(m);
@@ -44,80 +43,6 @@ export function renderRecord(m) {
   lastRows = m.score.filter((r) => r.s === state.stat).sort((a, b) => (a.d < b.d ? -1 : 1));
   drawDaily();
 }
-
-/** The model against a betting benchmark: a side-by-side table plus the betting records. */
-const BENCH = {
-  mkt: ["Market", "the median line across every recorded sportsbook, before tip-off"],
-  pin: ["Pinnacle", "Pinnacle, the book professional bettors use as the reference price, before tip-off"],
-  close: ["DraftKings at tip-off", "DraftKings' closing line, which already includes late injury news"],
-};
-let bench = null;
-function renderVsLine(m) {
-  const el = $("#vs-block");
-  const all = m.vs || {};
-  const have = Object.keys(BENCH).filter((k) => all[k]);
-  if (!have.length) {
-    el.innerHTML = '<p class="empty">No game with a recorded betting line has been scored yet. Lines are saved every morning, and this comparison fills in as those games finish.</p>';
-    return;
-  }
-  if (!have.includes(bench)) bench = have[0];
-  const v = all[bench];
-  const [name, about] = BENCH[bench];
-  const solo = v.solo;
-  // forecast, model alone (once the forecast blends in the market), benchmark; bold the best
-  const row = (h, note, key, lineKey, show, lowWins) => {
-    const vals = [v[key], ...(solo ? [solo[key]] : []), v[lineKey]];
-    const ok = vals.filter(isNum);
-    const top = lowWins ? Math.min(...ok) : Math.max(...ok);
-    const one = ok.filter((x) => x === top).length === 1;
-    return `<tr><th scope="row">${h}<small>${note}</small></th>${vals.map((x) =>
-      `<td${one && x === top ? ' class="near"' : ""}>${show(x)}</td>`).join("")}</tr>`;
-  };
-  const p = (x) => (isNum(x) ? pct(x) : NONE);
-  const d1 = (x) => (isNum(x) ? x.toFixed(1) : NONE);
-  const d3 = (x) => (isNum(x) ? x.toFixed(3) : NONE);
-  const rec = ([w, l]) => (w + l ? `${w}–${l}` : NONE);
-  const share = ([w, l]) => (w + l ? pct(w / (w + l)) : "");
-  const span = v.from === v.to ? shortDate(v.from) : `${shortDate(v.from)} to ${shortDate(v.to)}`;
-  el.innerHTML = `
-    ${have.length > 1 ? `<div class="seg bench-seg" role="group" aria-label="Compare against">${have.map((k) =>
-      `<button type="button" data-bench="${k}" aria-pressed="${k === bench}">${BENCH[k][0]}</button>`).join("")}</div>` : ""}
-    <div class="table-wrap"><table class="vs-table vs-season">
-      <caption>Against ${about}. ${count(v.n)} ${v.n === 1 ? "game" : "games"}, ${span}. Bold marks the best.</caption>
-      <thead><tr><th scope="col"><span class="sr-only">Measure</span></th><th scope="col">${solo ? "Forecast" : "Model"}</th>${solo ? '<th scope="col">Model alone</th>' : ""}<th scope="col">${name}</th></tr></thead>
-      <tbody>
-        ${row("Winners picked", "share of games", "hit", "line_hit", p, false)}
-        ${row("Points off on the margin", "average miss", "err_margin", "line_err_margin", d1, true)}
-        ${row("Points off on the total", "average miss", "err_total", "line_err_total", d1, true)}
-        ${row("Brier score", "win probability; lower is better", "brier", "line_brier", d3, true)}
-      </tbody></table></div>
-    ${blendNote(m.blend)}
-    <div class="figures vs-figures">
-      <div class="figure"><p class="v">${rec(v.ats)}</p><p class="l">Against the spread</p>
-        <p class="s">Taking the model's side of every line${share(v.ats) ? `: ${share(v.ats)} right` : ""}. At standard odds, 52.4% breaks even.</p></div>
-      <div class="figure"><p class="v">${rec(v.ou)}</p><p class="l">Over or under</p>
-        <p class="s">Taking the model's side of every posted total${share(v.ou) ? `: ${share(v.ou)} right` : ""}.</p></div>
-      <div class="figure"><p class="v">${v.disagree ? `${v.disagree_won} of ${v.disagree}` : NONE}</p><p class="l">When they picked different winners</p>
-        <p class="s">${v.disagree ? "Games the model's pick won when it went against the betting favorite." : "The model and the line haven't disagreed on a winner yet."}</p></div>
-    </div>`;
-}
-/** How the published forecast mixes the model with the market, in one sentence. */
-function blendNote(b) {
-  if (!b) return "";
-  const w = (x) => pct(x);
-  return `<p class="note blend-note">${b.from ? `Since ${shortDate(b.from)} the published forecast blends the model with the betting market. ` : ""}` +
-    `The current weights, fitted on ${count(b.n)} games against ${b.lines} lines, give the model ${w(b.w.spread)} of the margin, ` +
-    `${w(b.w.total)} of the total and ${w(b.w.prob)} of the win probability; the rest is the market. ` +
-    `Player points follow their team's blended score. "Model alone" is what the model would have said by itself.</p>`;
-}
-
-$("#vs-block")?.addEventListener("click", (e) => {
-  const b = e.target.closest("button[data-bench]");
-  if (!b || b.dataset.bench === bench) return;
-  bench = b.dataset.bench;
-  if (builtFor) renderVsLine(builtFor);
-  $(`#vs-block button[data-bench="${bench}"]`)?.focus();
-});
 
 /** The week's closest forecasts among correct picks, and its most confident misses. */
 function renderWeek(m) {
@@ -144,7 +69,7 @@ function renderWeek(m) {
       `Projected ${fmt(g.pa)} to ${fmt(g.ph)}: off by ${f1(g.err_spread)} on the margin and ${f1(g.err_total)} on the total.`,
       "No correct picks this week.") +
     list("Most confident misses", "bad", worst, (g) =>
-      `The model gave the ${esc(pick(g))} ${pct(conf(g))}${(g.mkt || g.line) && isNum((g.mkt || g.line).sp) ? `; the ${g.mkt ? "market" : "line"} had ${esc(lineText(g.home, g.away, (g.mkt || g.line).sp))}` : ""}.`,
+      `The model gave the ${esc(pick(g))} ${pct(conf(g))}.`,
       "The model picked every winner this week.");
 }
 

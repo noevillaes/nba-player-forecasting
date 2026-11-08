@@ -50,8 +50,6 @@ DATASETS = {
         "score": "results/marcador.csv",
         "status": "results/estado.json",
         "lines": "predictions/lineas.csv",
-        "books": "predictions/casas.csv",
-        "blend": "results/mezcla.json",
         "injuries": "predictions/lesiones_{date}.csv",
     },
     "backtest": {
@@ -65,10 +63,6 @@ DATASETS = {
 STATUS = {"Jugó": "played", "No jugó": "dnp", "Pendiente": "pending"}
 INJURY = {"Out": "out", "Day-To-Day": "dtd", "Questionable": "dtd", "Doubtful": "out"}
 SUFFIX = re.compile(r"\b(jr|sr|ii|iii|iv|v)\b")
-BOOK_NAME = {"draftkings": "DraftKings", "fanduel": "FanDuel", "betmgm": "BetMGM", "betrivers": "BetRivers",
-             "espnbet": "ESPN BET", "hardrockbet": "Hard Rock", "bovada": "Bovada", "betonlineag": "BetOnline",
-             "pinnacle": "Pinnacle", "williamhill_us": "Caesars", "fanatics": "Fanatics"}
-
 
 def person_key(name, team):
     """'Luka Dončić', 'Lakers' -> 'luka doncic|lakers', so ESPN's injury names meet the NBA's."""
@@ -77,117 +71,16 @@ def person_key(name, team):
     return " ".join(n.split()) + "|" + (team or "").lower()
 
 
-def read_lines(path):
-    """Betting lines by NBA gameId (predictions/lineas.csv, written by src/lineas.py)."""
+def read_times(path):
+    """Tip-off time of each game (predictions/lineas.csv, written by src/lineas.py), by gameId and by
+    date|home|away (the morning rows are saved before the forecast gives the game its NBA id)."""
     out = {}
     for r in read(path) or []:
-        key = r.get("gameId") or f'{r["fecha"]}|{r["local"]}|{r["visitante"]}'
-        out[key] = out[f'{r["fecha"]}|{r["local"]}|{r["visitante"]}'] = {
-            "time": r.get("hora_utc") or None,
-            "line": None if r.get("captura") not in ("previa", "cierre") else {
-                "sp": num(r.get("spread_local"), 1), "tot": num(r.get("total"), 1),
-                "p": num(r.get("prob_local_casa"), 3), "c": "close" if r["captura"] == "cierre" else "pre",
-                "bk": r.get("casa") or "",
-            },
-        }
-    return out
-
-
-def read_books(path):
-    """Every sportsbook's line by NBA gameId (predictions/casas.csv, written by src/casas.py):
-    for each book, its last snapshot before tip-off."""
-    when = lambda x: datetime.datetime.fromisoformat(x.replace("Z", "+00:00"))
-    last = {}
-    for r in read(path) or []:
-        if not r.get("capturado") or not r.get("inicio_utc"):
+        if not r.get("hora_utc"):
             continue
-        if when(r["capturado"]) >= when(r["inicio_utc"]):
-            continue
-        k = (f'{r["fecha"]}|{r["local"]}|{r["visitante"]}', r["casa"])
-        if k not in last or r["capturado"] > last[k]["capturado"]:
-            last[k] = r
-    out = {}
-    for (gid, _), r in sorted(last.items(), key=lambda kv: kv[1]["casa_nombre"].lower()):
-        out.setdefault(gid, []).append({
-            "k": r["casa"], "n": BOOK_NAME.get(r["casa"], r["casa_nombre"]),
-            "sp": num(r["spread_local"], 1), "tot": num(r["total"], 1), "p": num(r["prob_local"], 3),
-            "mh": num(r["ml_local"], 0), "ma": num(r["ml_visita"], 0),
-        })
-    return out
-
-
-def consensus(books):
-    """The market: median spread and total, average no-vig win probability across books."""
-    def med(xs):
-        xs = sorted(x for x in xs if x is not None)
-        if not xs:
-            return None
-        m = len(xs) // 2
-        return xs[m] if len(xs) % 2 else round((xs[m - 1] + xs[m]) / 2, 2)
-    ps = [b["p"] for b in books if b["p"] is not None]
-    return {"sp": med(b["sp"] for b in books), "tot": med(b["tot"] for b in books),
-            "p": round(sum(ps) / len(ps), 3) if ps else None, "n": len(books)}
-
-
-def model_alone(g):
-    """The game as the model alone forecast it (the same game when nothing was blended)."""
-    s = g.get("solo")
-    if not s:
-        return g
-    a = {**g, "ph": s["ph"], "pa": s["pa"], "prob": s["prob"],
-         "total": round(s["ph"] + s["pa"], 1), "spread": round(s["ph"] - s["pa"], 1)}
-    if g["played"] and g["rh"] is not None:
-        real = g["rh"] - g["ra"]
-        a["err_total"] = round(abs(a["total"] - (g["rh"] + g["ra"])), 1)
-        a["err_spread"] = round(abs(a["spread"] - real), 1)
-        a["hit"] = int((a["prob"] > 0.5) == (real > 0))
-        a["brier"] = round((a["prob"] - (real > 0)) ** 2, 3)
-    return a
-
-
-def versus_line(games, line_of):
-    """The model against a betting line (line_of(game) -> {sp, tot, p}), over every played game that has one."""
-    rows = []
-    for g in games:
-        L = line_of(g)
-        if g["played"] and L and L.get("sp") is not None and g["rh"] is not None:
-            rows.append({**g, "line": L})
-    if not rows:
-        return None
-    mean = lambda xs: round(sum(xs) / len(xs), 3) if xs else None
-    out = {"n": len(rows), "from": min(g["date"] for g in rows), "to": max(g["date"] for g in rows)}
-    model_hit, line_hit, disagree, model_won = [], [], 0, 0
-    ats = [0, 0]   # model's side against the spread: right, wrong (pushes left out)
-    ou = [0, 0]    # model's side of the over/under
-    for g in rows:
-        real = g["rh"] - g["ra"]
-        line_margin = -g["line"]["sp"]                     # what the line expects the home team to win by
-        line_home = line_margin > 0 if line_margin != 0 else (g["line"]["p"] or 0.5) > 0.5
-        model_home = (g["prob"] or 0.5) >= 0.5
-        line_hit.append(int(line_home == (real > 0)))
-        model_hit.append(int(model_home == (real > 0)))
-        if line_home != model_home:
-            disagree += 1
-            model_won += model_home == (real > 0)
-        side = (g["ph"] - g["pa"]) - line_margin            # model leans home (+) or away (-) of the line
-        cover = real - line_margin
-        if side and cover:
-            ats[(side > 0) != (cover > 0)] += 1
-        tot = g["line"]["tot"]
-        if tot is not None and g["total"] is not None:
-            lean, went = g["total"] - tot, (g["rh"] + g["ra"]) - tot
-            if lean and went:
-                ou[(lean > 0) != (went > 0)] += 1
-    out.update({
-        "hit": mean(model_hit), "line_hit": mean(line_hit), "disagree": disagree, "disagree_won": model_won,
-        "err_total": mean([g["err_total"] for g in rows if g["err_total"] is not None]),
-        "line_err_total": mean([abs(g["rh"] + g["ra"] - g["line"]["tot"]) for g in rows if g["line"]["tot"] is not None]),
-        "err_margin": mean([g["err_spread"] for g in rows if g["err_spread"] is not None]),
-        "line_err_margin": mean([abs((g["rh"] - g["ra"]) + g["line"]["sp"]) for g in rows]),
-        "brier": mean([g["brier"] for g in rows if g["brier"] is not None]),
-        "line_brier": mean([(g["line"]["p"] - (g["rh"] > g["ra"])) ** 2 for g in rows if g["line"]["p"] is not None]),
-        "ats": ats, "ou": ou,
-    })
+        out[f'{r["fecha"]}|{r["local"]}|{r["visitante"]}'] = r["hora_utc"]
+        if r.get("gameId"):
+            out[r["gameId"]] = r["hora_utc"]
     return out
 
 
@@ -236,19 +129,9 @@ def build_set(key, cfg, out):
             "in_h": num(g.get("dentro_80_local")) if played else None,
             "in_a": num(g.get("dentro_80_visita")) if played else None,
         })
-        if g.get("pts_local_solo"):        # published forecast blends the model with the market
-            games[-1]["solo"] = {"ph": num(g["pts_local_solo"], 1), "pa": num(g["pts_visita_solo"], 1),
-                                 "prob": num(g["prob_local_solo"], 3)}
-            games[-1]["mk_src"] = g.get("mercado_fuente") or None
-
-    lines = read_lines(cfg["lines"]) if cfg.get("lines") else {}
-    books = read_books(cfg["books"]) if cfg.get("books") else {}
+    times = read_times(cfg["lines"]) if cfg.get("lines") else {}
     for g in games:
-        named = f'{g["date"]}|{g["home"]}|{g["away"]}'
-        extra = lines.get(g["id"]) or lines.get(named) or {}
-        g["time"], g["line"] = extra.get("time"), extra.get("line")
-        g["books"] = books.get(named)
-        g["mkt"] = consensus(g["books"]) if g["books"] else None
+        g["time"] = times.get(g["id"]) or times.get(f'{g["date"]}|{g["home"]}|{g["away"]}')
 
     # players grouped by day, then by game + person
     days = {}
@@ -332,42 +215,12 @@ def build_set(key, cfg, out):
 
     folder = os.path.join(out, "data", key)
     os.makedirs(os.path.join(folder, "days"), exist_ok=True)
-    # the published forecast (and the model alone, when it was blended) against three benchmarks:
-    # the books' consensus, Pinnacle, and DraftKings at tip-off
-    alone = [model_alone(g) for g in games]
-    benches = {
-        "mkt": lambda g: g.get("mkt"),
-        "pin": lambda g: next((b for b in g.get("books") or [] if b["k"] == "pinnacle"), None),
-        "close": lambda g: g["line"] if g.get("line") and g["line"]["c"] == "close" else None,
-    }
-    vs = {}
-    for k, pick in benches.items():
-        v = versus_line(games, pick)
-        if v:
-            if any(g.get("solo") for g in games):
-                v["solo"] = versus_line(alone, pick)
-            vs[k] = v
-    vs = vs or None
-    blend = None
-    if cfg.get("blend") and os.path.isfile(os.path.join(ROOT, cfg["blend"])):
-        with open(os.path.join(ROOT, cfg["blend"]), encoding="utf-8") as f:
-            b = json.load(f)
-        first = min((g["date"] for g in games if g.get("solo")), default=None)
-        blend = {"w": b["peso_modelo"], "lam": b["lambda_jugadores"], "n": b["partidos"],
-                 "lines": "morning" if b["lineas"] == "mañana" else "closing", "from": first}
-    # each book's line goes in the day file (only the matchup needs it); the season file keeps the consensus
-    by_day = {}
-    for g in games:
-        bk = g.pop("books", None)
-        if bk:
-            by_day.setdefault(g["date"], {})[g["id"]] = bk
     dump(os.path.join(folder, "meta.json"), {
         "label": cfg["label"], "dates": dates, "latest": made, "games": games, "score": score,
-        "versions": versions, "recal": recal, "status": status, "vs": vs, "blend": blend,
+        "versions": versions, "recal": recal, "status": status,
     })
     for d, players in days.items():
-        dump(os.path.join(folder, "days", f"{d}.json"),
-             {"date": d, "players": list(players.values()), "books": by_day.get(d, {})})
+        dump(os.path.join(folder, "days", f"{d}.json"), {"date": d, "players": list(players.values())})
     print(f"  {key}: {len(dates)} days, {len(games)} games, {len(player_rows)} player rows, {len(people)} players")
     return True
 

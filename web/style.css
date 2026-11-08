@@ -865,24 +865,6 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
 .inj.out { color: var(--miss); }
 .inj.dtd { color: var(--ink-2); }
 
-/* model against the betting line: one game, and the season */
-.vsline { margin-top: var(--s5); }
-.vs-table { background: var(--raised); border: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
-.vs-table caption { caption-side: top; text-align: left; padding: 0 0 var(--s3); font-size: var(--fs-13); color: var(--ink-2); }
-.vs-table th[scope="row"] { padding-left: var(--s4); font: 600 var(--fs-14) var(--sans); color: var(--ink); text-align: left; white-space: normal; border-bottom: 1px solid var(--rule); }
-.vs-table th[scope="row"] small { display: block; font: 500 var(--fs-11) var(--mono); color: var(--ink-3); letter-spacing: 0; }
-.vs-table td { font-size: var(--fs-15); color: var(--ink-2); }
-.vs-table td.near { color: var(--ink); font-weight: 750; }
-.vs-table thead th:first-child { padding-left: var(--s4); }
-.vsline .note { margin-bottom: 0; font-size: var(--fs-13); }
-.vs-block { display: grid; gap: var(--s5); }
-.vs-season th[scope="row"] { width: 40%; }
-.vs-figures { grid-template-columns: repeat(3, 1fr); background: var(--raised); border: 1px solid var(--rule); }
-.bench-seg { justify-self: start; }
-.books-table td, .books-table th { white-space: nowrap; }
-.books .cap { margin: 0 0 var(--s3); font-size: var(--fs-13); color: var(--ink-2); }
-.books-table .model-row th, .books-table .model-row td { background: var(--select); color: var(--ink); }
-
 /* a player's next game, at the top of his page */
 .next-card { margin-bottom: var(--s5); padding: var(--s4) var(--s5); border: 1px solid var(--ink); border-radius: var(--radius); background: var(--select); }
 .next-when { margin: 0; font-size: var(--fs-14); color: var(--ink-2); }
@@ -915,9 +897,6 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
   .figure:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
   .figure:nth-child(even) { padding-left: var(--s5); border-left: 1px solid var(--rule); }
   .figure:nth-child(n + 3) { border-top: 1px solid var(--rule); }
-  .vs-figures { grid-template-columns: repeat(3, 1fr); }
-  .vs-figures .figure:nth-child(n) { border-top: 0; padding-left: var(--s4); border-left: 1px solid var(--rule); }
-  .vs-figures .figure:first-child { padding-left: 0; border-left: 0; }
   .method { grid-template-columns: minmax(0, 1fr); gap: var(--s6); }
   .pipeline { position: relative; top: auto; }
   .facts { grid-template-columns: repeat(2, 1fr); }
@@ -930,9 +909,6 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
 
 @media (max-width: 680px) {
   .week-calls { grid-template-columns: minmax(0, 1fr); }
-  .vs-figures { grid-template-columns: minmax(0, 1fr); }
-  .vs-figures .figure { padding-left: 0 !important; border-left: 0 !important; }
-  .vs-figures .figure + .figure { border-top: 1px solid var(--rule); }
   .next-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .next-card { padding: var(--s4); }
   .row .res .tip { display: inline; margin: 0 var(--s2) 0 0; }
