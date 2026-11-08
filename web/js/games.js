@@ -194,7 +194,8 @@ function renderMatchup(g) {
     : "";
 }
 
-/** The model next to the DraftKings line, and next to the final once the game is played. */
+/** The forecast next to the betting line (and to the model alone when the two were blended),
+ *  and next to the final once the game is played. */
 function renderLine(g, p) {
   const box = $("#vsline");
   // the market's consensus when several books are recorded, otherwise DraftKings from ESPN
@@ -203,28 +204,40 @@ function renderLine(g, p) {
   if (!L) { box.innerHTML = ""; return; }
   const fin = g.played;
   const real = fin ? g.rh - g.ra : 0;
+  const won = real > 0 ? 1 : 0;
+  const s = g.solo;
   const lp = isNum(L.p) ? L.p : null;
-  const fav = (q) => `${esc(q >= 0.5 ? g.home : g.away)} ${pct(Math.max(q, 1 - q))}`;
-  // after the final, mark which of the two came closer
-  const closer = (m, l) => (!fin || !isNum(m) || !isNum(l) || Math.abs(m - l) < 0.05 ? ["", ""]
-    : m < l ? [' class="near"', ""] : ["", ' class="near"']);
-  const [mM, lM] = closer(Math.abs(g.spread - real), Math.abs(-L.sp - real));
-  const [mT, lT] = closer(Math.abs(g.total - (g.rh + g.ra)), Math.abs(L.tot - (g.rh + g.ra)));
-  const won = fin ? (real > 0 ? 1 : 0) : 0;
-  const [mP, lP] = lp == null ? ["", ""] : closer((p - won) ** 2, (lp - won) ** 2);
-  const row = (h, model, line, final, cm, cl) =>
-    `<tr><th scope="row">${h}</th><td${cm}>${model}</td><td${cl}>${line}</td>${fin ? `<td>${final}</td>` : ""}</tr>`;
+  const fav = (q) => (isNum(q) ? `${esc(q >= 0.5 ? g.home : g.away)} ${pct(Math.max(q, 1 - q))}` : NONE);
+  // columns: forecast, model alone (if blended), line; after the final, bold the closest
+  const cols = [
+    { h: s ? "Forecast" : "Model", margin: g.spread, total: g.total, p },
+    ...(s ? [{ h: "Model alone", margin: s.ph - s.pa, total: s.ph + s.pa, p: s.prob }] : []),
+    { h: L.c === "mkt" ? "Market" : esc(L.bk || "Line"), margin: -L.sp, total: L.tot, p: lp, line: true },
+  ];
+  const best = (err) => {
+    if (!fin) return -1;
+    const e = cols.map(err);
+    const m = Math.min(...e.filter(isNum));
+    return e.filter((x) => x === m).length === 1 ? e.indexOf(m) : -1;
+  };
+  const bm = best((c) => (isNum(c.margin) ? Math.abs(c.margin - real) : NaN));
+  const bt = best((c) => (isNum(c.total) ? Math.abs(c.total - (g.rh + g.ra)) : NaN));
+  const bp = best((c) => (isNum(c.p) ? (c.p - won) ** 2 : NaN));
+  const cell = (txt, i, b) => `<td${i === b ? ' class="near"' : ""}>${txt}</td>`;
+  const row = (h, f, b, final) =>
+    `<tr><th scope="row">${h}</th>${cols.map((c, i) => cell(f(c), i, b)).join("")}${fin ? `<td>${final}</td>` : ""}</tr>`;
+  const margin = (c) => (c.line ? esc(lineText(g.home, g.away, L.sp)) : esc(byMargin(g.home, g.away, Math.round(c.margin * 10) / 10)));
   box.innerHTML = `<table class="vs-table">
-    <caption>${L.c === "mkt" ? `The model against the market: the median line across ${L.n} sportsbooks before tip-off`
-      : `The model against the ${esc(L.bk || "betting")} line${L.c === "close" ? " at tip-off" : ", the morning of the game"}`}</caption>
-    <thead><tr><th scope="col"><span class="sr-only">Measure</span></th><th scope="col">Model</th><th scope="col">${L.c === "mkt" ? "Market" : esc(L.bk || "Line")}</th>${fin ? '<th scope="col">Final</th>' : ""}</tr></thead>
+    <caption>${s ? "The published forecast blends the model with the betting market. " : ""}${L.c === "mkt"
+      ? `Market: the median line across ${L.n} sportsbooks before tip-off.`
+      : `Line: ${esc(L.bk || "betting")}${L.c === "close" ? " at tip-off" : ", the morning of the game"}.`}</caption>
+    <thead><tr><th scope="col"><span class="sr-only">Measure</span></th>${cols.map((c) => `<th scope="col">${c.h}</th>`).join("")}${fin ? '<th scope="col">Final</th>' : ""}</tr></thead>
     <tbody>
-      ${row("Margin", esc(byMargin(g.home, g.away, g.spread)), esc(lineText(g.home, g.away, L.sp)),
-        fin ? `${esc(real > 0 ? g.home : g.away)} by ${Math.abs(real)}` : "", mM, lM)}
-      ${row("Total", f1(g.total), isNum(L.tot) ? f1(L.tot) : NONE, fin ? g.rh + g.ra : "", mT, lT)}
-      ${row("To win", fav(p), lp == null ? NONE : fav(lp), fin ? `${esc(real > 0 ? g.home : g.away)} won` : "", mP, lP)}
+      ${row("Margin", margin, bm, `${esc(real > 0 ? g.home : g.away)} by ${Math.abs(real)}`)}
+      ${row("Total", (c) => (isNum(c.total) ? f1(c.total) : NONE), bt, fin ? g.rh + g.ra : "")}
+      ${row("To win", (c) => fav(c.p), bp, fin ? `${esc(real > 0 ? g.home : g.away)} won` : "")}
     </tbody></table>
-    ${fin ? '<p class="note">Bold marks the closer of the two.</p>' : ""}`;
+    ${fin ? '<p class="note">Bold marks the closest.</p>' : ""}`;
 }
 
 /** Every sportsbook's last line before tip-off, best moneyline for each team in bold. */
@@ -243,8 +256,10 @@ function renderBooks(g, day) {
     <thead><tr><th scope="col">Book</th><th scope="col">Spread</th><th scope="col">Total</th>
       <th scope="col">${esc(g.away)}</th><th scope="col">${esc(g.home)}</th><th scope="col">To win</th></tr></thead>
     <tbody>
-      <tr class="model-row"><th scope="row">Model</th><td>${esc(byMargin(g.home, g.away, g.spread))}</td><td>${f1(g.total)}</td>
+      <tr class="model-row"><th scope="row">${g.solo ? "Forecast" : "Model"}</th><td>${esc(byMargin(g.home, g.away, g.spread))}</td><td>${f1(g.total)}</td>
         <td>${NONE}</td><td>${NONE}</td><td>${fav(p)}</td></tr>
+      ${g.solo ? `<tr class="model-row"><th scope="row">Model alone</th><td>${esc(byMargin(g.home, g.away, Math.round((g.solo.ph - g.solo.pa) * 10) / 10))}</td>
+        <td>${f1(g.solo.ph + g.solo.pa)}</td><td>${NONE}</td><td>${NONE}</td><td>${fav(g.solo.prob)}</td></tr>` : ""}
       ${books.map((b) => `<tr><th scope="row">${esc(b.n)}</th><td>${esc(lineText(g.home, g.away, b.sp))}</td><td>${isNum(b.tot) ? f1(b.tot) : NONE}</td>
         <td${b.ma === ba ? ' class="near"' : ""}>${ml(b.ma)}</td><td${b.mh === bh ? ' class="near"' : ""}>${ml(b.mh)}</td><td>${fav(b.p)}</td></tr>`).join("")}
     </tbody></table></div>

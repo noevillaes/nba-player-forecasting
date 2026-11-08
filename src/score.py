@@ -27,7 +27,7 @@ NOMBRES = {"numMinutes": "MIN", "fieldGoalsMade": "FGM",
            "turnovers": "TO", "foulsPersonal": "PF", "points": "PTS"}
 ORDEN = {nombre: i for i, nombre in enumerate(NOMBRES.values())}
 COLS_ID = ["fecha", "gameId", "personId", "jugador", "equipo", "rival",
-           "local", "estado", "ajuste_equipo", "modelo"]
+           "local", "estado", "ajuste_equipo", "ajuste_mercado", "modelo"]
 
 
 def leer_archivos(patron: str) -> pd.DataFrame:

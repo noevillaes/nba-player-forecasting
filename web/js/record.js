@@ -63,11 +63,15 @@ function renderVsLine(m) {
   if (!have.includes(bench)) bench = have[0];
   const v = all[bench];
   const [name, about] = BENCH[bench];
-  const better = (a, b, lowWins = true) => (!isNum(a) || !isNum(b) || a === b ? ["", ""]
-    : (a < b) === lowWins ? [' class="near"', ""] : ["", ' class="near"']);
-  const row = (h, note, a, b, show, lowWins) => {
-    const [ca, cb] = better(a, b, lowWins);
-    return `<tr><th scope="row">${h}<small>${note}</small></th><td${ca}>${show(a)}</td><td${cb}>${show(b)}</td></tr>`;
+  const solo = v.solo;
+  // forecast, model alone (once the forecast blends in the market), benchmark; bold the best
+  const row = (h, note, key, lineKey, show, lowWins) => {
+    const vals = [v[key], ...(solo ? [solo[key]] : []), v[lineKey]];
+    const ok = vals.filter(isNum);
+    const top = lowWins ? Math.min(...ok) : Math.max(...ok);
+    const one = ok.filter((x) => x === top).length === 1;
+    return `<tr><th scope="row">${h}<small>${note}</small></th>${vals.map((x) =>
+      `<td${one && x === top ? ' class="near"' : ""}>${show(x)}</td>`).join("")}</tr>`;
   };
   const p = (x) => (isNum(x) ? pct(x) : NONE);
   const d1 = (x) => (isNum(x) ? x.toFixed(1) : NONE);
@@ -79,14 +83,15 @@ function renderVsLine(m) {
     ${have.length > 1 ? `<div class="seg bench-seg" role="group" aria-label="Compare against">${have.map((k) =>
       `<button type="button" data-bench="${k}" aria-pressed="${k === bench}">${BENCH[k][0]}</button>`).join("")}</div>` : ""}
     <div class="table-wrap"><table class="vs-table vs-season">
-      <caption>Against ${about}. ${count(v.n)} ${v.n === 1 ? "game" : "games"}, ${span}. Bold marks the better of the two.</caption>
-      <thead><tr><th scope="col"><span class="sr-only">Measure</span></th><th scope="col">Model</th><th scope="col">${name}</th></tr></thead>
+      <caption>Against ${about}. ${count(v.n)} ${v.n === 1 ? "game" : "games"}, ${span}. Bold marks the best.</caption>
+      <thead><tr><th scope="col"><span class="sr-only">Measure</span></th><th scope="col">${solo ? "Forecast" : "Model"}</th>${solo ? '<th scope="col">Model alone</th>' : ""}<th scope="col">${name}</th></tr></thead>
       <tbody>
-        ${row("Winners picked", "share of games", v.hit, v.line_hit, p, false)}
-        ${row("Points off on the margin", "average miss", v.err_margin, v.line_err_margin, d1, true)}
-        ${row("Points off on the total", "average miss", v.err_total, v.line_err_total, d1, true)}
-        ${row("Brier score", "win probability; lower is better", v.brier, v.line_brier, d3, true)}
+        ${row("Winners picked", "share of games", "hit", "line_hit", p, false)}
+        ${row("Points off on the margin", "average miss", "err_margin", "line_err_margin", d1, true)}
+        ${row("Points off on the total", "average miss", "err_total", "line_err_total", d1, true)}
+        ${row("Brier score", "win probability; lower is better", "brier", "line_brier", d3, true)}
       </tbody></table></div>
+    ${blendNote(m.blend)}
     <div class="figures vs-figures">
       <div class="figure"><p class="v">${rec(v.ats)}</p><p class="l">Against the spread</p>
         <p class="s">Taking the model's side of every line${share(v.ats) ? `: ${share(v.ats)} right` : ""}. At standard odds, 52.4% breaks even.</p></div>
@@ -96,6 +101,16 @@ function renderVsLine(m) {
         <p class="s">${v.disagree ? "Games the model's pick won when it went against the betting favorite." : "The model and the line haven't disagreed on a winner yet."}</p></div>
     </div>`;
 }
+/** How the published forecast mixes the model with the market, in one sentence. */
+function blendNote(b) {
+  if (!b) return "";
+  const w = (x) => pct(x);
+  return `<p class="note blend-note">${b.from ? `Since ${shortDate(b.from)} the published forecast blends the model with the betting market. ` : ""}` +
+    `The current weights, fitted on ${count(b.n)} games against ${b.lines} lines, give the model ${w(b.w.spread)} of the margin, ` +
+    `${w(b.w.total)} of the total and ${w(b.w.prob)} of the win probability; the rest is the market. ` +
+    `Player points follow their team's blended score. "Model alone" is what the model would have said by itself.</p>`;
+}
+
 $("#vs-block")?.addEventListener("click", (e) => {
   const b = e.target.closest("button[data-bench]");
   if (!b || b.dataset.bench === bench) return;

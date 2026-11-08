@@ -51,6 +51,7 @@ DATASETS = {
         "status": "results/estado.json",
         "lines": "predictions/lineas.csv",
         "books": "predictions/casas.csv",
+        "blend": "results/mezcla.json",
         "injuries": "predictions/lesiones_{date}.csv",
     },
     "backtest": {
@@ -80,9 +81,8 @@ def read_lines(path):
     """Betting lines by NBA gameId (predictions/lineas.csv, written by src/lineas.py)."""
     out = {}
     for r in read(path) or []:
-        if not r.get("gameId"):
-            continue
-        out[r["gameId"]] = {
+        key = r.get("gameId") or f'{r["fecha"]}|{r["local"]}|{r["visitante"]}'
+        out[key] = out[f'{r["fecha"]}|{r["local"]}|{r["visitante"]}'] = {
             "time": r.get("hora_utc") or None,
             "line": None if r.get("captura") not in ("previa", "cierre") else {
                 "sp": num(r.get("spread_local"), 1), "tot": num(r.get("total"), 1),
@@ -99,11 +99,11 @@ def read_books(path):
     when = lambda x: datetime.datetime.fromisoformat(x.replace("Z", "+00:00"))
     last = {}
     for r in read(path) or []:
-        if not r.get("gameId") or not r.get("capturado") or not r.get("inicio_utc"):
+        if not r.get("capturado") or not r.get("inicio_utc"):
             continue
         if when(r["capturado"]) >= when(r["inicio_utc"]):
             continue
-        k = (r["gameId"], r["casa"])
+        k = (f'{r["fecha"]}|{r["local"]}|{r["visitante"]}', r["casa"])
         if k not in last or r["capturado"] > last[k]["capturado"]:
             last[k] = r
     out = {}
@@ -127,6 +127,22 @@ def consensus(books):
     ps = [b["p"] for b in books if b["p"] is not None]
     return {"sp": med(b["sp"] for b in books), "tot": med(b["tot"] for b in books),
             "p": round(sum(ps) / len(ps), 3) if ps else None, "n": len(books)}
+
+
+def model_alone(g):
+    """The game as the model alone forecast it (the same game when nothing was blended)."""
+    s = g.get("solo")
+    if not s:
+        return g
+    a = {**g, "ph": s["ph"], "pa": s["pa"], "prob": s["prob"],
+         "total": round(s["ph"] + s["pa"], 1), "spread": round(s["ph"] - s["pa"], 1)}
+    if g["played"] and g["rh"] is not None:
+        real = g["rh"] - g["ra"]
+        a["err_total"] = round(abs(a["total"] - (g["rh"] + g["ra"])), 1)
+        a["err_spread"] = round(abs(a["spread"] - real), 1)
+        a["hit"] = int((a["prob"] > 0.5) == (real > 0))
+        a["brier"] = round((a["prob"] - (real > 0)) ** 2, 3)
+    return a
 
 
 def versus_line(games, line_of):
@@ -220,13 +236,18 @@ def build_set(key, cfg, out):
             "in_h": num(g.get("dentro_80_local")) if played else None,
             "in_a": num(g.get("dentro_80_visita")) if played else None,
         })
+        if g.get("pts_local_solo"):        # published forecast blends the model with the market
+            games[-1]["solo"] = {"ph": num(g["pts_local_solo"], 1), "pa": num(g["pts_visita_solo"], 1),
+                                 "prob": num(g["prob_local_solo"], 3)}
+            games[-1]["mk_src"] = g.get("mercado_fuente") or None
 
     lines = read_lines(cfg["lines"]) if cfg.get("lines") else {}
     books = read_books(cfg["books"]) if cfg.get("books") else {}
     for g in games:
-        extra = lines.get(g["id"], {})
+        named = f'{g["date"]}|{g["home"]}|{g["away"]}'
+        extra = lines.get(g["id"]) or lines.get(named) or {}
         g["time"], g["line"] = extra.get("time"), extra.get("line")
-        g["books"] = books.get(g["id"])
+        g["books"] = books.get(named)
         g["mkt"] = consensus(g["books"]) if g["books"] else None
 
     # players grouped by day, then by game + person
@@ -311,20 +332,38 @@ def build_set(key, cfg, out):
 
     folder = os.path.join(out, "data", key)
     os.makedirs(os.path.join(folder, "days"), exist_ok=True)
-    # the model against three benchmarks: the books' consensus, Pinnacle, and DraftKings at tip-off
-    vs = {k: v for k, v in {
-        "mkt": versus_line(games, lambda g: g.get("mkt")),
-        "pin": versus_line(games, lambda g: next((b for b in g.get("books") or [] if b["k"] == "pinnacle"), None)),
-        "close": versus_line(games, lambda g: g["line"] if g.get("line") and g["line"]["c"] == "close" else None),
-    }.items() if v} or None
+    # the published forecast (and the model alone, when it was blended) against three benchmarks:
+    # the books' consensus, Pinnacle, and DraftKings at tip-off
+    alone = [model_alone(g) for g in games]
+    benches = {
+        "mkt": lambda g: g.get("mkt"),
+        "pin": lambda g: next((b for b in g.get("books") or [] if b["k"] == "pinnacle"), None),
+        "close": lambda g: g["line"] if g.get("line") and g["line"]["c"] == "close" else None,
+    }
+    vs = {}
+    for k, pick in benches.items():
+        v = versus_line(games, pick)
+        if v:
+            if any(g.get("solo") for g in games):
+                v["solo"] = versus_line(alone, pick)
+            vs[k] = v
+    vs = vs or None
+    blend = None
+    if cfg.get("blend") and os.path.isfile(os.path.join(ROOT, cfg["blend"])):
+        with open(os.path.join(ROOT, cfg["blend"]), encoding="utf-8") as f:
+            b = json.load(f)
+        first = min((g["date"] for g in games if g.get("solo")), default=None)
+        blend = {"w": b["peso_modelo"], "lam": b["lambda_jugadores"], "n": b["partidos"],
+                 "lines": "morning" if b["lineas"] == "mañana" else "closing", "from": first}
     # each book's line goes in the day file (only the matchup needs it); the season file keeps the consensus
     by_day = {}
     for g in games:
-        if g.pop("books", None):
-            by_day.setdefault(g["date"], {})[g["id"]] = books[g["id"]]
+        bk = g.pop("books", None)
+        if bk:
+            by_day.setdefault(g["date"], {})[g["id"]] = bk
     dump(os.path.join(folder, "meta.json"), {
         "label": cfg["label"], "dates": dates, "latest": made, "games": games, "score": score,
-        "versions": versions, "recal": recal, "status": status, "vs": vs,
+        "versions": versions, "recal": recal, "status": status, "vs": vs, "blend": blend,
     })
     for d, players in days.items():
         dump(os.path.join(folder, "days", f"{d}.json"),

@@ -17,6 +17,7 @@ import pandas as pd
 
 import features
 import game_model
+import mezcla
 import registro
 import team_features
 from clean import temporada as temporada_de
@@ -277,13 +278,18 @@ def main():
     pred.insert(6, "rival", pred["opponentteamId"].astype("int64").map(nombres))
     pred["modelo"] = version
     pred["generado"] = generado
-    ruta = SALIDA / f"{fecha.date()}{sufijo}.csv"
-    pred.to_csv(ruta, index=False)
-    print(f"\nGuardado: {ruta} ({len(pred)} jugadores; {sin_hist} sin historial omitidos)")
 
     # Partidos
     juegos = pronosticar_juegos(fut, eq, objetivo, nombres)
     juegos["generado"] = generado
+
+    # El modelo mezclado con el mercado de apuestas (solo en vivo; ver mezcla.py)
+    if not args.backtest:
+        juegos, pred = mezcla.mezclar(juegos, pred, str(fecha.date()))
+
+    ruta = SALIDA / f"{fecha.date()}{sufijo}.csv"
+    pred.to_csv(ruta, index=False)
+    print(f"\nGuardado: {ruta} ({len(pred)} jugadores; {sin_hist} sin historial omitidos)")
     ruta_j = SALIDA / f"juegos_{fecha.date()}{sufijo}.csv"
     juegos.to_csv(ruta_j, index=False)
     print(f"Guardado: {ruta_j} ({len(juegos)} partidos)")

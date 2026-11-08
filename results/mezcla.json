@@ -1,0 +1,19 @@
+{
+  "ajustado": "2026-11-08T10:11+00:00",
+  "lineas": "cierre",
+  "partidos": 137,
+  "jugadores": 3046,
+  "peso_modelo": {
+    "spread": 0.0,
+    "total": 0.189,
+    "prob": 0.0
+  },
+  "lambda_jugadores": 1.0,
+  "mae_puntos_por_lambda": {
+    "0": 4.4551,
+    "0.25": 4.4513,
+    "0.5": 4.4486,
+    "0.75": 4.4474,
+    "1.0": 4.4471
+  }
+}

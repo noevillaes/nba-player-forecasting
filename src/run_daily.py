@@ -115,6 +115,15 @@ def main():
         else:
             print(f"FALLÓ recalibrar.py (se usan los intervalos de antes). Revisa {ruta_log}")
 
+        # Antes del pronóstico: momios de DraftKings, horarios y lesiones (ESPN), momios de varias
+        # casas (The Odds API, si hay clave) y los pesos de la mezcla modelo + mercado.
+        # Si alguno falla, el pronóstico sale con el modelo solo.
+        for paso, args_paso in [("src/lineas.py", ["--fecha", args.fecha]), ("src/casas.py", []), ("src/mezcla.py", [])]:
+            if correr([sys.executable, paso, *args_paso], log) == 0:
+                print(f"OK  {paso}")
+            else:
+                print(f"FALLÓ {paso} (se sigue sin eso). Revisa {ruta_log}")
+
         if hay_partidos(args.fecha):
             if correr([sys.executable, "src/predict.py", "--fecha", args.fecha], log) != 0:
                 print(f"FALLÓ predict.py. Revisa {ruta_log}")
@@ -124,16 +133,6 @@ def main():
             print(f"No hay partidos el {args.fecha}.")
         escribir_estado(args.fecha)
 
-        # Momios de DraftKings, horarios y reporte de lesiones (ESPN). Si falla, el sitio sale sin ellos.
-        if correr([sys.executable, "src/lineas.py", "--fecha", args.fecha], log) == 0:
-            print("OK  src/lineas.py")
-        else:
-            print(f"FALLÓ lineas.py (los pronósticos sí se generaron). Revisa {ruta_log}")
-        # Momios de varias casas (The Odds API); sin clave en .env se salta solo
-        if correr([sys.executable, "src/casas.py"], log) == 0:
-            print("OK  src/casas.py")
-        else:
-            print(f"FALLÓ casas.py (los pronósticos sí se generaron). Revisa {ruta_log}")
 
         # El marcador corre siempre: evalúa los partidos ya jugados
         if any(Path("predictions").glob("????-??-??.csv")):
