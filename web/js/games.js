@@ -5,7 +5,7 @@ import { state, loadDay, isReadyDay } from "./store.js";
 import { STAT_NAME, BOX, DETAIL_ORDER, unpack } from "./stats.js";
 import { matchupColors, dot } from "./teams.js";
 import {
-  $, $$, esc, isNum, NONE, fmt, f1, round, pct, longDate, todayISO, clock, published, byMargin,
+  $, $$, esc, isNum, NONE, fmt, f1, round, pct, longDate, todayISO, clock, published, byMargin, tipTime, lineText,
 } from "./format.js";
 
 const built = { slate: "", seg: "", box: "" };   // what each region currently shows
@@ -33,6 +33,7 @@ export async function renderGames(m, isCurrent) {
   if (d && !isReadyDay(state.set, d)) skeletonBox();
   const day = d ? await loadDay(state.set, d) : { players: [] };
   if (!isCurrent()) return;
+  renderBooks(g, day);
   renderBox(g, day);
 }
 
@@ -114,10 +115,10 @@ function slateRow(g, i) {
   const score = (real, proj) => (g.played ? `${round(real)}<small>proj. ${f1(proj)}</small>` : f1(proj));
   const res = g.played
     ? `<b>Final</b> <span class="${g.hit === 1 ? "hit" : "miss"}">${g.hit === 1 ? "Winner picked" : "Winner missed"}</span>`
-    : `<b>${esc(fav)} ${pct(Math.max(p, 1 - p))}</b> Total ${f1(g.total)}`;
+    : `${g.time ? `<span class="tip">${tipTime(g.time)}</span>` : ""}<b>${esc(fav)} ${pct(Math.max(p, 1 - p))}</b> Total ${f1(g.total)}`;
   const label = g.played
     ? `${g.away} ${g.ra}, ${g.home} ${g.rh}, final. ${g.hit === 1 ? "Winner picked" : "Winner missed"}.`
-    : `${g.away} at ${g.home}. Projected ${f1(g.pa)} to ${f1(g.ph)}. ${fav} ${pct(Math.max(p, 1 - p))} to win.`;
+    : `${g.away} at ${g.home}${g.time ? `, ${tipTime(g.time)}` : ""}. Projected ${f1(g.pa)} to ${f1(g.ph)}. ${fav} ${pct(Math.max(p, 1 - p))} to win.`;
   return `<li style="--i:${i}"><button type="button" class="row${lost}" data-id="${esc(g.id)}" aria-label="${esc(label)}">
     <span class="t away">${dot(col.away)}<span>${esc(g.away)}</span></span>
     <span class="s away num">${score(g.ra, g.pa)}</span>
@@ -146,7 +147,7 @@ function renderMatchup(g) {
   $("#match-title").textContent = `${g.away} at ${g.home}`;
   let when;
   if (g.played) when = `Final, ${longDate(g.date, withYear)}.`;
-  else if (g.date === today) when = `Tonight. Forecast published at ${published(g.made, { day: false })}.`;
+  else if (g.date === today) when = `Tonight${g.time ? `, ${tipTime(g.time)}` : ""}. Forecast published at ${published(g.made, { day: false })}.`;
   else if (g.date > today) when = `${longDate(g.date)}. Forecast published at ${published(g.made)}.`;
   else when = `Result pending. Forecast published at ${published(g.made)}.`;
   $("#match-when").textContent = when;
@@ -187,9 +188,67 @@ function renderMatchup(g) {
     ];
   }
   $("#facts").innerHTML = facts.join("");
+  renderLine(g, p);
   $("#summary").innerHTML = g.played
     ? `<b class="${g.hit === 1 ? "hit" : "miss"}">${g.hit === 1 ? "The model picked the winner." : "The model picked the wrong winner."}</b>`
     : "";
+}
+
+/** The model next to the DraftKings line, and next to the final once the game is played. */
+function renderLine(g, p) {
+  const box = $("#vsline");
+  // the market's consensus when several books are recorded, otherwise DraftKings from ESPN
+  const L = g.mkt ? { ...g.mkt, bk: `${g.mkt.n} books`, c: "mkt" } : g.line;
+  box.hidden = !L;
+  if (!L) { box.innerHTML = ""; return; }
+  const fin = g.played;
+  const real = fin ? g.rh - g.ra : 0;
+  const lp = isNum(L.p) ? L.p : null;
+  const fav = (q) => `${esc(q >= 0.5 ? g.home : g.away)} ${pct(Math.max(q, 1 - q))}`;
+  // after the final, mark which of the two came closer
+  const closer = (m, l) => (!fin || !isNum(m) || !isNum(l) || Math.abs(m - l) < 0.05 ? ["", ""]
+    : m < l ? [' class="near"', ""] : ["", ' class="near"']);
+  const [mM, lM] = closer(Math.abs(g.spread - real), Math.abs(-L.sp - real));
+  const [mT, lT] = closer(Math.abs(g.total - (g.rh + g.ra)), Math.abs(L.tot - (g.rh + g.ra)));
+  const won = fin ? (real > 0 ? 1 : 0) : 0;
+  const [mP, lP] = lp == null ? ["", ""] : closer((p - won) ** 2, (lp - won) ** 2);
+  const row = (h, model, line, final, cm, cl) =>
+    `<tr><th scope="row">${h}</th><td${cm}>${model}</td><td${cl}>${line}</td>${fin ? `<td>${final}</td>` : ""}</tr>`;
+  box.innerHTML = `<table class="vs-table">
+    <caption>${L.c === "mkt" ? `The model against the market: the median line across ${L.n} sportsbooks before tip-off`
+      : `The model against the ${esc(L.bk || "betting")} line${L.c === "close" ? " at tip-off" : ", the morning of the game"}`}</caption>
+    <thead><tr><th scope="col"><span class="sr-only">Measure</span></th><th scope="col">Model</th><th scope="col">${L.c === "mkt" ? "Market" : esc(L.bk || "Line")}</th>${fin ? '<th scope="col">Final</th>' : ""}</tr></thead>
+    <tbody>
+      ${row("Margin", esc(byMargin(g.home, g.away, g.spread)), esc(lineText(g.home, g.away, L.sp)),
+        fin ? `${esc(real > 0 ? g.home : g.away)} by ${Math.abs(real)}` : "", mM, lM)}
+      ${row("Total", f1(g.total), isNum(L.tot) ? f1(L.tot) : NONE, fin ? g.rh + g.ra : "", mT, lT)}
+      ${row("To win", fav(p), lp == null ? NONE : fav(lp), fin ? `${esc(real > 0 ? g.home : g.away)} won` : "", mP, lP)}
+    </tbody></table>
+    ${fin ? '<p class="note">Bold marks the closer of the two.</p>' : ""}`;
+}
+
+/** Every sportsbook's last line before tip-off, best moneyline for each team in bold. */
+const ml = (x) => (!isNum(x) ? NONE : x > 0 ? `+${x}` : `−${Math.abs(x)}`);
+function renderBooks(g, day) {
+  const box = $("#books");
+  const books = g && day.books?.[g.id];
+  box.hidden = !books?.length;
+  if (!books?.length) { box.innerHTML = ""; return; }
+  const best = (k) => Math.max(...books.map((b) => b[k]).filter(isNum));
+  const [ba, bh] = [best("ma"), best("mh")];
+  const p = isNum(g.prob) ? g.prob : 0.5;
+  const fav = (q) => (isNum(q) ? `${esc(q >= 0.5 ? g.home : g.away)} ${pct(Math.max(q, 1 - q))}` : NONE);
+  box.innerHTML = `<p class="cap">Every sportsbook's last line before tip-off. Bold marks the best moneyline for each team.</p>
+    <div class="table-wrap"><table class="vs-table books-table">
+    <thead><tr><th scope="col">Book</th><th scope="col">Spread</th><th scope="col">Total</th>
+      <th scope="col">${esc(g.away)}</th><th scope="col">${esc(g.home)}</th><th scope="col">To win</th></tr></thead>
+    <tbody>
+      <tr class="model-row"><th scope="row">Model</th><td>${esc(byMargin(g.home, g.away, g.spread))}</td><td>${f1(g.total)}</td>
+        <td>${NONE}</td><td>${NONE}</td><td>${fav(p)}</td></tr>
+      ${books.map((b) => `<tr><th scope="row">${esc(b.n)}</th><td>${esc(lineText(g.home, g.away, b.sp))}</td><td>${isNum(b.tot) ? f1(b.tot) : NONE}</td>
+        <td${b.ma === ba ? ' class="near"' : ""}>${ml(b.ma)}</td><td${b.mh === bh ? ' class="near"' : ""}>${ml(b.mh)}</td><td>${fav(b.p)}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="note">Win chances take out each book's margin. Moneylines are American odds: −150 risks 150 to win 100, +130 wins 130 on 100.</p>`;
 }
 
 /* ------------------------------------------------------------------ */
@@ -246,19 +305,30 @@ function renderBox(g, day) {
   players.sort((x, y) => (x.st === "dnp") - (y.st === "dnp") || (y.s.MIN?.[0] ?? 0) - (x.s.MIN?.[0] ?? 0));
   const pts = players.reduce((s, p) => s + (p.s.PTS?.[0] ?? 0), 0);
   const adj = players[0]?.adj;
+  const hurt = players.filter((x) => x.inj);
   $("#team-note").textContent = players.length
     ? `${players.length} players, ${Math.round(pts)} projected points between them` +
-      (isNum(adj) ? `, scaled ×${adj.toFixed(3)} toward the team-score forecast.` : ".")
+      (isNum(adj) ? `, scaled ×${adj.toFixed(3)} toward the team-score forecast.` : ".") +
+      (hurt.length ? ` ${hurt.length} on the morning injury report; the model doesn't account for injuries yet.` : "")
     : "";
 
   table.tHead.innerHTML = head();
   table.tBodies[0].innerHTML = players.length ? players.map((p) => `
     <tr class="p${p.st === "dnp" ? " dnp" : ""}" data-id="${esc(p.id)}">
-      <td><button type="button" class="pname" aria-expanded="false" aria-controls="d-${esc(p.id)}">${nameParts(p.n)}</button>${p.st === "dnp" ? "<small>did not play</small>" : ""}</td>
+      <td><button type="button" class="pname" aria-expanded="false" aria-controls="d-${esc(p.id)}">${nameParts(p.n)}</button>${injury(p.inj)}${p.st === "dnp" ? "<small>did not play</small>" : ""}</td>
       ${BOX.map((c) => cell(p, c, mode)).join("")}
     </tr>`).join("")
     : `<tr><td colspan="${BOX.length + 1}" class="empty">There are no player forecasts for ${esc(team)} in this game. Players without NBA games have no history to forecast from.</td></tr>`;
   syncDetail(day, g, team);
+}
+
+/** "OUT" or "DTD" from the morning injury report, with the injury on hover. */
+export function injury(inj) {
+  if (!inj) return "";
+  const [st, why] = inj;
+  const word = st === "out" ? "Out" : "Day-to-day";
+  return ` <span class="inj ${st === "out" ? "out" : "dtd"}" title="${esc(word)}${why ? ` (${esc(why.toLowerCase())})` : ""}">` +
+    `${st === "out" ? "OUT" : "DTD"}<span class="sr-only">: ${esc(word)}${why ? `, ${esc(why.toLowerCase())}` : ""}</span></span>`;
 }
 
 /** "Shai Gilgeous-Alexander" -> first and last name in their own spans, so phones can stack them. */

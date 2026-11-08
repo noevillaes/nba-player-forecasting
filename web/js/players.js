@@ -3,7 +3,8 @@
 
 import { state, loadPlayers, loadPlayer, isReadyPlayer } from "./store.js";
 import { STAT_NAME, DETAIL_ORDER } from "./stats.js";
-import { $, $$, esc, isNum, NONE, fmt, f1, round, pct, shortDate } from "./format.js";
+import { $, $$, esc, isNum, NONE, fmt, f1, round, pct, shortDate, longDate, todayISO, tipTime } from "./format.js";
+import { injury } from "./games.js";
 
 let navigate = () => {};
 /** main.js hands over its navigation, so picks go through the same URL state and transitions. */
@@ -39,6 +40,7 @@ export async function renderPlayers(isCurrent) {
 function renderEmpty(msg) {
   $("#player-back").hidden = true;
   $("#player-title").textContent = "Players";
+  $("#player-title").classList.remove("long");
   $("#player-lede").hidden = false;
   $("#player-lede").textContent = msg ||
     "Every player with a forecast this season: what the model expected, game by game, against what happened.";
@@ -74,6 +76,7 @@ function renderPlayer(p) {
 
   $("#player-back").hidden = false;
   $("#player-title").textContent = p.n;
+  $("#player-title").classList.toggle("long", p.n.length > 16);   // long names stay clear of the ball
   $("#player-lede").hidden = true;
   document.title = `${p.n} | NBA Forecasts`;
 
@@ -100,9 +103,28 @@ function renderPlayer(p) {
   }
   for (const b of $$("button", chips)) b.setAttribute("aria-pressed", String(b.dataset.stat === c));
 
+  renderNext(games);
   drawChart(games, c);
   renderSummary(played, c);
   renderLog(games, c);
+}
+
+/** His next game, when it has a forecast: shown first, before the season. */
+const NEXT_STATS = ["PTS", "REB", "AST", "3PM", "MIN"];
+function renderNext(games) {
+  const el = $("#player-next");
+  const today = todayISO();
+  const next = games.filter((x) => x.st === "pending" && x.d >= today).sort((a, b) => (a.d < b.d ? -1 : 1))[0];
+  el.hidden = !next;
+  if (!next) { el.innerHTML = ""; return; }
+  const when = next.d === today ? "Tonight" : longDate(next.d);
+  el.innerHTML = `
+    <p class="next-when"><b>${when}</b>${next.tm ? ` ${tipTime(next.tm)}` : ""} · ${next.h ? "vs" : "@"} ${esc(next.o || "")}${injury(next.inj)}</p>
+    <dl class="next-stats">${NEXT_STATS.filter((c) => next.s[c]).map((c) => {
+      const [fc, lo, hi] = next.s[c];
+      return `<div><dt>${STAT_NAME[c]}</dt><dd class="num">${f1(fc)}</dd><dd class="rng">${fmt(lo)} to ${fmt(hi)}</dd></div>`;
+    }).join("")}</dl>
+    <p class="note">Forecast and 80% range.${next.inj ? " He's on the morning injury report, and the model doesn't account for injuries yet." : ""}</p>`;
 }
 
 function rowsFor(games, c) {

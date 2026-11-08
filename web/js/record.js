@@ -2,7 +2,7 @@
 
 import { state } from "./store.js";
 import { STAT_NAME, RECORD_ORDER } from "./stats.js";
-import { $, $$, esc, isNum, NONE, pct, count, shortDate } from "./format.js";
+import { $, $$, esc, isNum, NONE, pct, count, shortDate, fmt, f1, lineText } from "./format.js";
 
 let builtFor = null;   // the meta object the table was built from
 let lastRows = [];     // daily rows of the selected stat, kept for redrawing on resize
@@ -28,6 +28,8 @@ export function renderRecord(m) {
   if (builtFor !== m) {
     builtFor = m;
     renderFigures(m);
+    renderVsLine(m);
+    renderWeek(m);
     renderCalibration(m);
     renderTable(m);
   }
@@ -41,6 +43,94 @@ export function renderRecord(m) {
   $("#daily-title").textContent = `Day by day: ${STAT_NAME[state.stat] || state.stat}`;
   lastRows = m.score.filter((r) => r.s === state.stat).sort((a, b) => (a.d < b.d ? -1 : 1));
   drawDaily();
+}
+
+/** The model against a betting benchmark: a side-by-side table plus the betting records. */
+const BENCH = {
+  mkt: ["Market", "the median line across every recorded sportsbook, before tip-off"],
+  pin: ["Pinnacle", "Pinnacle, the book professional bettors use as the reference price, before tip-off"],
+  close: ["DraftKings at tip-off", "DraftKings' closing line, which already includes late injury news"],
+};
+let bench = null;
+function renderVsLine(m) {
+  const el = $("#vs-block");
+  const all = m.vs || {};
+  const have = Object.keys(BENCH).filter((k) => all[k]);
+  if (!have.length) {
+    el.innerHTML = '<p class="empty">No game with a recorded betting line has been scored yet. Lines are saved every morning, and this comparison fills in as those games finish.</p>';
+    return;
+  }
+  if (!have.includes(bench)) bench = have[0];
+  const v = all[bench];
+  const [name, about] = BENCH[bench];
+  const better = (a, b, lowWins = true) => (!isNum(a) || !isNum(b) || a === b ? ["", ""]
+    : (a < b) === lowWins ? [' class="near"', ""] : ["", ' class="near"']);
+  const row = (h, note, a, b, show, lowWins) => {
+    const [ca, cb] = better(a, b, lowWins);
+    return `<tr><th scope="row">${h}<small>${note}</small></th><td${ca}>${show(a)}</td><td${cb}>${show(b)}</td></tr>`;
+  };
+  const p = (x) => (isNum(x) ? pct(x) : NONE);
+  const d1 = (x) => (isNum(x) ? x.toFixed(1) : NONE);
+  const d3 = (x) => (isNum(x) ? x.toFixed(3) : NONE);
+  const rec = ([w, l]) => (w + l ? `${w}–${l}` : NONE);
+  const share = ([w, l]) => (w + l ? pct(w / (w + l)) : "");
+  const span = v.from === v.to ? shortDate(v.from) : `${shortDate(v.from)} to ${shortDate(v.to)}`;
+  el.innerHTML = `
+    ${have.length > 1 ? `<div class="seg bench-seg" role="group" aria-label="Compare against">${have.map((k) =>
+      `<button type="button" data-bench="${k}" aria-pressed="${k === bench}">${BENCH[k][0]}</button>`).join("")}</div>` : ""}
+    <div class="table-wrap"><table class="vs-table vs-season">
+      <caption>Against ${about}. ${count(v.n)} ${v.n === 1 ? "game" : "games"}, ${span}. Bold marks the better of the two.</caption>
+      <thead><tr><th scope="col"><span class="sr-only">Measure</span></th><th scope="col">Model</th><th scope="col">${name}</th></tr></thead>
+      <tbody>
+        ${row("Winners picked", "share of games", v.hit, v.line_hit, p, false)}
+        ${row("Points off on the margin", "average miss", v.err_margin, v.line_err_margin, d1, true)}
+        ${row("Points off on the total", "average miss", v.err_total, v.line_err_total, d1, true)}
+        ${row("Brier score", "win probability; lower is better", v.brier, v.line_brier, d3, true)}
+      </tbody></table></div>
+    <div class="figures vs-figures">
+      <div class="figure"><p class="v">${rec(v.ats)}</p><p class="l">Against the spread</p>
+        <p class="s">Taking the model's side of every line${share(v.ats) ? `: ${share(v.ats)} right` : ""}. At standard odds, 52.4% breaks even.</p></div>
+      <div class="figure"><p class="v">${rec(v.ou)}</p><p class="l">Over or under</p>
+        <p class="s">Taking the model's side of every posted total${share(v.ou) ? `: ${share(v.ou)} right` : ""}.</p></div>
+      <div class="figure"><p class="v">${v.disagree ? `${v.disagree_won} of ${v.disagree}` : NONE}</p><p class="l">When they picked different winners</p>
+        <p class="s">${v.disagree ? "Games the model's pick won when it went against the betting favorite." : "The model and the line haven't disagreed on a winner yet."}</p></div>
+    </div>`;
+}
+$("#vs-block")?.addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-bench]");
+  if (!b || b.dataset.bench === bench) return;
+  bench = b.dataset.bench;
+  if (builtFor) renderVsLine(builtFor);
+  $(`#vs-block button[data-bench="${bench}"]`)?.focus();
+});
+
+/** The week's closest forecasts among correct picks, and its most confident misses. */
+function renderWeek(m) {
+  const el = $("#week-calls");
+  const played = m.games.filter((g) => g.played && isNum(g.rh));
+  // the seven calendar days ending on the last scored day
+  const last = played.reduce((a, g) => (g.date > a ? g.date : a), "");
+  const from = new Date(`${last}T12:00:00Z`);
+  from.setUTCDate(from.getUTCDate() - 6);
+  const start = from.toISOString().slice(0, 10);
+  const week = played.filter((g) => g.date >= start);
+  if (!week.length) { el.innerHTML = '<p class="empty">No games scored yet.</p>'; return; }
+  const conf = (g) => Math.max(g.prob, 1 - g.prob);
+  const best = week.filter((g) => g.hit === 1 && isNum(g.err_total) && isNum(g.err_spread))
+    .sort((a, b) => a.err_total + a.err_spread - (b.err_total + b.err_spread)).slice(0, 3);
+  const worst = week.filter((g) => g.hit === 0).sort((a, b) => conf(b) - conf(a)).slice(0, 3);
+  const score = (g) => `${esc(g.away)} ${g.ra}, ${esc(g.home)} ${g.rh}`;
+  const pick = (g) => (g.prob >= 0.5 ? g.home : g.away);
+  const item = (g, why) => `<li><p class="wc-d">${shortDate(g.date)}</p><p class="wc-s">${score(g)}</p><p class="wc-w">${why}</p></li>`;
+  const list = (title, cls, rows, why, empty) => `<div class="wc ${cls}"><h3 class="title-sm">${title}</h3>
+    ${rows.length ? `<ol>${rows.map((g) => item(g, why(g))).join("")}</ol>` : `<p class="note">${empty}</p>`}</div>`;
+  el.innerHTML =
+    list("Closest calls", "good", best, (g) =>
+      `Projected ${fmt(g.pa)} to ${fmt(g.ph)}: off by ${f1(g.err_spread)} on the margin and ${f1(g.err_total)} on the total.`,
+      "No correct picks this week.") +
+    list("Most confident misses", "bad", worst, (g) =>
+      `The model gave the ${esc(pick(g))} ${pct(conf(g))}${(g.mkt || g.line) && isNum((g.mkt || g.line).sp) ? `; the ${g.mkt ? "market" : "line"} had ${esc(lineText(g.home, g.away, (g.mkt || g.line).sp))}` : ""}.`,
+      "The model picked every winner this week.");
 }
 
 function renderFigures(m) {

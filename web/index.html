@@ -87,6 +87,8 @@
       <div id="probbar" class="probbar big" aria-hidden="true"><span></span><span></span></div>
       <p id="prob-labels" class="prob-labels"></p>
       <dl id="facts" class="facts"></dl>
+      <div id="vsline" class="table-wrap vsline" hidden></div>
+      <div id="books" class="vsline books" aria-label="Every sportsbook" role="region" hidden></div>
       <p id="summary" class="verdict"></p>
     </article>
 
@@ -118,6 +120,25 @@
     <div class="wrap">
       <div id="figures" class="sheet figures"></div>
     </div>
+
+    <section class="wrap block" aria-labelledby="line-title">
+      <div class="section-head">
+        <h2 id="line-title" class="title">Against the betting line</h2>
+        <p class="muted">Every scored game next to the betting market: the median of nine sportsbooks, Pinnacle on its own,
+          and DraftKings at tip-off. Bookmakers see late injury and lineup news that the model doesn't, so matching
+          them is already hard.</p>
+      </div>
+      <div id="vs-block" class="vs-block"></div>
+    </section>
+
+    <section class="wrap block" aria-labelledby="week-title">
+      <div class="section-head">
+        <h2 id="week-title" class="title">Best and worst calls this week</h2>
+        <p class="muted">The closest forecasts among the winners the model picked, and the most confident picks that
+          went wrong, over the seven days up to the last scored game.</p>
+      </div>
+      <div id="week-calls" class="week-calls"></div>
+    </section>
 
     <section class="wrap block" aria-labelledby="calib-title">
       <div class="section-head">
@@ -171,6 +192,7 @@
           <ul id="top-players" class="top-players"></ul>
         </div>
         <div id="player-main" hidden>
+          <section id="player-next" class="next-card" aria-label="Next game" hidden></section>
           <div id="stat-chips" class="stat-chips" role="group" aria-label="Stat"></div>
           <div id="player-chart" class="player-chart"></div>
           <dl id="player-sum" class="facts player-sum"></dl>
