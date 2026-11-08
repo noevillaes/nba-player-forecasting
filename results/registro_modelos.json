@@ -41,6 +41,29 @@
           "steals": 0.0,
           "turnovers": 0.0
         }
+      },
+      {
+        "desde": "2026-11-08",
+        "version": "v2",
+        "filas": 2287,
+        "ajustes": {
+          "threePointersAttempted": 0.0,
+          "threePointersMade": 0.0,
+          "assists": 0.0,
+          "blocks": 0.0,
+          "reboundsDefensive": 0.0,
+          "fieldGoalsAttempted": 0.0,
+          "fieldGoalsMade": 0.0,
+          "freeThrowsAttempted": 0.0,
+          "freeThrowsMade": 0.0,
+          "numMinutes": 0.17,
+          "reboundsOffensive": 0.0,
+          "foulsPersonal": 0.0,
+          "points": 0.1,
+          "reboundsTotal": 0.0,
+          "steals": 0.0,
+          "turnovers": 0.0
+        }
       }
     ]
   }
