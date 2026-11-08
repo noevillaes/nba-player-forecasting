@@ -3,7 +3,8 @@
 
 import { state, loadDay, isReadyDay } from "./store.js";
 import { STAT_NAME, BOX, DETAIL_ORDER, unpack } from "./stats.js";
-import { matchupColors, dot } from "./teams.js";
+import { matchupColors, dot, code } from "./teams.js";
+import { termBar, playSlate } from "./term.js";
 import {
   $, $$, esc, isNum, NONE, fmt, f1, round, pct, longDate, todayISO, clock, published, byMargin,
 } from "./format.js";
@@ -75,17 +76,14 @@ function renderHead(m, d, games) {
   }
   $("#day-facts").innerHTML = facts.join("");
 
-  // label the points columns by what they hold
-  const label = finals.length ? "Points" : "Projected";
-  $("#pts-label-a").textContent = label;
-  $("#pts-label-h").textContent = label;
-  $("#slate-cap").textContent = !games.length ? "" : !finals.length ? "Projected points and win probability."
-    : finals.length === games.length ? "Final scores, with the projection under each one."
-      : "Final scores where games are over, projections for the rest.";
+  const prompt = $("#slate-prompt");
+  if (prompt) {
+    prompt.innerHTML = d ? `$ ${finals.length ? "score" : "forecast"} --date ${esc(d)} <b>${games.length} ${games.length === 1 ? "game" : "games"}</b>` : "";
+  }
 }
 
 /* ------------------------------------------------------------------ */
-/* Slate                                                               */
+/* Slate: a terminal printout, one line per game                       */
 /* ------------------------------------------------------------------ */
 export function skeletonSlate() {
   built.slate = "";
@@ -94,40 +92,69 @@ export function skeletonSlate() {
     '<li class="sk-row" aria-hidden="true"><span class="sk"></span><span class="sk"></span><span class="sk"></span></li>').join("");
 }
 
+// arrow keys (or j/k, in the terminal spirit) walk the slate
+$("#game-list")?.addEventListener("keydown", (e) => {
+  const step = { ArrowDown: 1, j: 1, ArrowUp: -1, k: -1 }[e.key];
+  if (!step) return;
+  const rows = $$("#game-list .row");
+  const next = rows[rows.indexOf(document.activeElement) + step];
+  if (next) { e.preventDefault(); next.focus(); }
+});
+
 function renderSlate(games) {
   const list = $("#game-list");
   const key = `${state.set}/${state.date}`;
   if (built.slate !== key) {
     built.slate = key;
     list.removeAttribute("aria-busy");
-    list.innerHTML = games.length ? games.map(slateRow).join("")
+    list.innerHTML = games.length ? termLines(games)
       : '<li class="empty">No games on this day. Use the day buttons above to see another date.</li>';
+    playSlate(list);
   }
   for (const b of $$(".row", list)) b.setAttribute("aria-current", b.dataset.id === state.game ? "true" : "false");
 }
 
-function slateRow(g, i) {
+function termLines(games) {
+  const finals = games.filter((g) => g.played);
+  const hits = finals.filter((g) => g.hit === 1).length;
+  const miss = finals.map((g) => g.err_total).filter(isNum);
+  const left = games.length - finals.length;
+  const note = !finals.length
+    ? `# ${games.length} ${games.length === 1 ? "game" : "games"}: projected points, win probability and projected total`
+    : `# ${hits} of ${finals.length} winners picked` +
+      (miss.length ? `, totals off by ${(miss.reduce((s, x) => s + x, 0) / miss.length).toFixed(1)} on average` : "") +
+      (left ? `, ${left} still to play` : "");
+  const label = finals.length ? "pts" : "proj";
+  return `<li class="tl tl-note" aria-hidden="true"><span class="tx">${esc(note)}</span></li>
+    <li class="tl tl-head" aria-hidden="true"><span>away</span><span class="r">${label}</span><span>win probability</span><span class="r">${label}</span><span>home</span><span>pick</span><span class="r">total</span></li>
+    ${games.map(termRow).join("")}
+    <li class="tl tl-cur" aria-hidden="true">$ <i class="caret"></i></li>`;
+}
+
+function termRow(g, i) {
   const col = matchupColors(g.away, g.home);
   const p = isNum(g.prob) ? g.prob : 0.5;
+  const [A, H] = [code(g.away), code(g.home)];
   const fav = p >= 0.5 ? g.home : g.away;
-  const lost = g.played ? (g.ra > g.rh ? " lost-home" : " lost-away") : "";
-  const score = (real, proj) => (g.played ? `${round(real)}<small>proj. ${f1(proj)}</small>` : f1(proj));
-  const res = g.played
-    ? `<b>Final</b> <span class="${g.hit === 1 ? "hit" : "miss"}">${g.hit === 1 ? "Winner picked" : "Winner missed"}</span>`
-    : `<b>${esc(fav)} ${pct(Math.max(p, 1 - p))}</b> Total ${f1(g.total)}`;
+  // before tip-off the underdog's code steps back; after the final, the loser's does
+  const lost = g.played ? (g.ra > g.rh ? " lost-home" : " lost-away") : (p >= 0.5 ? " dog-away" : " dog-home");
+  const sc = (real, proj) => (g.played ? round(real) : f1(proj));
+  const pick = g.played
+    ? `<span class="tx ${g.hit === 1 ? "hit" : "miss"}">${g.hit === 1 ? "[✓] hit" : "[✗] miss"}</span>`
+    : `<span class="tx">${esc(code(fav))} ${pct(Math.max(p, 1 - p))}</span>`;
+  // a final shows the real total against the projected one
+  const total = g.played ? `${g.ra + g.rh}<small>/${f1(g.total)}</small>` : f1(g.total);
   const label = g.played
-    ? `${g.away} ${g.ra}, ${g.home} ${g.rh}, final. ${g.hit === 1 ? "Winner picked" : "Winner missed"}.`
-    : `${g.away} at ${g.home}. Projected ${f1(g.pa)} to ${f1(g.ph)}. ${fav} ${pct(Math.max(p, 1 - p))} to win.`;
-  return `<li style="--i:${i}"><button type="button" class="row${lost}" data-id="${esc(g.id)}" aria-label="${esc(label)}">
-    <span class="t away">${dot(col.away)}<span>${esc(g.away)}</span></span>
-    <span class="s away num">${score(g.ra, g.pa)}</span>
-    <span class="prob" aria-hidden="true">
-      <span class="probbar"><span style="flex-basis:${((1 - p) * 100).toFixed(1)}%;--c:${col.away}"></span><span style="flex-basis:${(p * 100).toFixed(1)}%;--c:${col.home}"></span></span>
-      <span class="pl"><span>${pct(1 - p)}</span><span>${pct(p)}</span></span>
-    </span>
-    <span class="s home num">${score(g.rh, g.ph)}</span>
-    <span class="t home">${dot(col.home)}<span>${esc(g.home)}</span></span>
-    <span class="res">${res}</span>
+    ? `${g.away} ${g.ra}, ${g.home} ${g.rh}, final. Projected ${f1(g.pa)} to ${f1(g.ph)}. ${g.hit === 1 ? "Winner picked" : "Winner missed"}.`
+    : `${g.away} at ${g.home}. Projected ${f1(g.pa)} to ${f1(g.ph)}. ${fav} ${pct(Math.max(p, 1 - p))} to win. Total ${f1(g.total)}.`;
+  return `<li style="--i:${i}"><button type="button" class="row trow${lost}" data-id="${esc(g.id)}" aria-label="${esc(label)}">
+    <span class="tx t-a" style="--c:${col.away}" title="${esc(g.away)}">${A}</span>
+    <span class="tx s-a">${sc(g.ra, g.pa)}</span>
+    ${termBar(1 - p, col.away, col.home)}
+    <span class="tx s-h">${sc(g.rh, g.ph)}</span>
+    <span class="tx t-h" style="--c:${col.home}" title="${esc(g.home)}">${H}</span>
+    <span class="pk">${pick}</span>
+    <span class="tx ou">${total}</span>
   </button></li>`;
 }
 

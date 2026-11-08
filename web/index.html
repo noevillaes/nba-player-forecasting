@@ -69,12 +69,11 @@
   <!-- ===================== Games ===================== -->
   <section id="view-games" class="view" hidden aria-labelledby="date-label">
     <div class="wrap">
-      <div class="sheet slate-sheet">
-        <div class="slate-head" aria-hidden="true">
-          <span>Away</span><span id="pts-label-a">Points</span><span>Win probability</span><span id="pts-label-h">Points</span><span>Home</span><span>Forecast or result</span>
+      <div class="sheet slate-sheet term">
+        <div class="slate-bar">
+          <p id="slate-prompt" class="slate-prompt" aria-hidden="true"></p>
         </div>
-        <p id="slate-cap" class="slate-cap"></p>
-        <ol id="game-list" class="slate" aria-label="Games and forecasts"></ol>
+        <ol id="game-list" class="slate term" aria-label="Games and forecasts"></ol>
       </div>
     </div>
 

@@ -168,7 +168,7 @@ abbr[title] { text-decoration: none; }
 .skip:focus { top: var(--s3); }
 
 /* labels: Spade's instrument voice */
-.slate-head, th, .facts dt, .head-facts dt, .strip-name, .strip-legend, .slate-cap, .prob .pl,
+th, .facts dt, .head-facts dt, .strip-name, .strip-legend, .prob .pl,
 .figure .l, .title-sm, .steps b, .detail-head .who, .match-head .muted {
   font-family: var(--mono); font-weight: 500; letter-spacing: var(--label-track); text-transform: uppercase;
 }
@@ -296,15 +296,10 @@ abbr[title] { text-decoration: none; }
 /* ============================== slate ============================== */
 .slate { list-style: none; margin: 0; padding: 0; }
 .slate li + li { border-top: 1px solid var(--rule); }
-.slate-head, .row {
+.row {
   display: grid; align-items: center; gap: var(--s4); padding-inline: var(--s5);
-  grid-template-columns: minmax(130px, 1fr) 76px minmax(160px, 1.5fr) 76px minmax(130px, 1fr) minmax(150px, 1fr);
+  grid-template-columns: minmax(130px, 1fr) 92px minmax(160px, 1.5fr) 92px minmax(130px, 1fr) minmax(150px, 1fr);
 }
-.slate-head { font-size: var(--fs-11); color: var(--ink-3); padding-block: var(--s4) var(--s3); border-bottom: 1px solid var(--ink); }
-.slate-head span { text-align: center; }
-.slate-head span:first-child, .slate-head span:last-child { text-align: right; }
-.slate-head span:nth-child(5) { text-align: left; }
-.slate-cap { display: none; }
 .row {
   position: relative; width: 100%; padding-block: 18px; text-align: left; cursor: pointer;
   background: none; border: 0; transition: background-color var(--fast);
@@ -330,6 +325,40 @@ abbr[title] { text-decoration: none; }
 .probbar { display: flex; gap: 2px; height: 6px; }
 .probbar span { display: block; height: 100%; background: var(--c, var(--rule)); transition: flex-basis .45s var(--ease), background-color var(--mid); }
 .prob .pl { display: flex; justify-content: space-between; margin-top: 6px; font-size: var(--fs-11); color: var(--ink-3); }
+
+/* ============================== terminal slate ============================== */
+/* the slate is a printout: a prompt, then one game per line, team codes in their colours */
+.slate-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--s3) var(--s4); padding: var(--s4) var(--s5) 0; }
+.slate-prompt { margin: 0; font: 500 var(--fs-12) var(--mono); letter-spacing: .02em; color: var(--ink-3); }
+.slate-prompt b { margin-left: var(--s2); font-weight: 500; color: var(--ink); }
+.slate-prompt::after { content: ""; display: inline-block; width: .55em; height: 1.05em; margin-left: 6px; vertical-align: -.2em; background: var(--accent); }
+
+.slate.term { padding-block: var(--s3) var(--s4); font: 500 var(--fs-14)/1.5 var(--mono); font-variant-numeric: tabular-nums; }
+.slate.term li + li { border-top: 0; }
+.slate.term .row, .slate.term .tl-head {
+  display: grid; align-items: center; column-gap: 2ch;
+  grid-template-columns: 4ch 6ch minmax(16ch, 1fr) 6ch 4ch 10ch 12ch;
+}
+.slate.term .row { padding: 6px var(--s5); font: inherit; }
+.slate.term .tl { padding: 4px var(--s5); color: var(--ink-3); }
+.slate.term .tl-head { padding-block: var(--s3) var(--s2); font-size: var(--fs-11); letter-spacing: var(--label-track); text-transform: uppercase; }
+.slate.term .r, .trow .s-a, .trow .s-h, .trow .ou { text-align: right; }
+.slate.term .tl-head span:nth-child(3) { text-align: center; }
+.trow .t-a, .trow .t-h { color: var(--c); font-weight: 500; }
+.trow .s-a, .trow .s-h, .trow .pk { color: var(--ink); }
+.trow.lost-away :is(.t-a, .s-a), .trow.lost-home :is(.t-h, .s-h) { color: var(--ink-3); }
+.trow.dog-away .t-a, .trow.dog-home .t-h { color: var(--ink-2); font-weight: 400; }
+.trow .ou { color: var(--ink-2); }
+.trow .ou small { color: var(--ink-3); font-size: inherit; }
+.trow .hit { color: var(--hit); }
+.trow .miss { color: var(--miss); }
+.tbar { display: flex; gap: 1px; height: .9em; }
+.tbar i { flex: 1; min-width: 0; border-radius: 1px; box-shadow: inset 0 0 0 1px var(--rule); transition: background-color .1s, box-shadow .1s; }
+.tbar i.on { background: var(--c); box-shadow: none; }
+/* the underdog's share: hollow, outlined in its own colour */
+.tbar i.on.dog { background: transparent; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 60%, transparent); }
+.tl-cur { padding-top: var(--s2); }
+.caret { display: inline-block; width: .6em; height: 1.1em; margin-left: 2px; vertical-align: -.2em; background: var(--accent); }
 
 /* ============================== matchup ============================== */
 .matchup { margin-top: var(--s8); }
@@ -369,6 +398,7 @@ abbr[title] { text-decoration: none; }
 }
 .seg button:hover:not(:disabled) { color: var(--ink); }
 .seg button[aria-pressed="true"] { background: var(--band); color: var(--on-band); }
+.seg button[aria-pressed="true"]:hover:not(:disabled) { color: var(--on-band); }   /* stays readable under the pointer */
 .seg button:disabled { color: var(--ink-3); opacity: .55; cursor: default; }
 
 .table-wrap { overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
@@ -678,11 +708,10 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
   .court-lines [pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s var(--ease) .1s forwards; }
   .court-lines [pathLength]:nth-child(3n + 2) { animation-delay: .3s; }
   .court-lines [pathLength]:nth-child(3n) { animation-delay: .5s; }
+  .slate-prompt::after, .caret { animation: caret 1s steps(1) infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
   @keyframes draw { to { stroke-dashoffset: 0; } }
 
-  /* a new day's win probabilities grow from the away side */
-  .slate .probbar { transform-origin: left center; animation: grow .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 35ms); }
-  @keyframes grow { from { transform: scaleX(0); } }
 
   /* an opened player unfolds */
   .detail-inner { animation: unfold .26s var(--ease) both; }
@@ -868,8 +897,7 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
   .pipeline { position: relative; top: auto; }
   .facts { grid-template-columns: repeat(2, 1fr); }
   .facts div:nth-child(odd) { padding-left: 0; border-left: 0; }
-  .slate-head, .row { grid-template-columns: minmax(0, 1fr) 64px minmax(90px, 1.2fr) 64px minmax(0, 1fr); }
-  .slate-head span:last-child { display: none; }
+  .row { grid-template-columns: minmax(0, 1fr) 80px minmax(90px, 1.2fr) 80px minmax(0, 1fr); }
   .row .res { grid-column: 1 / -1; display: flex; gap: var(--s2); align-items: baseline; justify-content: center; }
   .row .res b { display: inline; }
 }
@@ -898,8 +926,6 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
   .set-pick { margin-left: 0; }
   .btn-on-court { padding: 8px 10px; }
 
-  .slate-head { display: none; }
-  .slate-cap { display: block; padding: var(--s3) var(--s4) var(--s2); font-size: var(--fs-11); color: var(--ink-3); border-bottom: 1px solid var(--ink); }
   .row {
     grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "a sa" "h sh" "bar bar" "res res";
     gap: 6px var(--s3); padding: var(--s4);
@@ -910,7 +936,18 @@ tr.detail > td { text-align: left; padding: var(--s5) var(--s4) var(--s6); backg
   .row .s.home { grid-area: sh; }
   .row .prob { grid-area: bar; margin-top: var(--s1); }
   .row .res { grid-area: res; justify-content: flex-start; }
-  .row .s { font-size: 22px; text-align: right; }
+  .row .s { font-size: 20px; text-align: right; }
+  .slate-bar { padding: var(--s3) var(--s4) 0; }
+  .slate-prompt { font-size: var(--fs-11); }
+  .slate.term { font-size: 13px; }
+  .slate.term .row {
+    grid-template-columns: 3ch 5ch minmax(0, 1fr) 5ch 3ch; grid-template-areas: "a sa bar sh h" "pk pk pk ou ou";
+    column-gap: 1.2ch; row-gap: 3px; padding: 9px var(--s4);
+  }
+  .slate.term .tl-head { display: none; }
+  .slate.term .tl { padding-inline: var(--s4); }
+  .trow .t-a { grid-area: a; } .trow .s-a { grid-area: sa; } .trow .tbar { grid-area: bar; }
+  .trow .s-h { grid-area: sh; } .trow .t-h { grid-area: h; } .trow .pk { grid-area: pk; } .trow .ou { grid-area: ou; }
   .row .s small { display: inline; margin-left: 6px; }
 
   .scoreline { gap: var(--s4); }
