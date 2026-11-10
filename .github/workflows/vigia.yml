@@ -1,0 +1,31 @@
+# Vigía de la corrida diaria. La corrida vive en una laptop: si no despierta, no tiene internet
+# o falla, nadie se entera hasta ver el sitio. Este workflow revisa cada hora si el pronóstico
+# del día ya está en el repo cuando faltan menos de 90 minutos para el primer partido; si no,
+# falla (GitHub avisa por correo) y abre un issue.
+name: Vigía de la corrida diaria
+
+on:
+  schedule:
+    - cron: "7 14-23,0-2 * * *"     # cada hora de 9 a.m. a 9 p.m. del Este (UTC); minuto 7 para evitar la hora pico
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - id: vigia
+        name: ¿Está publicado el pronóstico de hoy?
+        run: python tools/vigia.py | tee vigia.txt
+      - name: Abrir un issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --repo "$GITHUB_REPOSITORY" --title "No hay pronóstico publicado ($(date -u +%F))" --body "$(cat vigia.txt)"

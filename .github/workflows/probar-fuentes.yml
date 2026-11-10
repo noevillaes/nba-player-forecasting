@@ -1,0 +1,29 @@
+# Prueba manual (Actions > Probar fuentes de datos > Run workflow): ¿se puede leer la NBA desde
+# GitHub Actions? stats.nba.com suele bloquear las IP de la nube; cdn.nba.com (los datos "live")
+# normalmente no. El resultado decide si la corrida diaria puede mudarse de la laptop a Actions.
+name: Probar fuentes de datos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: stats.nba.com (lo que usa nba_api.stats)
+        continue-on-error: true
+        run: |
+          curl -sS -m 30 -o /dev/null -w "calendario stats.nba.com: HTTP %{http_code} en %{time_total}s\n" \
+            -H "User-Agent: Mozilla/5.0" -H "Referer: https://www.nba.com/" -H "Origin: https://www.nba.com" \
+            "https://stats.nba.com/stats/scheduleleaguev2?LeagueID=00&Season=2026-27"
+      - name: cdn.nba.com (calendario, marcador y box score en JSON estático)
+        continue-on-error: true
+        run: |
+          for u in static/json/staticData/scheduleLeagueV2.json static/json/liveData/scoreboard/todaysScoreboard_00.json; do
+            curl -sS -m 30 -o /dev/null -w "$u: HTTP %{http_code} en %{time_total}s\n" "https://cdn.nba.com/$u"
+          done
+      - name: ESPN (líneas, horarios y lesiones)
+        continue-on-error: true
+        run: |
+          curl -sS -m 30 -o /dev/null -w "ESPN scoreboard: HTTP %{http_code} en %{time_total}s\n" \
+            "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"

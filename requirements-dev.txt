@@ -1,0 +1,10 @@
+# Lo necesario para correr las pruebas (python -m pytest): sin nba_api, kagglehub ni jupyter.
+pandas==3.0.6
+numpy==2.4.6
+pyarrow==25.0.1
+lightgbm==4.7.0
+scikit-learn==1.9.1
+scipy==1.17.1
+joblib==1.6.0
+requests==2.34.2
+pytest>=8
