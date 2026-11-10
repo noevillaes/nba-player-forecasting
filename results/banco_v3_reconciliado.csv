@@ -1,0 +1,25 @@
+cancha,stat,modelo,paso,MAE,pinball
+2025,points,v2,sin reconciliar,4.4792,1.405
+2025,points,v2,reconciliado,4.4142,1.3833
+2025,points,v3,sin reconciliar,4.4689,1.4017
+2025,points,v3,reconciliado,4.4015,1.3799
+2025,reboundsTotal,v2,sin reconciliar,1.8442,0.5773
+2025,reboundsTotal,v2,reconciliado,1.8322,0.5727
+2025,reboundsTotal,v3,sin reconciliar,1.8296,0.574
+2025,reboundsTotal,v3,reconciliado,1.8155,0.569
+2025,assists,v2,sin reconciliar,1.2996,0.4052
+2025,assists,v2,reconciliado,1.2894,0.4013
+2025,assists,v3,sin reconciliar,1.2786,0.3994
+2025,assists,v3,reconciliado,1.266,0.3952
+vivo,points,v2,sin reconciliar,4.4271,1.3875
+vivo,points,v2,reconciliado,4.4022,1.3782
+vivo,points,v3,sin reconciliar,4.4311,1.3855
+vivo,points,v3,reconciliado,4.4066,1.3775
+vivo,reboundsTotal,v2,sin reconciliar,1.8361,0.5737
+vivo,reboundsTotal,v2,reconciliado,1.8204,0.5698
+vivo,reboundsTotal,v3,sin reconciliar,1.8167,0.5707
+vivo,reboundsTotal,v3,reconciliado,1.8005,0.5668
+vivo,assists,v2,sin reconciliar,1.2991,0.4087
+vivo,assists,v2,reconciliado,1.2946,0.4072
+vivo,assists,v3,sin reconciliar,1.2692,0.3999
+vivo,assists,v3,reconciliado,1.2606,0.3977

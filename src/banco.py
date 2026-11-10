@@ -19,10 +19,10 @@ Un modelo es una función  f(fit, calib, test, cols) -> DataFrame  con, por esta
 columnas {obj}, {obj}_q10, {obj}_q90 y, opcionalmente, {obj}_q{05..95} y {obj}_media.
 
 Uso:
-    python src/banco.py                     # el modelo publicado (v2) en las dos canchas
+    python src/banco.py                     # el modelo publicado (v3) en las dos canchas
     python src/banco.py --objetivos points numMinutes
 Desde otro script:
-    import banco; banco.comparar({"v2": banco.modelo_v2, "nuevo": mi_modelo})
+    import banco; banco.comparar({"v3": banco.modelo_v3, "nuevo": mi_modelo})
 """
 import argparse
 import os
@@ -149,21 +149,33 @@ def modelo_v2(fit, calib, test, cols, objetivos=OBJETIVOS) -> pd.DataFrame:
     return out
 
 
+def _de_paquete(paq: dict, test: pd.DataFrame, objetivos: list) -> pd.DataFrame:
+    """Pronósticos de un paquete (de cualquier tipo) en el formato del banco. En los conteos de
+    un paquete "nb" agrega la media y la rejilla completa de cuantiles, para medir CRPS y PIT."""
+    import distribucion
+    import paquete as paquetes
+    partes = []
+    for obj in objetivos:
+        p = paquetes.pronosticar(paq, test, obj)
+        if paquetes.es_conteo(paq, obj):
+            mu = p[f"{obj}_media"].to_numpy()
+            for q in REJILLA:
+                p[f"{obj}_q{int(round(q * 100)):02d}"] = distribucion.cuantil(mu, paq["disp"][obj], q, paq["recal"][obj])
+        partes.append(p)
+    return pd.concat(partes, axis=1)
+
+
 def desde_paquete(ruta: str):
     """Un modelo ya entrenado (models/*.joblib) como función del banco: no vuelve a entrenar."""
     import joblib
     paq = joblib.load(ruta)
+    return lambda fit, calib, test, cols, objetivos=OBJETIVOS: _de_paquete(paq, test, objetivos)
 
-    def f(fit, calib, test, cols, objetivos=OBJETIVOS):
-        out = pd.DataFrame(index=test.index)
-        for obj in objetivos:
-            pt = predecir(paq["modelos"][obj], test[paq["cols"]], obj)
-            q = paq["ajuste"][obj]
-            out[obj] = pt[obj]
-            out[f"{obj}_q10"] = (pt[f"{obj}_q10"] - q).clip(lower=0)
-            out[f"{obj}_q90"] = pt[f"{obj}_q90"] + q
-        return out
-    return f
+
+def modelo_v3(fit, calib, test, cols, objetivos=OBJETIVOS) -> pd.DataFrame:
+    """El modelo publicado desde nov 2026: distribución completa en los conteos (paquete.py)."""
+    import paquete as paquetes
+    return _de_paquete(paquetes.entrenar(fit, calib, cols, "nb", objetivos), test, objetivos)
 
 
 # ---------------------------------------------------------------- comparar
@@ -210,7 +222,7 @@ def main():
     ap.add_argument("--objetivos", nargs="*", default=None)
     ap.add_argument("--canchas", nargs="*", default=None)
     args = ap.parse_args()
-    res = comparar({"v2": modelo_v2}, args.objetivos, args.canchas, guardar="banco_v2.csv")
+    res = comparar({"v3": modelo_v3}, args.objetivos, args.canchas, guardar="banco_v3.csv")
     resumen(res)
     t = res[(res["tipo_corte"] != "todos") & res["objetivo"].isin(["points", "numMinutes", "reboundsTotal", "assists"])]
     print("\nMejora contra el promedio de 10 partidos (%), por corte:")

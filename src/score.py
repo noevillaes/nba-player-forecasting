@@ -80,6 +80,7 @@ def marcador_jugadores(backtest: bool, sufijo: str):
         d["q10"] = m[f"{obj}_q10"]
         d["q90"] = m[f"{obj}_q90"]
         d["baseline"] = m.get(f"{obj}_base")
+        d["media"] = m.get(f"{obj}_media")        # valor esperado (v3; vacío en minutos y en versiones anteriores)
         d["real"] = m[f"{obj}_real"].where(m["estado"] == "Jugó")
         d["error_abs"] = (d["pronostico"] - d["real"]).abs()
         d["error_abs_baseline"] = (d["baseline"] - d["real"]).abs()

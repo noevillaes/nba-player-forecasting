@@ -71,9 +71,14 @@ def main():
         return
 
     corto = {v: k for k, v in NOMBRES.items()}  # "PTS" -> "points"
+    # En la v3 (tipo "nb") los conteos traen su distribución recalibrada con el PIT: aquí solo
+    # se ajusta el intervalo de los minutos, que sigue saliendo de cuantiles.
+    tipo = next((v.get("tipo") for v in t["versiones"] if v["version"] == version), None)
     ajustes, filas = {}, []
     for est, d in h.groupby("estadistica"):
         obj = corto[est]
+        if tipo == "nb" and obj != "numMinutes":
+            continue
         # ajuste [abajo, arriba] que tenía cada pronóstico cuando se publicó (antes de la v3: un número)
         usado = d["fecha"].map(lambda f: lados(registro.ajuste_vigente(t, version, f).get(obj, 0.0)))
         y, lo, hi = d["real"], d["q10"], d["q90"]

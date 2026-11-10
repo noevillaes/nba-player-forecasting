@@ -24,39 +24,49 @@ from datetime import date, timedelta
 from pathlib import Path
 
 import joblib
-import numpy as np
 import pandas as pd
 
 import disponibilidad
+import paquete as paquetes
 import registro
 from clean import temporada as temporada_de
-from conformal import entrenar, predecir, NIVEL
 from evaluate import cargar, solo_evaluables, OBJETIVOS
 from models import columnas_features, VENTANA_TRAIN
 from reconcile import factor_k, clave_k, RECONCILIADAS, VERSION_K
 
+# Lo que dice el registro (y el sitio) de una versión creada con --inicio, si no se pasa otra cosa
+DESCRIPCION = ("Distribución completa para las 15 estadísticas de conteo: media con LightGBM (Poisson) y "
+               "binomial negativa recalibrada con el PIT de la temporada anterior. De ahí salen la mediana, "
+               "el intervalo del 80%, la media y la probabilidad de superar cualquier valor. Los minutos siguen "
+               "con cuantiles. En 2025-26 y en 2026-27 (sin verlas) bajó la pérdida de cuantiles en las 15 "
+               "estadísticas (ver results/banco_dist_15.csv).")
+DESCRIPCION_EN = ("Every counting stat now gets a full probability distribution instead of three separate "
+                  "quantiles: a model for the average outcome plus a negative binomial shape, recalibrated on "
+                  "last season. The forecast, its 80% range and the chance of clearing any number all come from "
+                  "that one distribution. On the 2025-26 season and this one, neither of which it trained on, "
+                  "it scored better than v2 on all 15 stats.")
 CADA_DIAS = 28
 DIAS_VALIDACION = 14
 MIN_PARTIDOS = 300          # ~20 partidos por equipo
 LOG = Path("results/reentrenos.csv")
 
 
-def entrenar_paquete(fit, calib, calib_todos, cols) -> dict:
-    """Entrena los 48 modelos, calibra los intervalos en `calib` (jugaron) y
-    la referencia de reconciliación en `calib_todos` (incluye DNP)."""
-    paquete = {"cols": cols, "modelos": {}, "ajuste": {}}
-    for obj in OBJETIVOS:
-        mods = entrenar(fit, cols, obj)
-        pc = predecir(mods, calib[cols], obj)
-        y = calib[f"y_{obj}"]
-        E = np.maximum(pc[f"{obj}_q10"] - y, y - pc[f"{obj}_q90"])
-        paquete["modelos"][obj] = mods
-        paquete["ajuste"][obj] = float(np.quantile(E, min(1.0, NIVEL * (1 + 1 / len(E)))))
-        print(f"  {obj}: ajuste conformal {paquete['ajuste'][obj]:+.2f}")
+TIPO = "nb"      # qué tipo de paquete se entrena: "nb" (v3, distribución completa) o "cuantiles" (v1 y v2)
+
+
+def entrenar_paquete(fit, calib, calib_todos, cols, tipo: str = TIPO, heredar: dict = None) -> dict:
+    """Entrena el paquete, calibra en `calib` (jugaron) y calcula la referencia de
+    reconciliación en `calib_todos` (incluye DNP).
+    heredar: paquete "nb" del que se copian la dispersión y el mapa del PIT. Lo usa el reentrenamiento
+    mensual: sus 2 semanas de validación alcanzan para comparar errores, no para volver a
+    estimar la forma de 15 distribuciones."""
+    paquete = paquetes.entrenar(fit, calib, cols, tipo)
+    if heredar is not None and paquetes.es_nb(heredar) and paquetes.es_nb(paquete):
+        paquete["disp"], paquete["recal"] = dict(heredar["disp"]), dict(heredar["recal"])
     for stat in RECONCILIADAS:       # referencias para reconciliar puntos, rebotes y asistencias
-        pc = predecir(paquete["modelos"][stat], calib_todos[cols], stat)
+        suma = paquetes.para_sumar(paquete, calib_todos, stat)
         fuera = disponibilidad.ausentes_historicos(calib_todos)
-        paquete[clave_k(stat)] = float(factor_k(calib_todos, pc[stat], stat, fuera).median())
+        paquete[clave_k(stat)] = float(factor_k(calib_todos, suma, stat, fuera).median())
     paquete["version_k"] = VERSION_K
     return paquete
 
@@ -76,7 +86,7 @@ def registrar(reg, t, objetivo, paquete, descripcion, extra=None) -> str:
     joblib.dump(paquete, registro.MODELOS / archivo)
     t["versiones"].append({"version": v, "archivo": archivo, "creada": registro.hoy(),
                            "descripcion": descripcion, "features": len(paquete["cols"]),
-                           **(extra or {})})
+                           "tipo": paquete.get("tipo", "cuantiles"), **(extra or {})})
     t["activo"] = v
     registro.guardar(reg)
     print(f"\nActiva desde el próximo pronóstico: {v} ({archivo})")
@@ -127,13 +137,13 @@ def mensual(objetivo, hoy, forzar):
     version, ruta = registro.version_activa(objetivo)
     campeon = joblib.load(ruta)
     cols = columnas_features(fit)
-    retador = entrenar_paquete(fit, val, val_todos, cols)
+    retador = entrenar_paquete(fit, val, val_todos, cols, heredar=campeon)
 
     filas = []
     for obj in OBJETIVOS:
         y = val[f"y_{obj}"]
-        mae_c = (predecir(campeon["modelos"][obj], val[campeon["cols"]], obj)[obj] - y).abs().mean()
-        mae_r = (predecir(retador["modelos"][obj], val[cols], obj)[obj] - y).abs().mean()
+        mae_c = (paquetes.central(campeon, val, obj) - y).abs().mean()
+        mae_r = (paquetes.central(retador, val, obj) - y).abs().mean()
         filas.append({"fecha": hoy.strftime("%Y-%m-%d"), "campeon": version, "objetivo": obj,
                       "jugadores": len(y), "MAE_campeon": mae_c, "MAE_retador": mae_r,
                       "cambio_pct": (mae_r / mae_c - 1) * 100})
@@ -162,8 +172,8 @@ def main():
     ap.add_argument("--inicio", action="store_true")
     ap.add_argument("--forzar", action="store_true")
     ap.add_argument("--fecha", default=date.today().isoformat())
-    ap.add_argument("--descripcion", default="Modelo de inicio de temporada con las features actuales.")
-    ap.add_argument("--descripcion-en", default=None, help="texto en inglés para el sitio web")
+    ap.add_argument("--descripcion", default=DESCRIPCION)
+    ap.add_argument("--descripcion-en", default=DESCRIPCION_EN, help="texto en inglés para el sitio web")
     args = ap.parse_args()
     hoy = pd.Timestamp(args.fecha)
     objetivo = int(temporada_de(pd.Series([hoy])).iloc[0])

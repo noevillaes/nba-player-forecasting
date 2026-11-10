@@ -122,6 +122,8 @@ def ajustar():
     o["b_local"], o["b_visita"] = (o["b_total"] + o["b_margen"]) / 2, (o["b_total"] - o["b_margen"]) / 2
     h = pd.read_csv(PRED / "historial.csv", dtype={"gameId": str})
     h = h[(h["estadistica"] == "PTS") & (h["estado"] == "Jugó")]
+    if "media" in h:                       # desde la v3 lo que se escala es la media (la mediana es entera)
+        h["pronostico"] = h["media"].fillna(h["pronostico"])
     if "ajuste_mercado" in h:
         h["pronostico"] = h["pronostico"] / h["ajuste_mercado"].fillna(1.0)
     p = h.merge(o[["gameId", "pts_local", "pts_visita", "b_local", "b_visita"]], on="gameId")
@@ -161,6 +163,9 @@ def mezclar(juegos: pd.DataFrame, pred: pd.DataFrame, fecha: str) -> tuple[pd.Da
     j = j.merge(mk.drop(columns="fecha"), on=["local", "visitante"], how="left", suffixes=("", "_m"))
     j = j.rename(columns={"spread_local": "mercado_spread_local", "total_m": "mercado_total",
                           "prob_local_m": "mercado_prob_local", "fuente": "mercado_fuente"})
+    # un día sin ninguna línea deja estas columnas vacías y de tipo texto: sin esto, el logit truena
+    for c in ["mercado_spread_local", "mercado_total", "mercado_prob_local"]:
+        j[c] = pd.to_numeric(j[c], errors="coerce")
     hay = j["mercado_spread_local"].notna() & j["mercado_total"].notna()
     margen = -j["mercado_spread_local"] + w["spread"] * (j["spread_solo"] + j["mercado_spread_local"])
     total = j["mercado_total"] + w["total"] * (j["total_solo"] - j["mercado_total"])

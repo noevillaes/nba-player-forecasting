@@ -41,7 +41,6 @@ def test_recalibrar_corrige_una_dispersion_equivocada():
     recal = dist.ajustar_recalibracion(y[:15000], mu[:15000], mala)
     lo, hi = (dist.cuantil(mu[15000:], mala, q, recal) for q in (0.1, 0.9))
     lo0, hi0 = (dist.cuantil(mu[15000:], mala, q) for q in (0.1, 0.9))
-    yt = y[15000:]
     ancho, ancho0 = (hi - lo).mean(), (hi0 - lo0).mean()
     assert ancho < ancho0                                  # el intervalo se angosta hacia el correcto
     p = dist.pmf(9.0, mala, 300, recal)

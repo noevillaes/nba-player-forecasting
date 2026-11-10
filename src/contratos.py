@@ -10,7 +10,6 @@ partido que falta, un equipo con 4 jugadores), no pronósticos raros.
 Revisar lo ya publicado:  python src/contratos.py"""
 import glob
 
-import numpy as np
 import pandas as pd
 
 from features import OBJETIVOS

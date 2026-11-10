@@ -6,7 +6,11 @@ En vivo:    python src/predict.py --fecha 2026-10-20
 Backtest:   python src/predict.py --fecha 2026-03-10 --backtest
 
 Los features se calculan con EXACTAMENTE el mismo código que en el
-entrenamiento, así que no hay diferencias entre entrenar y pronosticar."""
+entrenamiento, así que no hay diferencias entre entrenar y pronosticar.
+
+El modelo de jugadores es un paquete (paquete.py) y predict.py funciona con cualquiera de
+sus tipos. Con la v3, cada estadística de conteo trae además su media (columnas *_media)
+y results/distribucion.json guarda la forma de su distribución."""
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -21,10 +25,10 @@ import explicar
 import features
 import game_model
 import mezcla
+import paquete as paquetes
 import registro
 import team_features
 from clean import temporada as temporada_de
-from conformal import entrenar, predecir, NIVEL
 from evaluate import datos_evaluables, agregar_b1, cargar, OBJETIVOS
 from models import columnas_features, VENTANA_TRAIN
 from reconcile import factor_k, clave_k, RECONCILIADAS, VERSION_K
@@ -112,8 +116,8 @@ def asegurar_k_mediana(paquete: dict, objetivo: int, ruta: Path) -> dict:
     todo = cargar()
     calib = todo[(todo["temporada"] == objetivo - 1) & todo["min_prom_10"].notna()]
     for s in faltan:
-        pc = predecir(paquete["modelos"][s], calib[paquete["cols"]], s)
-        paquete[clave_k(s)] = float(factor_k(calib, pc[s], s, disponibilidad.ausentes_historicos(calib)).median())
+        suma = paquetes.para_sumar(paquete, calib, s)
+        paquete[clave_k(s)] = float(factor_k(calib, suma, s, disponibilidad.ausentes_historicos(calib)).median())
     paquete["version_k"] = VERSION_K
     joblib.dump(paquete, ruta)
     return paquete
@@ -136,16 +140,7 @@ def obtener_modelo(objetivo: int) -> tuple:
              & (df["temporada"] >= objetivo - 1 - VENTANA_TRAIN)]
     cols = columnas_features(fit)
 
-    paquete = {"cols": cols, "modelos": {}, "ajuste": {}}
-    for obj in OBJETIVOS:
-        mods = entrenar(fit, cols, obj)
-        pc = predecir(mods, calib[cols], obj)
-        y = calib[f"y_{obj}"]
-        E = np.maximum(pc[f"{obj}_q10"] - y, y - pc[f"{obj}_q90"])
-        q = float(np.quantile(E, min(1.0, NIVEL * (1 + 1 / len(E)))))
-        paquete["modelos"][obj] = mods
-        paquete["ajuste"][obj] = q
-        print(f"  {obj}: ajuste conformal {q:+.2f}")
+    paquete = paquetes.entrenar(fit, calib, cols, tipo="cuantiles")
 
     MODELOS.mkdir(exist_ok=True)
     joblib.dump(paquete, ruta)
@@ -168,6 +163,17 @@ def obtener_paquete_juegos(objetivo: int) -> dict:
 
 # ---------- Pronósticos ----------
 
+def escalar(out: pd.DataFrame, paquete: dict, obj: str, factor) -> None:
+    """Multiplica el pronóstico de una estadística por un factor (total del equipo, mercado).
+    En un conteo de la v3 se escala la media y la mediana y el intervalo se recalculan de ahí."""
+    if paquetes.es_conteo(paquete, obj):
+        out[f"{obj}_media"] = out[f"{obj}_media"] * factor
+        out[f"{obj}_q10"], out[obj], out[f"{obj}_q90"] = paquetes.cuantiles(paquete, obj, out[f"{obj}_media"])
+    else:
+        for c in [obj, f"{obj}_q10", f"{obj}_q90"]:
+            out[c] = out[c] * factor
+
+
 def pronosticar(tabla: pd.DataFrame, paquete: dict, recalibracion: dict = None,
                 fuera: pd.Series = None) -> pd.DataFrame:
     """recalibracion: {objetivo: puntos} de recalibrar.py; ensancha (o angosta)
@@ -178,40 +184,46 @@ def pronosticar(tabla: pd.DataFrame, paquete: dict, recalibracion: dict = None,
                  "playerteamId", "opponentteamId", "local"]].copy()
     out["con_historial"] = tabla["min_prom_10"].notna()
     for obj in OBJETIVOS:
-        p = predecir(paquete["modelos"][obj], X, obj)
-        q = paquete["ajuste"][obj]
-        out[obj] = p[obj]
-        out[f"{obj}_q10"] = (p[f"{obj}_q10"] - q).clip(lower=0)
-        out[f"{obj}_q90"] = p[f"{obj}_q90"] + q
+        p = paquetes.pronosticar(paquete, tabla, obj)      # mediana, intervalo y, en la v3, la media
+        for c in p.columns:
+            out[c] = p[c]
         out[f"{obj}_base"] = tabla[f"b1_{obj}"]
 
     # Por qué: contribuciones del modelo central, antes de los ajustes de equipo
     for obj in explicar.EXPLICADAS:
-        out[f"pq_{obj}"] = explicar.explicar(paquete["modelos"][obj][""], X)
+        modelo, en_log = paquetes.modelo_explicable(paquete, obj)
+        out[f"pq_{obj}"] = explicar.explicar(modelo, X, en_log)
 
-    # Reconciliación con el total esperado del equipo: puntos, rebotes y asistencias
+    # Reconciliación con el total esperado del equipo: puntos, rebotes y asistencias.
+    # Se suma la media cuando la hay (v3); las medianas no se pueden sumar.
     con_hist = out["con_historial"]
     for stat, lam in RECONCILIADAS.items():
         if clave_k(stat) not in paquete:
             continue
-        k = factor_k(tabla[con_hist], out.loc[con_hist, stat], stat, fuera)
+        suma = out[f"{stat}_media"] if paquetes.es_conteo(paquete, stat) else out[stat]
+        k = factor_k(tabla[con_hist], suma[con_hist], stat, fuera)
         k_rel = (k / paquete[clave_k(stat)]).reindex(out.index).fillna(1.0).clip(0.5, 1.5)
         factor = k_rel ** lam
         if stat == "points":
             out["ajuste_equipo"] = factor
         partes = [stat] + (["reboundsOffensive", "reboundsDefensive"] if stat == "reboundsTotal" else [])
         for p in partes:
-            for c in [p, f"{p}_q10", f"{p}_q90"]:
-                out[c] = out[c] * factor
+            escalar(out, paquete, p, factor)
 
-    # Recalibración semanal con los errores en vivo (sobre el intervalo final)
+    # Recalibración semanal con los errores en vivo (sobre el intervalo final).
+    # Los conteos de la v3 no la usan: su distribución ya viene recalibrada con el PIT.
     for obj, a in (recalibracion or {}).items():
+        if paquetes.es_conteo(paquete, obj):
+            continue
         lo, hi = (a, a) if isinstance(a, (int, float)) else a     # [abajo, arriba] desde la v3
         out[f"{obj}_q10"] = np.minimum((out[f"{obj}_q10"] - lo).clip(lower=0), out[obj])
         out[f"{obj}_q90"] = np.maximum(out[f"{obj}_q90"] + hi, out[obj])
 
     columnas_num = [c for c in out.columns if c.startswith(tuple(OBJETIVOS)) and not c.startswith("pq_")]
-    out[columnas_num] = out[columnas_num].round(1)
+    medias = [c for c in columnas_num if c.endswith("_media")]
+    resto = [c for c in columnas_num if c not in medias]
+    out[resto] = out[resto].round(1)
+    out[medias] = out[medias].round(2)
     out["ajuste_equipo"] = out["ajuste_equipo"].round(3)
     return out
 
@@ -245,6 +257,20 @@ def pronosticar_juegos(fut, eq, objetivo, nombres, ausencias=None) -> pd.DataFra
     out[num] = out[num].round(1)
     out["prob_local"] = out["prob_local"].round(3)
     return out
+
+
+def guardar_distribucion(version: str, paquete: dict, ruta: str = "results/distribucion.json") -> None:
+    """Forma de la distribución de cada conteo, por versión del modelo: con esto y la media de
+    cada jugador (columna *_media) el sitio calcula P(estadística > X) sin tener el modelo."""
+    import json
+    p = Path(ruta)
+    todo = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    nuevo = paquetes.parametros(paquete)
+    if todo.get(version) == nuevo:
+        return
+    todo[version] = nuevo
+    p.parent.mkdir(exist_ok=True)
+    p.write_text(json.dumps(todo, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
 
 
 def nombres_equipos() -> pd.Series:
@@ -346,6 +372,12 @@ def main():
     # El modelo mezclado con el mercado de apuestas (solo en vivo; ver mezcla.py)
     if not args.backtest:
         juegos, pred = mezcla.mezclar(juegos, pred, str(fecha.date()))
+        if paquetes.es_conteo(paquete, "points"):       # v3: el factor va sobre la media y de ahí salen mediana e intervalo
+            pred["points_media"] = (pred["points_media"] * pred["ajuste_mercado"]).round(2)
+            pred["points_q10"], pred["points"], pred["points_q90"] = paquetes.cuantiles(
+                paquete, "points", pred["points_media"])
+    if paquetes.es_nb(paquete) and not args.backtest:
+        guardar_distribucion(version, paquete)
 
     # Contrato de datos: si algo viene roto no se escribe nada (y el vigía avisa que no hay pronóstico)
     errores, avisos = contratos.revisar_pronosticos(pred, juegos, fut["gameId"].nunique())

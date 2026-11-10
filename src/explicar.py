@@ -1,7 +1,8 @@
 """Por qué el modelo dice lo que dice: contribuciones de cada feature (SHAP de LightGBM,
 pred_contrib) agrupadas en familias que se entienden sin conocer el modelo.
 
-Para un jugador, el pronóstico central (mediana) = punto de partida + Σ contribuciones.
+Para un jugador, el pronóstico central = punto de partida + Σ contribuciones. En la v1 y la v2
+el pronóstico central es la mediana; desde la v3, la media (el valor esperado).
 El punto de partida es lo que el modelo diría de un jugador promedio; cada familia suma o
 resta a partir de ahí. Se guarda en el CSV del día como texto compacto, por estadística:
 
@@ -32,9 +33,25 @@ def familia(col: str) -> str:
     return "otros"
 
 
-def explicar(modelo, X: pd.DataFrame) -> pd.Series:
-    """Una cadena por fila: 'base|fam:+x;fam:-y' con las TOP familias de mayor peso."""
+def a_escala_natural(contrib: np.ndarray) -> np.ndarray:
+    """Contribuciones de un modelo con enlace logarítmico (Poisson), pasadas a las unidades
+    de la estadística. El modelo dice log(media) = base + Σ phi, así que
+        media - media_base = media_base · (e^Σphi - 1)
+    y cada feature recibe la parte de esa diferencia que le toca por su phi. La suma sigue
+    siendo exacta: base + Σ contribuciones = media."""
+    phi, base = contrib[:, :-1], np.exp(contrib[:, -1])
+    s = phi.sum(axis=1)
+    chico = np.abs(s) < 1e-9
+    escala = base * np.where(chico, 1.0, np.expm1(s) / np.where(chico, 1.0, s))
+    return np.column_stack([phi * escala[:, None], base])
+
+
+def explicar(modelo, X: pd.DataFrame, en_log: bool = False) -> pd.Series:
+    """Una cadena por fila: 'base|fam:+x;fam:-y' con las TOP familias de mayor peso.
+    en_log: el modelo predice el logaritmo de la media (v3); se convierte a unidades reales."""
     contrib = modelo.predict(X, pred_contrib=True)        # n × (features + 1); la última es la base
+    if en_log:
+        contrib = a_escala_natural(contrib)
     fam = pd.Series([familia(c) for c in X.columns])
     por_fam = pd.DataFrame(contrib[:, :-1], columns=X.columns).T.groupby(fam.values).sum().T
     base = contrib[:, -1]
