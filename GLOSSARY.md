@@ -58,6 +58,10 @@ _Avoid_: Elo, poder
 Un diseño del modelo de jugadores o de partidos (features, tipo de modelo), nombrado siempre con su modelo: "jugadores v3", "partidos v2". Un reentreno del mismo diseño es una subversión (v3.1, v3.2).
 _Avoid_: "la v3" sin decir de qué modelo, modelo (para una versión)
 
+**Diseño de features**:
+El criterio con que se calculan los features de un jugador. "Por filas" (jugadores v1 a v3): las ventanas recorren filas del box score. "Jugados" (jugadores v4): las ventanas recorren partidos jugados y la ausencia se mide con el calendario del equipo.
+_Avoid_: feature set, familia de features (las familias son los grupos del "por qué")
+
 **Campeón**:
 La versión activa del modelo de jugadores, la que se publica.
 _Avoid_: modelo actual, producción
