@@ -1,0 +1,3 @@
+# Jugadores v3: distribución completa (media Poisson + binomial negativa recalibrada)
+
+Para las 15 estadísticas de conteo, el modelo de jugadores dejó de dar tres cuantiles sueltos (q10, q50, q90 con ajuste conformal, v1 y v2) y da una distribución discreta completa: la media con LightGBM Poisson, la dispersión como binomial negativa (varianza = μ + μ²/r, con log r lineal en log μ) y una recalibración del PIT en la temporada de calibración. Se eligió porque de una sola distribución salen la media (que sí se puede sumar al total del equipo), la mediana entera, el intervalo del 80% y P(estadística > X) coherentes entre sí, y porque mejoró la pérdida de cuantiles en 2025-26 y en vivo. Los minutos siguen con cuantiles + conformal.
