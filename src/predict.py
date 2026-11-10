@@ -15,6 +15,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
+import contratos
 import disponibilidad
 import explicar
 import features
@@ -58,6 +59,14 @@ def filas_vivo(fecha: pd.Timestamp) -> pd.DataFrame:
     nombre = fut["jugador"].str.split(" ", n=1)
     fut["firstName"], fut["lastName"] = nombre.str[0], nombre.str[1]
     return fut.drop(columns="jugador")
+
+
+def ya_empezaron(fut: pd.DataFrame, ahora: pd.Timestamp = None) -> pd.Series:
+    """True para las filas de partidos que ya empezaron (el calendario viene en hora del Este).
+    Un pronóstico solo vale si se publica antes del salto inicial."""
+    if ahora is None:
+        ahora = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
+    return fut["gameDateTimeEst"] <= ahora
 
 
 def vaciar(fut: pd.DataFrame) -> pd.DataFrame:
@@ -147,9 +156,9 @@ def obtener_paquete_juegos(objetivo: int) -> dict:
     ruta = MODELOS / f"juegos_{objetivo}.joblib"
     if ruta.exists():
         paq = joblib.load(ruta)
-        if "aus_coef" in paq:
+        if paq.get("version") == game_model.VERSION:
             return paq
-        print("El modelo de partidos no tiene el ajuste por ausencias: se recalibra (solo esta vez)...")
+        print(f"El modelo de partidos guardado no es la versión {game_model.VERSION}: se recalibra (solo esta vez)...")
     print(f"Calibrando el modelo de partidos para {objetivo} (solo esta vez)...")
     paq = game_model.entrenar_paquete(game_model.historico(), objetivo)
     MODELOS.mkdir(exist_ok=True)
@@ -212,6 +221,10 @@ def pronosticar_juegos(fut, eq, objetivo, nombres, ausencias=None) -> pd.DataFra
          .drop_duplicates(["gameId", "playerteamId"])
          .rename(columns={"playerteamId": "teamId", "opponentteamId": "opponentTeamId"}))
     d = game_model.con_ausencias(game_model.tabla_equipos(t, eq), ausencias)
+    # rating de cada equipo con todos los partidos jugados antes de hoy
+    jugados = team_features.cargar_equipos()
+    jugados = jugados[jugados["gameDateTimeEst"] < t["gameDateTimeEst"].min().normalize()]
+    d = game_model.con_rating(d, team_features.metricas_por_partido(jugados))
     j = game_model.pronosticar_partidos(d, obtener_paquete_juegos(objetivo))
     out = pd.DataFrame({
         "fecha": j["gameDateTimeEst_local"].dt.normalize(),
@@ -262,6 +275,8 @@ def main():
     ap.add_argument("--fecha", required=True, help="AAAA-MM-DD")
     ap.add_argument("--backtest", action="store_true",
                     help="fingir que es esa fecha y comparar con lo real")
+    ap.add_argument("--forzar", action="store_true",
+                    help="reescribir aunque ya haya empezado algún partido (solo para pruebas)")
     args = ap.parse_args()
 
     fecha = pd.Timestamp(args.fecha)
@@ -280,7 +295,19 @@ def main():
         reales = dia[["personId", "gameId", "jugo"] + OBJETIVOS].copy()
         fut = vaciar(dia)
     else:
-        fut = vaciar(filas_vivo(fecha))
+        fut = filas_vivo(fecha)
+        # Candado: lo publicado antes del salto no se reescribe después, y un partido que ya
+        # empezó no recibe pronóstico (en oct 2026 una segunda corrida nocturna reescribió 4 días).
+        empezo = ya_empezaron(fut)
+        if empezo.any() and not args.forzar:
+            if (SALIDA / f"{fecha.date()}.csv").exists():
+                print(f"Ya empezaron partidos del {fecha.date()} y su pronóstico ya está publicado: no se reescribe.")
+                return
+            print(f"{fut.loc[empezo, 'gameId'].nunique()} partidos ya empezaron: se quedan sin pronóstico.")
+            fut = fut[~empezo]
+            if fut.empty:
+                return
+        fut = vaciar(fut)
     hist = hist[hist["gameDateTimeEst"].dt.normalize() < fecha]
     print(f"Temporada {objetivo} | {fut['gameId'].nunique()} partidos | "
           f"{len(fut)} jugadores en plantilla")
@@ -319,6 +346,13 @@ def main():
     # El modelo mezclado con el mercado de apuestas (solo en vivo; ver mezcla.py)
     if not args.backtest:
         juegos, pred = mezcla.mezclar(juegos, pred, str(fecha.date()))
+
+    # Contrato de datos: si algo viene roto no se escribe nada (y el vigía avisa que no hay pronóstico)
+    errores, avisos = contratos.revisar_pronosticos(pred, juegos, fut["gameId"].nunique())
+    for a in avisos:
+        print(f"Aviso: {a}")
+    if errores:
+        raise SystemExit("Contrato de datos roto; no se publica:\n  - " + "\n  - ".join(errores))
 
     ruta = SALIDA / f"{fecha.date()}{sufijo}.csv"
     pred.to_csv(ruta, index=False)
