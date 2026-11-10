@@ -240,8 +240,12 @@
     <div class="wrap method">
       <div class="prose">
         <h2>Player forecasts</h2>
-        <p>For every player on each roster, a LightGBM model forecasts 16 box-score stats. It's trained with quantile
-          loss at the 10th, 50th and 90th percentiles: the 50th is the forecast, and the other two form the 80% range.</p>
+        <p>For every player on each roster, the model forecasts 16 box-score stats. For the 15 counting stats it
+          doesn't predict one number but a full probability distribution: a LightGBM model estimates the average
+          outcome, and a negative binomial distribution fitted on last season describes the spread around it. The
+          number shown is the median of that distribution and the range holds at least 80% of it. Both are whole
+          numbers, because nobody scores 23.4 points. Minutes come from quantile models at the 10th, 50th and 90th
+          percentiles.</p>
         <p>The model sees each player's recent form at several speeds: averages over his last 3, 5, 10 and 20 games,
           smoothed averages that fade older games gradually, and per-minute production over the last 82 games. Short
           windows catch role changes within days, like a starter moved to the bench. Long ones keep a hot or cold
@@ -252,16 +256,17 @@
         <p>That's also how it handles who's missing. Players listed out or doubtful on the morning injury report get
           no forecast and don't count toward the team's total, so what they usually produce goes to the teammates who
           do play. On this season's games so far, that cut the error on points from 4.39 to 4.38.</p>
-        <p>Each box score also shows why: the central forecast for points, rebounds and assists, starting from a
-          typical player and broken into what moved it, like recent production, minutes and role, teammates out or
-          the opponent.</p>
+        <p>Each box score also shows why: the average outcome for points, rebounds and assists, starting from a
+          typical player and broken into what moved it, like recent production, minutes and role, or the opponent.</p>
 
         <h2>Ranges that stay honest</h2>
-        <p>The ranges are calibrated with conformalized quantile regression, so about 8 in 10 actual values should
-          land inside them. At the start of the season the calibration uses the previous season. Once a week it's
-          redone with the last 28 days of live forecasts, which the model never saw, so the ranges adapt if this
-          season is more or less predictable than the last. Each end of the range is adjusted on its own, so misses
-          don't pile up on one side.</p>
+        <p>Each distribution is checked against last season, which the model never trained on: if what it calls
+          the 90th percentile turned out to be the 89th, the 89th is used. Because the ranges are whole numbers they
+          hold at least 80% of the outcomes, and more for low-count stats like steals and blocks, where a range
+          can't be narrower than 0 to 1.</p>
+        <p>The minutes range is calibrated with conformalized quantile regression. Once a week it's redone with the
+          last 28 days of live forecasts, which the model never saw, and each end of the range is adjusted on its
+          own, so misses don't pile up on one side.</p>
 
         <h2>A model that learns during the season</h2>
         <p>Once a month a challenger model is trained with everything up to two weeks ago, this season included. Both
@@ -269,10 +274,12 @@
           makes less error. Each forecast records which version made it.</p>
 
         <h2>Game forecasts</h2>
-        <p>Team scores come from a structural formula: expected pace times each team's offensive and defensive
-          efficiency, plus home-court advantage, minus what the players ruled out usually score. In validation it
-          beat a gradient-boosted model. Win probabilities
-          are calibrated with Platt scaling. A Brier score of 0.250 is what a coin flip would get.</p>
+        <p>Each team carries three ratings, offense, defense and pace, that move a little after every game, the way
+          an Elo rating does, and drift back toward average between seasons. A team's expected score is the expected
+          pace times its offense against the opponent's defense, plus home court and an adjustment for back-to-backs.
+          Over seven seasons it had never seen, it missed the final margin by 10.9 points on average, against 11.2
+          for the 10-game formula it replaced on Nov 10. Win probabilities are calibrated with Platt scaling. A Brier
+          score of 0.250 is what a coin flip would get.</p>
 
         <h2>What it's compared against</h2>
         <p>Every player stat is compared with that player's average over his last 10 games, a simple forecast that's
@@ -305,7 +312,7 @@
         <ol class="steps">
           <li><b>Pull new data</b><span>Schedule, rosters and last night's box scores from the NBA stats API.</span></li>
           <li><b>Build features</b><span>Rolling player and team features from every game played so far.</span></li>
-          <li><b>Recalibrate ranges</b><span>Once a week, with the last 28 days of live errors.</span></li>
+          <li><b>Recalibrate ranges</b><span>Once a week, the minutes ranges, with the last 28 days of live errors.</span></li>
           <li><b>Forecast players</b><span>16 stats per player with 80% ranges, without the players ruled out, reconciled with the team scores.</span></li>
           <li><b>Forecast games</b><span>Team scores, total, margin and win probability.</span></li>
           <li><b>Blend with the market</b><span>Game forecasts are combined with the morning's sportsbook lines, weighted by how each has done this season; player points follow their team's blended score.</span></li>

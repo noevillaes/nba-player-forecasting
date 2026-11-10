@@ -15,9 +15,19 @@
         "features": 113,
         "protocolo": "inicio de temporada",
         "descripcion_en": "Adds 36 features: role changes (minutes over the last 3 games, minutes trend, started and played the previous game) and long-run per-minute production (last 82 games and a smoothed average). On the 2024-25 and 2025-26 seasons, which it didn't train on, it cut the error on all 16 stats, by 0.3% to 0.9%."
+      },
+      {
+        "version": "v3",
+        "archivo": "modelo_2026_v3.joblib",
+        "creada": "2026-11-10",
+        "descripcion": "Distribución completa para las 15 estadísticas de conteo: media con LightGBM (Poisson) y binomial negativa recalibrada con el PIT de la temporada anterior. De ahí salen la mediana, el intervalo del 80%, la media y la probabilidad de superar cualquier valor. Los minutos siguen con cuantiles. En 2025-26 y en 2026-27 (sin verlas) bajó la pérdida de cuantiles en las 15 estadísticas (ver results/banco_dist_15.csv).",
+        "features": 113,
+        "tipo": "nb",
+        "protocolo": "inicio de temporada",
+        "descripcion_en": "Every counting stat now gets a full probability distribution instead of three separate quantiles: a model for the average outcome plus a negative binomial shape, recalibrated on last season. The forecast, its 80% range and the chance of clearing any number all come from that one distribution. On the 2025-26 season and this one, neither of which it trained on, it scored better than v2 on all 15 stats."
       }
     ],
-    "activo": "v2",
+    "activo": "v3",
     "recalibraciones": [
       {
         "desde": "2026-11-01",

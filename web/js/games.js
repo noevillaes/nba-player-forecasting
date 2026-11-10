@@ -250,7 +250,7 @@ function renderBox(g, day) {
   $("#team-note").textContent = players.length
     ? `${players.length} players, ${Math.round(pts)} projected points between them` +
       (isNum(adj) ? `, scaled ×${adj.toFixed(3)} toward the team-score forecast.` : ".") +
-      (hurt.length ? ` ${hurt.length} on the morning injury report; the model doesn't account for injuries yet.` : "")
+      (hurt.length ? ` ${hurt.length} on the morning injury report; players listed out or doubtful get no forecast.` : "")
     : "";
 
   table.tHead.innerHTML = head();
