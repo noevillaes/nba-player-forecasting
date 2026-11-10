@@ -41,7 +41,7 @@ def main():
         calib = df[df["temporada"] == t - 1]
         test = df[df["temporada"] == t]
         print(f"\nTemporada {t}: {len(fit):,} para entrenar, {len(test):,} de prueba")
-        for nombre, cols in variantes(columnas_features(fit)).items():
+        for nombre, cols in variantes(columnas_features(fit, "filas")).items():
             for obj in OBJETIVOS:
                 mods = entrenar(fit, cols, obj)
                 pc = predecir(mods, calib[cols], obj)

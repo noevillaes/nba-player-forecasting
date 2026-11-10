@@ -73,7 +73,7 @@ def main():
         fit = df[(df["temporada"] < t - 1)
                  & (df["temporada"] >= t - 1 - VENTANA_TRAIN)
                  & (df["y_jugo"] == 1)]
-        cols = columnas_features(fit)
+        cols = columnas_features(fit, "filas")      # el experimento original, con sus features
         mods = entrenar(fit, cols, OBJ)
 
         calib = df[df["temporada"] == t - 1]

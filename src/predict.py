@@ -113,7 +113,7 @@ def asegurar_k_mediana(paquete: dict, objetivo: int, ruta: Path) -> dict:
     if not faltan:
         return paquete
     print(f"Calculando la referencia para reconciliar {', '.join(faltan)} (solo esta vez)...")
-    todo = cargar()
+    todo = cargar(desde=objetivo - 2)
     calib = todo[(todo["temporada"] == objetivo - 1) & todo["min_prom_10"].notna()]
     for s in faltan:
         suma = paquetes.para_sumar(paquete, calib, s)
@@ -138,7 +138,7 @@ def obtener_modelo(objetivo: int) -> tuple:
     calib = df[df["temporada"] == objetivo - 1]
     fit = df[(df["temporada"] < objetivo - 1)
              & (df["temporada"] >= objetivo - 1 - VENTANA_TRAIN)]
-    cols = columnas_features(fit)
+    cols = columnas_features(fit, "filas")      # la v1 es de antes del diseño "jugados"
 
     paquete = paquetes.entrenar(fit, calib, cols, tipo="cuantiles")
 
@@ -310,7 +310,9 @@ def main():
     sufijo = "_backtest" if args.backtest else ""
 
     hist = pd.read_parquet(CLEAN)
-    hist = hist[hist["temporada"] >= objetivo - 2]
+    # 4 temporadas de historia: las ventanas largas (82 partidos jugados) de un jugador que ha jugado
+    # poco alcanzan hasta donde alcanzaban al entrenar
+    hist = hist[hist["temporada"] >= objetivo - 4]
     es_dia = hist["gameDateTimeEst"].dt.normalize() == fecha
 
     reales = None

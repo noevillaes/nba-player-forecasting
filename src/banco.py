@@ -19,10 +19,10 @@ Un modelo es una función  f(fit, calib, test, cols) -> DataFrame  con, por esta
 columnas {obj}, {obj}_q10, {obj}_q90 y, opcionalmente, {obj}_q{05..95} y {obj}_media.
 
 Uso:
-    python src/banco.py                     # el modelo publicado (v3) en las dos canchas
+    python src/banco.py                     # el modelo publicado (v4) en las dos canchas
     python src/banco.py --objetivos points numMinutes
 Desde otro script:
-    import banco; banco.comparar({"v3": banco.modelo_v3, "nuevo": mi_modelo})
+    import banco; banco.comparar({"v4": banco.modelo_v4, "nuevo": mi_modelo})
 """
 import argparse
 import os
@@ -46,7 +46,7 @@ def tabla() -> pd.DataFrame:
     """Todas las filas con historial (incluye los que no jugaron). Se carga una sola vez."""
     global _tabla
     if _tabla is None:
-        t = cargar()
+        t = cargar(desde=min(CANCHAS.values()) - 2 - VENTANA_TRAIN)      # una de más, para el baseline b1
         _tabla = t[t["temporada"] >= min(CANCHAS.values()) - 1 - VENTANA_TRAIN].copy()
         # cortes que no dependen del modelo que se esté probando
         _tabla["corte_sin_jugar_5"] = (1 - _tabla["y_jugo"]).groupby(_tabla["personId"]).transform(
@@ -133,8 +133,9 @@ def cortes(test: pd.DataFrame) -> dict:
 
 # ---------------------------------------------------------------- el modelo publicado
 def modelo_v2(fit, calib, test, cols, objetivos=OBJETIVOS) -> pd.DataFrame:
-    """LightGBM por cuantiles (q10, q50, q90) + ajuste conformal en la temporada de calibración.
-    Igual que conformal.py / reentrenar.inicio: es lo que corre en vivo, sin reconciliar."""
+    """Jugadores v2: LightGBM por cuantiles (q10, q50, q90) + ajuste conformal en la temporada de
+    calibración, con las features "por filas". Sin reconciliar."""
+    cols = columnas_features(fit, "filas")
     out = pd.DataFrame(index=test.index)
     for obj in objetivos:
         mods = entrenar(fit, cols, obj)
@@ -173,9 +174,15 @@ def desde_paquete(ruta: str):
 
 
 def modelo_v3(fit, calib, test, cols, objetivos=OBJETIVOS) -> pd.DataFrame:
-    """El modelo publicado desde nov 2026: distribución completa en los conteos (paquete.py)."""
+    """Jugadores v3: distribución completa en los conteos (paquete.py), features "por filas"."""
     import paquete as paquetes
-    return _de_paquete(paquetes.entrenar(fit, calib, cols, "nb", objetivos), test, objetivos)
+    return _de_paquete(paquetes.entrenar(fit, calib, columnas_features(fit, "filas"), "nb", objetivos), test, objetivos)
+
+
+def modelo_v4(fit, calib, test, cols, objetivos=OBJETIVOS) -> pd.DataFrame:
+    """Jugadores v4: la v3 con las features sobre partidos jugados y calendario del equipo."""
+    import paquete as paquetes
+    return _de_paquete(paquetes.entrenar(fit, calib, columnas_features(fit, "jugados"), "nb", objetivos), test, objetivos)
 
 
 # ---------------------------------------------------------------- comparar
@@ -188,7 +195,6 @@ def comparar(modelos: dict, objetivos: list = None, canchas: list = None, guarda
     for cancha in canchas or list(CANCHAS):
         fit, calib, test = partes(CANCHAS[cancha], hasta_vivo if cancha == "vivo" else None)
         cols = columnas_features(fit)
-        cols = [c for c in cols if not c.startswith("corte_")]      # los cortes no son features
         print(f"\n[{cancha}] entrena {len(fit):,} | calibra {len(calib):,} | prueba {len(test):,} | {len(cols)} features")
         for nombre, fn in modelos.items():
             fn = fn[cancha] if isinstance(fn, dict) else fn
@@ -222,7 +228,7 @@ def main():
     ap.add_argument("--objetivos", nargs="*", default=None)
     ap.add_argument("--canchas", nargs="*", default=None)
     args = ap.parse_args()
-    res = comparar({"v3": modelo_v3}, args.objetivos, args.canchas, guardar="banco_v3.csv")
+    res = comparar({"v4": modelo_v4}, args.objetivos, args.canchas, guardar="banco_v4.csv")
     resumen(res)
     t = res[(res["tipo_corte"] != "todos") & res["objetivo"].isin(["points", "numMinutes", "reboundsTotal", "assists"])]
     print("\nMejora contra el promedio de 10 partidos (%), por corte:")

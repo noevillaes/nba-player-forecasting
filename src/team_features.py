@@ -5,7 +5,6 @@ al partido (shift(1) antes de cualquier ventana).
 construir_equipos() acepta partidos futuros: se agregan sin estadísticas
 y reciben, vía shift(1), el promedio de sus partidos anteriores."""
 from datos import leer
-import numpy as np
 import pandas as pd
 
 RAW = "data/raw"
@@ -94,20 +93,24 @@ def construir_equipos(t: pd.DataFrame, futuros: pd.DataFrame = None) -> pd.DataF
 
 
 def unir(p: pd.DataFrame, eq: pd.DataFrame) -> pd.DataFrame:
-    """Une las features de equipo dos veces: propio_ y rival_."""
-    p = p.copy()
+    """Une las features de equipo dos veces: propio_ y rival_.
+    Las columnas de equipo se buscan por (partido, equipo) y se pegan a la tabla de jugadores;
+    un merge de la tabla completa (1996 a hoy) la copiaba dos veces en memoria."""
+    p = p.copy(deep=False)         # con copy-on-write (pandas 3) solo se copian las columnas que cambian
     eq = eq.copy()
     for c in ["gameId", "playerteamId", "opponentteamId"]:
         p[c] = p[c].astype("Int64")
     eq[["gameId", "teamId"]] = eq[["gameId", "teamId"]].astype("Int64")
+    assert not eq.duplicated(["gameId", "teamId"]).any(), "Equipo duplicado en las features de equipo"
 
-    propio = eq.add_prefix("propio_").rename(
-        columns={"propio_gameId": "gameId", "propio_teamId": "playerteamId"})
-    rival = eq.add_prefix("rival_").rename(
-        columns={"rival_gameId": "gameId", "rival_teamId": "opponentteamId"})
-    p = p.merge(propio, on=["gameId", "playerteamId"], how="left", validate="m:1")
-    p = p.merge(rival, on=["gameId", "opponentteamId"], how="left", validate="m:1")
-    return p
+    eq = eq.set_index(["gameId", "teamId"])
+    partes = []
+    for prefijo, equipo in (("propio_", "playerteamId"), ("rival_", "opponentteamId")):
+        llave = pd.MultiIndex.from_arrays([p["gameId"], p[equipo]])
+        x = eq.reindex(llave).add_prefix(prefijo)
+        x.index = p.index
+        partes.append(x)
+    return pd.concat([p] + partes, axis=1)
 
 
 def main():

@@ -1,0 +1,19 @@
+cancha,stat,pesos,MAE,pinball,k_ref,k_rel_medio
+2025,points,sin reconciliar,4.4565,1.3989,,
+2025,points,filas,4.3926,1.3781,1.0355,1.0391
+2025,points,calendario,4.4194,1.3859,1.1526,1.0492
+2025,reboundsTotal,sin reconciliar,1.8291,0.5738,,
+2025,reboundsTotal,filas,1.8156,0.5684,1.0515,1.021
+2025,reboundsTotal,calendario,1.8239,0.5713,1.1723,1.0307
+2025,assists,sin reconciliar,1.2771,0.3987,,
+2025,assists,filas,1.2628,0.3943,1.0246,1.0389
+2025,assists,calendario,1.2735,0.3967,1.1387,1.0499
+vivo,points,sin reconciliar,4.4206,1.3828,,
+vivo,points,filas,4.3948,1.3733,1.0322,1.0355
+vivo,points,calendario,4.5317,1.4162,1.1515,1.1523
+vivo,reboundsTotal,sin reconciliar,1.8142,0.5705,,
+vivo,reboundsTotal,filas,1.7976,0.5657,1.0362,1.0406
+vivo,reboundsTotal,calendario,1.8511,0.5825,1.1608,1.1663
+vivo,assists,sin reconciliar,1.2714,0.3995,,
+vivo,assists,filas,1.266,0.3977,1.0293,1.0358
+vivo,assists,calendario,1.2794,0.4026,1.1535,1.1434

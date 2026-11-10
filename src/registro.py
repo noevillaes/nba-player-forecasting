@@ -52,8 +52,20 @@ def version_activa(objetivo: int) -> tuple:
     return v["version"], MODELOS / v["archivo"]
 
 
-def siguiente_version(t: dict) -> str:
-    return f"v{max(int(v['version'][1:]) for v in t['versiones']) + 1}"
+def partes_version(nombre: str) -> tuple:
+    """'v3' -> (3, 0); 'v3.2' -> (3, 2)."""
+    mayor, _, menor = nombre[1:].partition(".")
+    return int(mayor), int(menor or 0)
+
+
+def siguiente_version(t: dict, subversion: bool = False) -> str:
+    """Un diseño nuevo (features o tipo de modelo) sube el número: v3 -> v4.
+    Un reentreno del mismo diseño es una subversión del activo: v3 -> v3.1 -> v3.2."""
+    todas = [partes_version(v["version"]) for v in t["versiones"]]
+    if not subversion:
+        return f"v{max(m for m, _ in todas) + 1}"
+    mayor = partes_version(t["activo"])[0]
+    return f"v{mayor}.{max(n for m, n in todas if m == mayor) + 1}"
 
 
 def ajuste_vigente(t: dict, version: str, fecha: str) -> dict:

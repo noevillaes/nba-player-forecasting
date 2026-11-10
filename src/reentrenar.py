@@ -27,6 +27,7 @@ import joblib
 import pandas as pd
 
 import disponibilidad
+import features
 import paquete as paquetes
 import registro
 from clean import temporada as temporada_de
@@ -35,16 +36,16 @@ from models import columnas_features, VENTANA_TRAIN
 from reconcile import factor_k, clave_k, RECONCILIADAS, VERSION_K
 
 # Lo que dice el registro (y el sitio) de una versión creada con --inicio, si no se pasa otra cosa
-DESCRIPCION = ("Distribución completa para las 15 estadísticas de conteo: media con LightGBM (Poisson) y "
-               "binomial negativa recalibrada con el PIT de la temporada anterior. De ahí salen la mediana, "
-               "el intervalo del 80%, la media y la probabilidad de superar cualquier valor. Los minutos siguen "
-               "con cuantiles. En 2025-26 y en 2026-27 (sin verlas) bajó la pérdida de cuantiles en las 15 "
-               "estadísticas (ver results/banco_dist_15.csv).")
-DESCRIPCION_EN = ("Every counting stat now gets a full probability distribution instead of three separate "
-                  "quantiles: a model for the average outcome plus a negative binomial shape, recalibrated on "
-                  "last season. The forecast, its 80% range and the chance of clearing any number all come from "
-                  "that one distribution. On the 2025-26 season and this one, neither of which it trained on, "
-                  "it scored better than v2 on all 15 stats.")
+DESCRIPCION = ("La v3 con las features calculadas sobre partidos jugados y el calendario del equipo, en vez de "
+               "sobre filas del box score: ya no dependen de cuántas filas de \"no jugó\" trae la fuente (en vivo "
+               "trae más que el histórico). En 2025-26 y en 2026-27 (sin verlas) bajó el error en minutos (0.6% y "
+               "0.9%) y en puntos (0.3% y 0.4%); en las demás estadísticas el cambio es chico "
+               "(ver results/banco_v4.csv).")
+DESCRIPCION_EN = ("Same model as v3, but every recent-form number is now computed over games the player actually "
+                  "played, and time missed is counted on his team's schedule. Before, a player coming back from an "
+                  "injury looked different in live data than in the history the model learned from. On last season "
+                  "and this one, neither of which it trained on, it cut the error on minutes by 0.6% and 0.9% and "
+                  "on points by 0.3% and 0.4%.")
 CADA_DIAS = 28
 DIAS_VALIDACION = 14
 MIN_PARTIDOS = 300          # ~20 partidos por equipo
@@ -74,13 +75,13 @@ def entrenar_paquete(fit, calib, calib_todos, cols, tipo: str = TIPO, heredar: d
 def tablas(objetivo):
     """(todas las filas con historial, solo las evaluables) de las temporadas
     que se usan. Se carga una sola vez para no duplicar memoria."""
-    todos = cargar()
+    todos = cargar(desde=objetivo - 2 - VENTANA_TRAIN)        # una temporada de más, para el baseline b1
     todos = todos[(todos["temporada"] >= objetivo - 1 - VENTANA_TRAIN) & todos["min_prom_10"].notna()]
     return todos, solo_evaluables(todos)
 
 
-def registrar(reg, t, objetivo, paquete, descripcion, extra=None) -> str:
-    v = registro.siguiente_version(t)
+def registrar(reg, t, objetivo, paquete, descripcion, extra=None, subversion=False) -> str:
+    v = registro.siguiente_version(t, subversion)
     archivo = f"modelo_{objetivo}_{v}.joblib"
     registro.MODELOS.mkdir(exist_ok=True)
     joblib.dump(paquete, registro.MODELOS / archivo)
@@ -136,7 +137,8 @@ def mensual(objetivo, hoy, forzar):
 
     version, ruta = registro.version_activa(objetivo)
     campeon = joblib.load(ruta)
-    cols = columnas_features(fit)
+    # un reentreno es del mismo diseño que el campeón: mismas features, datos más recientes
+    cols = columnas_features(fit, features.diseno_de(campeon["cols"]))
     retador = entrenar_paquete(fit, val, val_todos, cols, heredar=campeon)
 
     filas = []
@@ -162,7 +164,7 @@ def mensual(objetivo, hoy, forzar):
                   f"Reentrenamiento mensual con datos hasta el {corte.date()}; "
                   f"{abs(cambio):.1f}% menos error que la {version} en las 2 semanas de validación.",
                   {"protocolo": "mensual", "datos_hasta": str(corte.date()),
-                   "cambio_vs_anterior_pct": round(cambio, 2)})
+                   "cambio_vs_anterior_pct": round(cambio, 2)}, subversion=True)
     else:
         registro.guardar(reg)
 

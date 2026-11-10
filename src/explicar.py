@@ -16,11 +16,11 @@ EXPLICADAS = ["points", "reboundsTotal", "assists"]
 TOP = 4
 FAMILIAS = [   # (familia, prefijos o nombres exactos), en orden: gana el primero que coincida
     ("descanso", ("dias_descanso", "back_to_back", "propio_dias_descanso_eq", "propio_b2b_eq",
-                  "rival_dias_descanso_eq", "rival_b2b_eq")),
+                  "rival_dias_descanso_eq", "rival_b2b_eq", "cal_dias_sin_jugar", "cal_b2b")),
     ("rival", ("rival_",)),
     ("equipo", ("propio_",)),
     ("local", ("local",)),
-    ("minutos", ("min_", "titular_", "jugo_", "uso_", "b1_numMinutes")),
+    ("minutos", ("min_", "titular_", "jugo_", "uso_", "b1_numMinutes", "cal_")),
     ("forma", ("b1_", "_pm_", "partidos_temp")),
     ("temporada", ("playoffs",)),
 ]

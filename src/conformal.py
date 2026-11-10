@@ -45,7 +45,7 @@ def correr(train, test):
     calib = train[train["temporada"] == t - 1]
     fit = train[(train["temporada"] < t - 1)
                 & (train["temporada"] >= t - 1 - VENTANA_TRAIN)]
-    cols = columnas_features(fit)
+    cols = columnas_features(fit, "filas")      # el experimento original, con sus features
 
     crudo = pd.DataFrame(index=test.index)
     conf = pd.DataFrame(index=test.index)

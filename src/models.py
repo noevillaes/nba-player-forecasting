@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import lightgbm as lgb
 
+import features
+
 from evaluate import (datos_evaluables, walk_forward, prom_10_jugados,
                       OBJETIVOS, OUT)
 
@@ -22,17 +24,19 @@ PARAMS = dict(n_estimators=400, learning_rate=0.05, num_leaves=63,
               colsample_bytree=0.8, verbose=-1)
 
 
-def columnas_features(df: pd.DataFrame) -> list:
-    """Todo lo que no es identificador ni objetivo. Las columnas b1_
-    (promedio de los últimos 10 jugados) sí entran: solo usan el pasado."""
-    return [c for c in df.columns
-            if c not in NO_FEATURES and not c.startswith("y_")]
+def columnas_features(df: pd.DataFrame, diseno: str = None) -> list:
+    """Todo lo que no es identificador ni objetivo, del diseño de features pedido
+    (features.DISENO si no se dice). Las columnas b1_ (promedio de los últimos 10
+    jugados) sí entran: solo usan el pasado."""
+    cols = [c for c in df.columns
+            if c not in NO_FEATURES and not c.startswith(("y_", "corte_"))]
+    return features.columnas_del_diseno(cols, diseno)
 
 
 def lgbm_cuantiles(train, test):
     t = test["temporada"].iloc[0]
     train = train[train["temporada"] >= t - VENTANA_TRAIN]
-    cols = columnas_features(train)
+    cols = columnas_features(train, "filas")      # el experimento original, con sus features
 
     pred = pd.DataFrame(index=test.index)
     for obj in OBJETIVOS:

@@ -29,8 +29,12 @@ def agregar_b1(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def cargar() -> pd.DataFrame:
-    return agregar_b1(pd.read_parquet(FEAT))
+def cargar(desde: int = None) -> pd.DataFrame:
+    """La tabla del modelo con el baseline b1. desde: primera temporada que se lee (la tabla
+    completa, de 1996 a hoy, ocupa varios GB en memoria). El b1 de los primeros partidos de esa
+    temporada queda vacío, así que conviene pedir una temporada antes de la que se necesita."""
+    filtros = [("temporada", ">=", desde)] if desde else None
+    return agregar_b1(pd.read_parquet(FEAT, filters=filtros))
 
 
 def solo_evaluables(df: pd.DataFrame) -> pd.DataFrame:
