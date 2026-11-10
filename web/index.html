@@ -249,7 +249,9 @@
         <p>The model sees each player's recent form at several speeds: averages over his last 3, 5, 10 and 20 games,
           smoothed averages that fade older games gradually, and per-minute production over the last 82 games. Short
           windows catch role changes within days, like a starter moved to the bench. Long ones keep a hot or cold
-          streak in proportion. All of them only use games played before the one being forecast.</p>
+          streak in proportion. All of them only use games played before the one being forecast, and only games the
+          player actually played: time missed is counted separately, on his team's schedule, so a player coming back
+          from an injury is read the same way live as in the seasons the model learned from.</p>
         <p>Points, rebounds and assists are then reconciled with what the team is expected to produce, so a roster full
           of scorers can't add up to a total no team would reach. The multiplier shown above each box score is the
           adjustment on points.</p>

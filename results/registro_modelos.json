@@ -25,9 +25,19 @@
         "tipo": "nb",
         "protocolo": "inicio de temporada",
         "descripcion_en": "Every counting stat now gets a full probability distribution instead of three separate quantiles: a model for the average outcome plus a negative binomial shape, recalibrated on last season. The forecast, its 80% range and the chance of clearing any number all come from that one distribution. On the 2025-26 season and this one, neither of which it trained on, it scored better than v2 on all 15 stats."
+      },
+      {
+        "version": "v4",
+        "archivo": "modelo_2026_v4.joblib",
+        "creada": "2026-11-10",
+        "descripcion": "La v3 con las features calculadas sobre partidos jugados y el calendario del equipo, en vez de sobre filas del box score: ya no dependen de cuántas filas de \"no jugó\" trae la fuente (en vivo trae más que el histórico). En 2025-26 y en 2026-27 (sin verlas) bajó el error en minutos (0.6% y 0.9%) y en puntos (0.3% y 0.4%); en las demás estadísticas el cambio es chico (ver results/banco_v4.csv).",
+        "features": 115,
+        "tipo": "nb",
+        "protocolo": "inicio de temporada",
+        "descripcion_en": "Same model as v3, but every recent-form number is now computed over games the player actually played, and time missed is counted on his team's schedule. Before, a player coming back from an injury looked different in live data than in the history the model learned from. On last season and this one, neither of which it trained on, it cut the error on minutes by 0.6% and 0.9% and on points by 0.3% and 0.4%."
       }
     ],
-    "activo": "v3",
+    "activo": "v4",
     "recalibraciones": [
       {
         "desde": "2026-11-01",
