@@ -326,45 +326,56 @@ function paintTick() {
 /* ================================================================== */
 /* Count up                                                           */
 /* ================================================================== */
-const NUM = /\d[\d,]*(?:\.\d+)?/g;
-function countUp(root, sel, dur = 1000) {
-  if (still()) return;
+// a number on its own: never the digits inside a word, so "76ers" or "3PM" stay as they are
+const NUM = /(?<![A-Za-z\d.])\d[\d,]*(?:\.\d+)?(?![A-Za-z\d])/g;
+const toNum = (m) => parseFloat(m.replace(/,/g, ""));
+/** Count the numbers in `sel` up to their values. When `from` holds the numbers the region showed
+ *  before (same count), they roll from those instead of from zero, so a new day reads as a change.
+ *  Returns the final numbers, for the next call. */
+function countUp(root, sel, dur = 1000, from = null) {
+  const nodes = [];
   for (const el of $$(sel, root)) {
     const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    const nodes = [];
     while (tw.nextNode()) {
       const n = tw.currentNode;
       if (n.parentElement.closest("small") || n.data.includes(":") || !/\d/.test(n.data)) continue;
       nodes.push({ n, orig: n.data });
     }
-    if (!nodes.length) continue;
-    const t0 = performance.now();
-    const tick = (now) => {
-      const t = clamp((now - t0) / dur), e = easeOut(t);
-      for (const { n, orig } of nodes) {
-        n.data = t >= 1 ? orig : orig.replace(NUM, (m) => {
-          const dec = (m.split(".")[1] || "").length;
-          const v = parseFloat(m.replace(/,/g, "")) * e;
-          return m.includes(",") ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }) : v.toFixed(dec);
-        });
-      }
-      if (t < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
   }
+  const finals = nodes.flatMap(({ orig }) => [...orig.matchAll(NUM)].map((m) => toNum(m[0])));
+  const start = from && from.length === finals.length ? from : null;
+  if (still() || !finals.length || (start && start.every((v, k) => v === finals[k]))) return finals;
+  const t0 = performance.now();
+  const tick = (now) => {
+    const t = clamp((now - t0) / dur), e = easeOut(t);
+    let k = 0;
+    for (const { n, orig } of nodes) {
+      n.data = t >= 1 ? orig : orig.replace(NUM, (m) => {
+        const dec = (m.split(".")[1] || "").length;
+        const to = finals[k], fr = start ? start[k] : 0;
+        k++;
+        const v = fr + (to - fr) * e;
+        return m.includes(",") ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }) : v.toFixed(dec);
+      });
+    }
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+  return finals;
 }
 /** Count whenever a region is re-rendered with different content. */
 function watchCount(container, sel, dur) {
   if (!container) return;
-  let seen = "";
+  let seen = "", prev = null;
+  const run = () => { prev = countUp(container, sel, dur, prev); };
   const go = () => {
     const html = container.innerHTML;
     if (!html || html === seen) return;
     seen = html;
     const r = container.getBoundingClientRect();
-    if (r.top < innerHeight && r.bottom > 0) countUp(container, sel, dur);
+    if (r.top < innerHeight && r.bottom > 0) run();
     else {
-      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); countUp(container, sel, dur); } });
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); run(); } });
       io.observe(container);
     }
   };
@@ -383,7 +394,8 @@ function decode(el) {
   while (tw.nextNode()) if (tw.currentNode.data.trim()) node = tw.currentNode;
   if (!node) return;
   const orig = node.data;
-  if (!el.hasAttribute("aria-label") && el.matches("button")) el.setAttribute("aria-label", el.textContent.trim());
+  // screen readers keep the real name while the letters scramble
+  if (!el.hasAttribute("aria-label")) el.setAttribute("aria-label", el.textContent.trim());
   el.dataset.decoding = "1";
   const t0 = performance.now(), dur = 420;
   const tick = (now) => {
@@ -482,6 +494,33 @@ function spotlight() {
 }
 
 /* ================================================================== */
+/* Sliding indicators: the tab underline and the segmented-control    */
+/* thumb travel to the new choice instead of jumping                  */
+/* ================================================================== */
+function slider(box, itemSel, isOn, cls) {
+  if (!box) return;
+  const ind = document.createElement("span");
+  ind.className = `${cls} off`;
+  ind.setAttribute("aria-hidden", "true");
+  box.classList.add("has-ind");
+  let placed = false;
+  const place = () => {
+    if (!ind.isConnected) box.prepend(ind);          // the control was re-rendered
+    const on = $$(itemSel, box).find(isOn);
+    if (!on || !on.offsetWidth) { ind.classList.add("off"); placed = false; return; }
+    const jump = !placed || still();
+    if (jump) ind.style.transition = "none";
+    ind.style.transform = `translateX(${on.offsetLeft}px) scaleX(${on.offsetWidth})`;
+    ind.classList.remove("off");
+    if (jump) { void ind.offsetWidth; ind.style.transition = ""; }
+    placed = true;
+  };
+  new MutationObserver(place).observe(box, { subtree: true, childList: true, attributes: true, attributeFilter: ["aria-current", "aria-pressed", "disabled"] });
+  new ResizeObserver(place).observe(box);
+  place();
+}
+
+/* ================================================================== */
 /* Wide tables: show when there's more to the right                   */
 /* ================================================================== */
 function tableHints() {
@@ -550,12 +589,17 @@ function init() {
   pipeline();
   spotlight();
   tableHints();
+  slider($(".tabs"), "a", (a) => a.getAttribute("aria-current") === "page", "tab-ind");
+  for (const seg of $$(".seg")) slider(seg, "button", (b) => b.getAttribute("aria-pressed") === "true", "seg-thumb");
 
-  const loop = () => {
-    navTick(); footTick(); paintTick();
-    requestAnimationFrame(loop);
-  };
-  requestAnimationFrame(loop);
+  // scroll-linked effects run only when something moved, not on every frame
+  let queued = false;
+  const tick = () => { queued = false; navTick(); footTick(); paintTick(); };
+  const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(tick); } };
+  addEventListener("scroll", schedule, { passive: true });
+  addEventListener("resize", schedule);
+  new ResizeObserver(schedule).observe(document.body);
+  schedule();
 }
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

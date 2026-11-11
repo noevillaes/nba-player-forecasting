@@ -169,9 +169,20 @@ function bottomLine() {
   if (!list) return;
   const bar = document.createElement("div");
   bar.className = "bline";
-  bar.setAttribute("aria-hidden", "true");
-  bar.innerHTML = '<div class="bline-tag"><b>SCORES</b><span></span></div><div class="bline-run"><div class="bline-track"></div></div>';
+  // the scores repeat the slate, so only the pause control is exposed to assistive tech
+  const PAUSE = '<path d="M9 5v14"/><path d="M15 5v14"/>', PLAY = '<path d="m7 4 13 8-13 8z"/>';
+  bar.innerHTML = '<div class="bline-tag" aria-hidden="true"><b>SCORES</b><span></span></div>' +
+    '<div class="bline-run" aria-hidden="true"><div class="bline-track"></div></div>' +
+    `<button class="bline-pause" type="button" aria-pressed="false" aria-label="Pause the scores ticker"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${PAUSE}</svg></button>`;
   $("#view-games > .wrap").after(bar);
+  const pause = $(".bline-pause", bar);
+  pause.addEventListener("click", () => {
+    const on = !bar.classList.contains("paused");
+    bar.classList.toggle("paused", on);
+    pause.setAttribute("aria-pressed", String(on));
+    pause.setAttribute("aria-label", on ? "Play the scores ticker" : "Pause the scores ticker");
+    $("svg", pause).innerHTML = on ? PLAY : PAUSE;
+  });
   const build = () => {
     const rows = $$(".row", list);
     bar.hidden = !rows.length;
