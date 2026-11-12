@@ -1,3 +1,4 @@
 fecha,jugadores,error_modelo,error_linea,over_real,brier_modelo,brier_mercado,apuestas,aciertos,pct_aciertos,rendimiento,apuestas_ventaja_5,pct_aciertos_ventaja_5,rendimiento_ventaja_5,apuestas_ventaja_10,pct_aciertos_ventaja_10,rendimiento_ventaja_10,kelly
 2026-11-10,78,4.782,4.654,0.436,0.2566,0.2511,78,42,0.538,0.038,40,0.525,0.016,17,0.412,-0.212,0.9828
-total,78,4.782,4.654,0.436,0.2566,0.2511,78,42,0.538,0.038,40,0.525,0.016,17,0.412,-0.212,0.9828
+2026-11-11,139,4.626,4.665,0.504,0.2528,0.2493,139,75,0.54,0.036,72,0.486,-0.055,28,0.5,-0.033,0.8943
+total,217,4.682,4.661,0.479,0.2542,0.2499,217,117,0.539,0.037,112,0.5,-0.03,45,0.467,-0.1,0.8789

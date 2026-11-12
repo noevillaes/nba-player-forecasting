@@ -1,0 +1,5 @@
+fecha,gameId,local,visitante,pts_local,pts_local_q10,pts_local_q90,pts_visita,pts_visita_q10,pts_visita_q90,total,spread,prob_local,generado,pts_local_solo,pts_visita_solo,total_solo,spread_solo,prob_local_solo,mercado_spread_local,mercado_total,mercado_prob_local,mercado_fuente
+2026-11-12,22600227,76ers,Raptors,115.6,100.2,131.1,108.1,92.6,123.6,223.7,7.5,0.705,2026-11-12 15:45,112.3,109.9,222.3,2.4,0.576,-7.5,224.0,0.7052222222222222,mediana de 9 casas
+2026-11-12,22600228,Wizards,Pistons,105.5,90.0,121.0,116.0,100.5,131.5,221.5,-10.5,0.215,2026-11-12 15:45,104.0,117.5,221.5,-13.5,0.133,10.5,221.5,0.21455555555555555,mediana de 9 casas
+2026-11-12,22600229,Timberwolves,Mavericks,115.8,100.2,131.2,110.2,94.8,125.8,226.0,5.6,0.663,2026-11-12 15:45,116.8,109.2,226.0,7.6,0.735,-5.5,226.0,0.6625555555555556,mediana de 9 casas
+2026-11-12,22600230,Suns,Hornets,111.0,95.5,126.5,104.5,89.0,120.0,215.5,6.5,0.668,2026-11-12 15:45,110.6,108.8,219.4,1.8,0.555,-6.5,214.5,0.6683333333333334,mediana de 9 casas
