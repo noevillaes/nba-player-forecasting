@@ -1,0 +1,6 @@
+fecha,gameId,local,visitante,pts_local,pts_local_q10,pts_local_q90,pts_visita,pts_visita_q10,pts_visita_q90,total,spread,prob_local,generado,pts_local_solo,pts_visita_solo,total_solo,spread_solo,prob_local_solo,mercado_spread_local,mercado_total,mercado_prob_local,mercado_fuente
+2026-11-14,22600231,Pelicans,Nuggets,110.9,95.4,126.4,123.4,107.9,138.9,234.3,-12.5,0.164,2026-11-14 11:57,112.3,120.8,233.1,-8.5,0.233,12.5,234.5,0.16411111111111112,mediana de 9 casas
+2026-11-14,22600232,Cavaliers,Mavericks,114.5,99.0,130.0,117.0,101.5,132.5,231.5,-2.5,0.437,2026-11-14 11:57,118.2,113.6,231.8,4.6,0.648,2.5,231.5,0.43722222222222223,mediana de 9 casas
+2026-11-14,22600233,Heat,Pistons,111.9,96.5,127.4,116.9,101.4,132.4,228.8,-5.0,0.36,2026-11-14 11:57,111.0,116.7,227.7,-5.6,0.311,5.0,229.0,0.36033333333333334,mediana de 9 casas
+2026-11-14,22600234,Grizzlies,Nets,115.4,99.9,130.9,112.9,97.5,128.4,228.3,2.5,0.574,2026-11-14 11:57,115.8,111.8,227.7,4.0,0.628,-2.5,228.5,0.5741111111111111,mediana de 9 casas
+2026-11-14,22600235,Timberwolves,Bulls,125.2,109.7,140.7,109.7,94.2,125.2,234.9,15.5,0.873,2026-11-14 11:57,125.8,110.5,236.3,15.3,0.888,-15.5,234.5,0.8727777777777779,mediana de 9 casas
