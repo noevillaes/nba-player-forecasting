@@ -146,7 +146,11 @@ def main():
 
         if not args.sin_push:
             correr(["git", "add", "predictions", "results"], log)
-            if correr(["git", "commit", "-m", f"Pronósticos y marcador {args.fecha}"], log) == 0:
+            # "-- predictions results": el commit lleva SOLO esas carpetas aunque haya otras cosas
+            # en el índice (el 14 nov se coló un `git add` de 10,800 archivos de skills y, como el
+            # diff pasó de 3,000 archivos, GitHub no disparó "Deploy site").
+            if correr(["git", "commit", "-m", f"Pronósticos y marcador {args.fecha}",
+                       "--", "predictions", "results"], log) == 0:
                 correr(["git", "push"], log)
                 print("OK  publicado en GitHub")
 

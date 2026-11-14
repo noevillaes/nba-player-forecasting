@@ -224,3 +224,8 @@ logs/
 
 # website build output (python web/build.py)
 _site/
+
+# Skills de agentes instaladas con `npx skills add` (una copia por agente): viven solo en la laptop
+.*/skills/
+skills/
+skills-lock.json
