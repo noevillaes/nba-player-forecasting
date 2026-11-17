@@ -1,0 +1,6 @@
+fecha,gameId,local,visitante,pts_local,pts_local_q10,pts_local_q90,pts_visita,pts_visita_q10,pts_visita_q90,total,spread,prob_local,generado,pts_local_solo,pts_visita_solo,total_solo,spread_solo,prob_local_solo,mercado_spread_local,mercado_total,mercado_prob_local,mercado_fuente
+2026-11-17,22600253,Raptors,Knicks,106.4,91.0,121.9,108.9,93.5,124.4,215.3,-2.5,0.434,2026-11-17 10:16,105.1,108.8,214.0,-3.7,0.371,2.5,215.5,0.4338888888888889,mediana de 9 casas
+2026-11-17,22600255,Spurs,Pistons,115.5,100.0,131.0,106.0,90.5,121.5,221.5,9.5,0.772,2026-11-17 10:16,111.8,105.8,217.6,6.0,0.69,-9.5,222.5,0.7717777777777778,mediana de 9 casas
+2026-11-17,22600254,Timberwolves,Trail Blazers,114.7,99.2,130.2,113.2,97.7,128.7,227.9,1.5,0.543,2026-11-17 10:16,114.7,110.7,225.4,4.0,0.629,-1.5,228.5,0.543,DraftKings (mañana)
+2026-11-17,22600257,Clippers,Jazz,116.6,101.1,132.1,110.1,94.6,125.6,226.7,6.5,0.676,2026-11-17 10:16,120.8,111.5,232.3,9.2,0.776,-6.5,225.5,0.6764444444444444,mediana de 9 casas
+2026-11-17,22600256,Lakers,Hornets,114.3,98.8,129.8,106.8,91.3,122.3,221.1,7.5,0.725,2026-11-17 10:16,114.7,108.5,223.2,6.2,0.696,-7.5,220.5,0.7252222222222222,mediana de 9 casas
