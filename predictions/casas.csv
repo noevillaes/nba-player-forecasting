@@ -602,6 +602,42 @@ fecha,gameId,local,visitante,inicio_utc,casa,casa_nombre,spread_local,total,ml_l
 2026-11-18,,Lakers,Jazz,2026-11-19T03:10:00Z,fanduel,FanDuel,-12.5,231.5,-590,440,0.822,mañana,2026-11-18T21:56+00:00
 2026-11-18,,Lakers,Jazz,2026-11-19T03:10:00Z,hardrockbet,Hard Rock Bet,-11.5,231.5,-575,425,0.817,mañana,2026-11-18T21:56+00:00
 2026-11-18,,Lakers,Jazz,2026-11-19T03:10:00Z,pinnacle,Pinnacle,-11.5,231.5,-522,419,0.813,mañana,2026-11-18T21:56+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,betmgm,BetMGM,10.5,230.5,375,-500,0.202,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,betonlineag,BetOnline.ag,11.0,230.5,374,-485,0.203,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,betrivers,BetRivers,11.5,230.5,360,-480,0.208,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,bovada,Bovada,11.0,231.0,360,-500,0.207,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,draftkings,DraftKings,10.5,230.5,378,-494,0.201,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,espnbet,theScore Bet,11.5,230.5,380,-550,0.198,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,fanduel,FanDuel,11.5,230.5,400,-520,0.193,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,hardrockbet,Hard Rock Bet,11.5,230.5,375,-525,0.2,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Bucks,Blazers,2026-11-20T01:10:00Z,pinnacle,Pinnacle,11.0,230.5,372,-476,0.204,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,betmgm,BetMGM,-5.5,224.5,-220,180,0.658,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,betonlineag,BetOnline.ag,-5.5,224.5,-200,174,0.646,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,betrivers,BetRivers,-5.5,224.5,-235,185,0.667,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,bovada,Bovada,-5.5,224.5,-220,180,0.658,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,draftkings,DraftKings,-5.5,224.5,-217,180,0.657,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,espnbet,theScore Bet,-5.5,224.5,-210,175,0.651,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,fanduel,FanDuel,-5.5,224.5,-215,180,0.656,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,hardrockbet,Hard Rock Bet,-5.5,224.5,-225,185,0.664,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Grizzlies,Warriors,2026-11-20T01:10:00Z,pinnacle,Pinnacle,-5.5,224.5,-207,188,0.66,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,betmgm,BetMGM,-15.5,224.5,-1000,650,0.872,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,betonlineag,BetOnline.ag,-15.5,225.0,-1000,661,0.874,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,betrivers,BetRivers,-15.5,225.5,-1115,650,0.873,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,bovada,Bovada,-15.5,224.5,-1000,625,0.868,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,draftkings,DraftKings,-15.5,224.5,-1040,670,0.875,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,espnbet,theScore Bet,-15.5,224.5,-1200,700,0.881,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,fanduel,FanDuel,-15.5,225.5,-1000,660,0.874,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,hardrockbet,Hard Rock Bet,-15.5,225.5,-1200,700,0.881,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Spurs,Clippers,2026-11-20T01:10:00Z,pinnacle,Pinnacle,-15.5,225.0,-922,716,0.88,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,betmgm,BetMGM,1.5,217.5,-105,-115,0.489,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,betonlineag,BetOnline.ag,1.0,216.0,-106,-114,0.491,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,betrivers,BetRivers,0.5,216.5,-118,-104,0.515,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,bovada,Bovada,-1.0,216.0,-110,-110,0.5,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,draftkings,DraftKings,1.5,216.5,-104,-113,0.49,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,espnbet,theScore Bet,1.5,215.5,100,-120,0.478,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,fanduel,FanDuel,1.5,215.5,-106,-110,0.496,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,hardrockbet,Hard Rock Bet,1.5,215.5,-105,-115,0.489,mañana,2026-11-19T21:29+00:00
+2026-11-19,,Timberwolves,Knicks,2026-11-20T01:10:00Z,pinnacle,Pinnacle,1.0,216.0,-107,-103,0.505,mañana,2026-11-19T21:29+00:00
 2026-12-25,,Knicks,Spurs,2026-12-25T17:00:00Z,betrivers,BetRivers,-1.0,230.0,-110,-110,0.5,mañana,2026-11-10T16:33+00:00
 2026-12-25,,Knicks,Spurs,2026-12-25T17:00:00Z,betrivers,BetRivers,-1.0,230.0,-110,-110,0.5,mañana,2026-11-11T23:31+00:00
 2026-12-25,,Knicks,Spurs,2026-12-25T17:00:00Z,betrivers,BetRivers,-1.0,230.0,-110,-110,0.5,mañana,2026-11-12T21:45+00:00

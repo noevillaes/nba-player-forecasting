@@ -84,6 +84,17 @@
           "steals": 0.0,
           "turnovers": 0.0
         }
+      },
+      {
+        "desde": "2026-11-19",
+        "version": "v4",
+        "filas": 1074,
+        "ajustes": {
+          "numMinutes": [
+            0.033,
+            0.517
+          ]
+        }
       }
     ]
   }

@@ -1,0 +1,5 @@
+fecha,gameId,local,visitante,pts_local,pts_local_q10,pts_local_q90,pts_visita,pts_visita_q10,pts_visita_q90,total,spread,prob_local,generado,pts_local_solo,pts_visita_solo,total_solo,spread_solo,prob_local_solo,mercado_spread_local,mercado_total,mercado_prob_local,mercado_fuente
+2026-11-19,22600270,Grizzlies,Warriors,115.5,100.0,131.0,110.0,94.5,125.4,225.5,5.5,0.657,2026-11-19 15:30,115.0,114.9,229.9,0.1,0.499,-5.5,224.5,0.6574444444444444,mediana de 9 casas
+2026-11-19,22600271,Bucks,Trail Blazers,109.9,94.4,125.3,120.4,104.9,135.8,230.3,-10.5,0.201,2026-11-19 15:30,109.2,120.2,229.3,-11.0,0.178,10.5,230.5,0.201,DraftKings (mañana)
+2026-11-19,22600272,Timberwolves,Knicks,107.0,91.5,122.5,108.5,93.0,124.0,215.5,-1.5,0.495,2026-11-19 15:30,105.6,107.4,213.0,-1.9,0.431,1.5,216.0,0.4947777777777778,mediana de 9 casas
+2026-11-19,22600273,Spurs,Clippers,120.0,104.5,135.4,104.5,89.0,120.0,224.5,15.5,0.875,2026-11-19 15:30,116.1,105.9,222.0,10.1,0.797,-15.5,225.0,0.8753333333333333,mediana de 9 casas
