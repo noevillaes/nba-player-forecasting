@@ -1,19 +1,19 @@
 {
-  "ajustado": "2026-11-19T21:30+00:00",
-  "lineas": "cierre",
-  "partidos": 207,
-  "jugadores": 4604,
+  "ajustado": "2026-11-20T16:02+00:00",
+  "lineas": "mañana",
+  "partidos": 62,
+  "jugadores": 1385,
   "peso_modelo": {
     "spread": 0.0,
-    "total": 0.178,
+    "total": 0.0,
     "prob": 0.0
   },
-  "lambda_jugadores": 1.0,
+  "lambda_jugadores": 0,
   "mae_puntos_por_lambda": {
-    "0": 4.4436,
-    "0.25": 4.441,
-    "0.5": 4.4392,
-    "0.75": 4.4386,
-    "1.0": 4.4385
+    "0": 4.3933,
+    "0.25": 4.3943,
+    "0.5": 4.3954,
+    "0.75": 4.397,
+    "1.0": 4.3987
   }
 }
