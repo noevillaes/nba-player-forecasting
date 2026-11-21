@@ -1,0 +1,106 @@
+fecha,jugador,equipo,estado,tipo,regreso,reportado
+2026-11-21,Kingston Flemings,Hawks,Out,Back,2026-11-22,2026-11-20T22:15Z
+2026-11-21,Jock Landale,Hawks,Out,Hip,2026-11-22,2026-11-19T22:07Z
+2026-11-21,Asa Newell,Hawks,Out,Toe,2027-03-17,2026-11-17T21:16Z
+2026-11-21,CJ McCollum,Hawks,Out,Calf,2026-12-19,2026-11-17T21:08Z
+2026-11-21,Mouhamed Gueye,Hawks,Out,Foot,2026-12-12,2026-11-13T00:06Z
+2026-11-21,Henri Veesaar,Hawks,Out,Knee,2027-07-01,2026-09-21T19:50Z
+2026-11-21,Jayson Tatum,Celtics,Day-To-Day,Rest,2026-11-21,2026-11-21T01:07Z
+2026-11-21,Derrick White,Celtics,Day-To-Day,Shoulder,2026-11-21,2026-11-21T01:00Z
+2026-11-21,Nolan Traore,Nets,Day-To-Day,Hamstring,2026-11-23,2026-11-21T14:51Z
+2026-11-21,Grant Nelson,Nets,Day-To-Day,Ankle,2026-11-23,2026-11-21T14:51Z
+2026-11-21,Grant Williams,Hornets,Day-To-Day,Hamstring,2026-11-23,2026-11-21T14:49Z
+2026-11-21,Grayson Allen,Hornets,Day-To-Day,Concussion,2026-11-23,2026-11-21T14:49Z
+2026-11-21,Kon Knueppel,Hornets,Out,Hamstring,2026-12-12,2026-11-08T22:31Z
+2026-11-21,Dennis Schroder,Hornets,Out,Hamstring,2026-11-25,2026-11-08T22:26Z
+2026-11-21,Jalen Smith,Bulls,Day-To-Day,Illness,2026-11-22,2026-11-21T14:54Z
+2026-11-21,Tobe Awaka,Bulls,Out,Back,2026-11-25,2026-11-17T20:53Z
+2026-11-21,Caleb Wilson,Bulls,Out,Hand,2026-12-13,2026-11-12T21:35Z
+2026-11-21,Jaylon Tyson,Cavaliers,Out,Ankle,2026-11-23,2026-11-19T21:55Z
+2026-11-21,Nae'Qwan Tomlin,Cavaliers,Out,Back,2026-11-29,2026-11-17T22:18Z
+2026-11-21,Evan Mobley,Cavaliers,Out,Toe,2026-11-29,2026-11-16T22:06Z
+2026-11-21,Tobi Lawal,Mavericks,Out,Groin,2026-11-22,2026-11-21T15:08Z
+2026-11-21,P.J. Washington,Mavericks,Day-To-Day,Illness,2026-11-21,2026-11-20T22:40Z
+2026-11-21,Walter Clayton Jr.,Mavericks,Day-To-Day,Knee,2026-11-21,2026-11-20T22:35Z
+2026-11-21,Dereck Lively II,Mavericks,Out,Foot,2026-11-27,2026-11-20T19:31Z
+2026-11-21,Sergio de Larrea,Mavericks,Out,Knee,2026-11-27,2026-11-17T22:53Z
+2026-11-21,Tarik Biberovic,Mavericks,Out,Heel,2026-11-27,2026-11-17T22:42Z
+2026-11-21,Julian Strawther,Nuggets,Out,Knee,2026-11-29,2026-10-17T00:52Z
+2026-11-21,Ebuka Okorie,Pistons,Day-To-Day,Oblique,2026-11-22,2026-11-21T14:53Z
+2026-11-21,Ronald Holland II,Pistons,Out,Knee,2026-11-22,2026-11-21T00:34Z
+2026-11-21,Taurean Prince,Pistons,Out,Knee,2026-12-13,2026-11-20T23:02Z
+2026-11-21,Ugonna Onyenso,Pistons,Day-To-Day,Foot,2026-11-21,2026-11-19T16:15Z
+2026-11-21,Duncan Robinson,Pistons,Out,Quadriceps,2026-11-27,2026-11-17T16:25Z
+2026-11-21,Jalen Duren,Pistons,Out,Hamstring,2026-11-24,2026-11-08T16:05Z
+2026-11-21,Draymond Green,Warriors,Day-To-Day,Rest,2026-11-22,2026-11-20T03:53Z
+2026-11-21,Brandon Williams,Warriors,Out,Hamstring,2026-11-22,2026-11-18T17:12Z
+2026-11-21,Stephen Curry,Warriors,Out,Abdomen,2026-12-12,2026-11-12T17:03Z
+2026-11-21,Kristaps Porzingis,Warriors,Out,Illness,2027-01-02,2026-11-06T21:26Z
+2026-11-21,Moses Moody,Warriors,Out,Knee,2026-12-01,2026-10-16T16:14Z
+2026-11-21,Jimmy Butler III,Warriors,Out,Knee,2027-01-02,2026-10-16T16:11Z
+2026-11-21,Clint Capela,Rockets,Out,Ankle,2026-11-23,2026-11-19T23:19Z
+2026-11-21,T.J. McConnell,Pacers,Day-To-Day,Hamstring,2026-11-22,2026-11-21T14:51Z
+2026-11-21,Tyrese Haliburton,Pacers,Out,Hamstring,2026-12-13,2026-11-20T20:41Z
+2026-11-21,Johnny Furphy,Pacers,Out,Knee,2027-01-02,2026-10-30T19:06Z
+2026-11-21,Ben Sheppard,Pacers,Out,Knee,2027-01-02,2026-10-28T21:41Z
+2026-11-21,Brandon Ingram,Clippers,Out,Achilles,2026-11-23,2026-11-20T20:20Z
+2026-11-21,Bradley Beal,Clippers,Out,Knee,2026-11-29,2026-10-15T01:03Z
+2026-11-21,Jordan Miller,Clippers,Out,Shoulder,2027-03-02,2026-08-26T20:04Z
+2026-11-21,Austin Reaves,Lakers,Out,Heel,2026-11-23,2026-11-21T01:26Z
+2026-11-21,Jerami Grant,Grizzlies,Out,Calf,2026-11-23,2026-11-21T08:08Z
+2026-11-21,Javon Small,Grizzlies,Out,Personal,2026-11-23,2026-11-20T23:14Z
+2026-11-21,Cameron Boozer,Grizzlies,Out,Ankle,2026-11-23,2026-11-20T23:12Z
+2026-11-21,GG Jackson,Grizzlies,Out,Foot,2027-01-18,2026-11-17T23:18Z
+2026-11-21,Scotty Pippen Jr.,Grizzlies,Out,Back,2026-11-25,2026-11-16T17:16Z
+2026-11-21,Richie Saunders,Grizzlies,Out,Knee,2026-12-01,2026-11-07T17:24Z
+2026-11-21,Myron Gardner,Heat,Day-To-Day,Hamstring,2026-11-22,2026-11-19T14:45Z
+2026-11-21,Ousmane Dieng,Bucks,Out,Finger,2026-12-14,2026-11-15T23:46Z
+2026-11-21,Jaylen Clark,Timberwolves,Out,Hamstring,2026-11-29,2026-11-15T22:40Z
+2026-11-21,Anthony Edwards,Timberwolves,Out,Knee,2026-12-21,2026-10-29T18:33Z
+2026-11-21,Donte DiVincenzo,Timberwolves,Out,Achilles,2027-04-02,2026-10-05T20:53Z
+2026-11-21,Trey Murphy III,Pelicans,Out,Knee,2026-11-23,2026-11-21T18:22Z
+2026-11-21,Trendon Watford,Pelicans,Out,Ankle,2026-11-27,2026-11-21T18:21Z
+2026-11-21,Bryce McGowens,Pelicans,Out,Elbow,2026-11-27,2026-11-19T21:15Z
+2026-11-21,Bennedict Mathurin,Pelicans,Out,Foot,2026-11-27,2026-11-19T21:07Z
+2026-11-21,Dejounte Murray,Pelicans,Out,Ankle,2026-11-27,2026-11-13T20:19Z
+2026-11-21,OG Anunoby,Knicks,Day-To-Day,Calf,2026-11-21,2026-11-21T16:09Z
+2026-11-21,Karl-Anthony Towns,Knicks,Day-To-Day,Illness,2026-11-21,2026-11-21T16:05Z
+2026-11-21,Jordan Clarkson,Knicks,Out,Foot,2026-11-22,2026-11-20T22:21Z
+2026-11-21,Nikola Topic,Thunder,Day-To-Day,Hip,2026-11-22,2026-11-21T14:54Z
+2026-11-21,Alex Caruso,Thunder,Day-To-Day,Hip,2026-11-22,2026-11-21T14:54Z
+2026-11-21,Thomas Sorber,Thunder,Out,Knee,2027-01-31,2026-11-18T00:01Z
+2026-11-21,Cason Wallace,Thunder,Out,Shoulder,2027-03-02,2026-10-31T01:16Z
+2026-11-21,Chet Holmgren,Thunder,Out,Knee,2027-01-02,2026-10-31T01:02Z
+2026-11-21,Jalen Williams,Thunder,Out,Leg,2027-03-02,2026-10-28T23:41Z
+2026-11-21,Izaiyah Nelson,Magic,Out,Ankle,2026-11-29,2026-11-18T17:25Z
+2026-11-21,Jonathan Isaac,Magic,Out,Knee,2026-11-22,2026-11-15T18:22Z
+2026-11-21,Noah Penda,Magic,Out,Hamstring,2026-11-22,2026-11-14T17:33Z
+2026-11-21,Paolo Banchero,Magic,Out,Ankle,2026-11-29,2026-10-24T16:47Z
+2026-11-21,Dean Wade,76ers,Out,Hamstring,2026-11-23,2026-11-20T22:11Z
+2026-11-21,Adem Bona,76ers,Out,Back,2026-11-23,2026-11-20T17:33Z
+2026-11-21,Jaylen Brown,76ers,Out,Hamstring,2026-11-23,2026-11-20T17:26Z
+2026-11-21,Ariel Hukporti,76ers,Out,Achilles,2027-10-01,2026-10-06T19:17Z
+2026-11-21,Ryan Dunn,Suns,Day-To-Day,Quadriceps,2026-11-23,2026-11-21T14:55Z
+2026-11-21,Mark Williams,Suns,Out,Shoulder,2027-02-03,2026-09-11T16:03Z
+2026-11-21,Chris Youngblood,Trail Blazers,Out,Heel,2026-11-27,2026-11-20T22:18Z
+2026-11-21,Deni Avdija,Trail Blazers,Day-To-Day,Foot,2026-11-21,2026-11-20T22:08Z
+2026-11-21,Vit Krejci,Trail Blazers,Out,Ankle,2027-01-12,2026-11-11T19:56Z
+2026-11-21,Ja Morant,Trail Blazers,Out,Hamstring,2026-12-01,2026-11-08T02:18Z
+2026-11-21,Shaedon Sharpe,Trail Blazers,Out,Knee,2027-03-02,2026-08-24T20:23Z
+2026-11-21,Precious Achiuwa,Kings,Day-To-Day,Lower Leg,2026-11-21,2026-11-21T14:55Z
+2026-11-21,Maxime Raynaud,Kings,Out,Knee,2026-11-25,2026-11-18T05:54Z
+2026-11-21,Ben Simmons,Kings,Out,Achilles,2027-10-01,2026-10-21T04:22Z
+2026-11-21,Dylan Harper,Spurs,Out,Hip,2026-12-13,2026-11-19T20:07Z
+2026-11-21,Tobias Harris,Spurs,Out,Calf,2026-12-03,2026-11-16T19:26Z
+2026-11-21,Jayden Quaintance,Spurs,Out,Knee,2026-12-03,2026-10-05T21:43Z
+2026-11-21,Collin Murray-Boyles,Raptors,Day-To-Day,Concussion,2026-11-23,2026-11-21T14:52Z
+2026-11-21,Kawhi Leonard,Raptors,Out,Knee,2026-12-03,2026-11-20T20:42Z
+2026-11-21,RJ Barrett,Raptors,Out,Hamstring,2026-12-13,2026-11-19T21:13Z
+2026-11-21,Nate Bittle,Raptors,Out,Foot,2026-11-23,2026-11-14T21:59Z
+2026-11-21,Jusuf Nurkic,Jazz,Out,Foot,2026-11-29,2026-11-20T22:40Z
+2026-11-21,Lauri Markkanen,Jazz,Out,Hand,2027-01-04,2026-11-11T18:22Z
+2026-11-21,Jaren Jackson Jr.,Jazz,Out,Knee,2026-12-14,2026-10-27T19:25Z
+2026-11-21,Tristan Vukcevic,Wizards,Out,Hip,2026-11-24,2026-11-16T18:14Z
+2026-11-21,Reece Beekman,Wizards,Out,Shoulder,2026-12-03,2026-11-02T18:22Z
+2026-11-21,Justin Champagnie,Wizards,Out,Foot,2027-02-25,2026-10-28T18:38Z
+2026-11-21,Jamir Watkins,Wizards,Out,Knee,2027-04-02,2026-07-30T20:11Z
