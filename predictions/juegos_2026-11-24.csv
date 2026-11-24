@@ -1,0 +1,4 @@
+fecha,gameId,local,visitante,pts_local,pts_local_q10,pts_local_q90,pts_visita,pts_visita_q10,pts_visita_q90,total,spread,prob_local,generado,pts_local_solo,pts_visita_solo,total_solo,spread_solo,prob_local_solo,mercado_spread_local,mercado_total,mercado_prob_local,mercado_fuente
+2026-11-24,22600052,Magic,Pistons,105.1,89.6,120.6,107.4,91.9,122.8,212.5,-2.3,0.454,2026-11-24 15:22,103.6,107.5,211.0,-3.9,0.364,2.25,212.5,0.45425000000000004,mediana de 8 casas
+2026-11-24,22600053,Wizards,Celtics,104.0,88.5,119.4,114.5,99.0,130.0,218.5,-10.5,0.218,2026-11-24 15:22,102.4,112.8,215.1,-10.4,0.19,10.5,218.5,0.2175,mediana de 8 casas
+2026-11-24,22600054,Nuggets,Mavericks,121.2,105.8,136.8,113.0,97.5,128.5,234.2,8.2,0.72,2026-11-24 15:22,118.7,111.6,230.3,7.1,0.72,-8.25,234.25,0.72,mediana de 8 casas
