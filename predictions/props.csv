@@ -11471,3 +11471,1256 @@ fecha,inicio_utc,local,visitante,jugador,mercado,casa,linea,over,under,prob_over
 2026-11-24,2026-11-25T03:10:00Z,Denver Nuggets,Dallas Mavericks,Nikola Jokic,player_points,bovada,29.5,190,-260.0,0.323,2026-11-24T21:21+00:00
 2026-11-24,2026-11-25T03:10:00Z,Denver Nuggets,Dallas Mavericks,P.J. Washington,player_points,bovada,15.5,180,-245.0,0.335,2026-11-24T21:21+00:00
 2026-11-24,2026-11-25T03:10:00Z,Denver Nuggets,Dallas Mavericks,Zaccharie Risacher,player_points,bovada,9.5,160,-215.0,0.36,2026-11-24T21:21+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,draftkings,28.5,-110,-116.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,draftkings,27.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,draftkings,21.5,-110,-115.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,draftkings,17.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,draftkings,13.5,-127,100.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,draftkings,13.5,-115,-110.0,0.505,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,draftkings,12.5,-114,-112.0,0.502,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,draftkings,12.5,-105,-121.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,draftkings,10.5,-107,-119.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,draftkings,9.5,-126,-101.0,0.526,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,draftkings,7.5,-130,102.0,0.533,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jose Alvarado,player_points,draftkings,7.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,draftkings,6.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,fanduel,12.5,106,-136.0,0.457,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,fanduel,6.5,-102,-125.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,fanduel,13.5,-118,-108.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,fanduel,7.5,-130,102.0,0.533,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,fanduel,28.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,fanduel,27.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,fanduel,9.5,-118,-108.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,fanduel,12.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,fanduel,21.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jose Alvarado,player_points,fanduel,7.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,fanduel,17.5,-118,-108.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,fanduel,14.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,fanduel,10.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,betrivers,6.5,-103,-134.0,0.47,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,betrivers,14.5,-109,-124.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,betrivers,11.5,-121,-112.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,betrivers,12.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,betrivers,9.5,-124,-109.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,betrivers,21.5,-124,-109.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,betrivers,7.5,-132,-103.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,betrivers,10.5,-129,-106.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,betrivers,28.5,-124,-109.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,betrivers,13.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,betrivers,17.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,betrivers,26.5,-124,-109.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,hardrockbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,hardrockbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,hardrockbet,14.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,hardrockbet,13.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,hardrockbet,17.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,hardrockbet,27.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,hardrockbet,21.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,hardrockbet,28.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,hardrockbet,10.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,hardrockbet,7.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,hardrockbet,11.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,hardrockbet,6.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jose Alvarado,player_points,hardrockbet,7.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,betmgm,11.5,-130,-105.0,0.525,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,betmgm,26.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,betmgm,17.5,-111,-118.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,betmgm,10.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,betmgm,14.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,betmgm,9.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,betmgm,7.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,betmgm,28.5,-111,-120.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,betmgm,13.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jose Alvarado,player_points,betmgm,8.5,115,-155.0,0.433,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,betmgm,5.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,espnbet,28.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,espnbet,21.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,espnbet,27.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,espnbet,17.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,espnbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,espnbet,13.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,espnbet,14.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,espnbet,11.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,espnbet,9.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,espnbet,8.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,espnbet,10.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,espnbet,6.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,bovada,10.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,bovada,20.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,bovada,8.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,bovada,17.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,bovada,31.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,bovada,32.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jose Alvarado,player_points,bovada,9.5,160,-215.0,0.36,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,bovada,13.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,bovada,25.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,bovada,15.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,bovada,16.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,bovada,15.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,betonlineag,17.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,betonlineag,9.5,-125,-103.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,betonlineag,12.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,betonlineag,10.5,-109,-119.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,betonlineag,21.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,betonlineag,27.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,betonlineag,28.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,betonlineag,6.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,betonlineag,12.5,-101,-128.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,betonlineag,13.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,betonlineag,14.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,betonlineag,7.5,-118,-110.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jose Alvarado,player_points,betonlineag,7.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bam Adebayo,player_points,pinnacle,17.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Davion Mitchell,player_points,pinnacle,14.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Giannis Antetokounmpo,player_points,pinnacle,27.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Jalen Brunson,player_points,pinnacle,28.5,-111,-119.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Karl-Anthony Towns,player_points,pinnacle,21.5,-107,-123.0,0.484,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Josh Hart,player_points,pinnacle,10.5,-108,-122.0,0.486,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Klay Thompson,player_points,pinnacle,12.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Landry Shamet,player_points,pinnacle,13.5,-114,-116.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Mikal Bridges,player_points,pinnacle,12.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Pelle Larsson,player_points,pinnacle,9.5,-136,103.0,0.539,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Andrew Wiggins,player_points,pinnacle,7.5,-136,102.0,0.538,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:10:00Z,New York Knicks,Miami Heat,Bobby Portis,player_points,pinnacle,6.5,-102,-129.0,0.473,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,fanduel,13.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,fanduel,9.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,fanduel,8.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,fanduel,10.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,fanduel,9.5,-122,-104.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,fanduel,8.5,106,-136.0,0.457,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,fanduel,20.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,fanduel,19.5,100,-128.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,fanduel,9.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,fanduel,10.5,100,-128.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,fanduel,18.5,-128,100.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,fanduel,25.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,fanduel,7.5,-102,-125.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,fanduel,13.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,draftkings,25.5,-109,-117.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,draftkings,20.5,-121,-105.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,draftkings,19.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,draftkings,18.5,-124,-103.0,0.522,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,draftkings,13.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,draftkings,13.5,-104,-123.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,draftkings,10.5,-128,101.0,0.53,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,draftkings,10.5,-104,-123.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,draftkings,10.5,-102,-125.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,draftkings,9.5,-130,102.0,0.533,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,draftkings,9.5,-123,-103.0,0.521,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,draftkings,8.5,102,-129.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,draftkings,7.5,-133,105.0,0.539,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,draftkings,7.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,betrivers,7.5,-137,102.0,0.539,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,betrivers,10.5,-114,-118.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,betrivers,10.5,-104,-130.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,betrivers,9.5,-143,106.0,0.548,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,betrivers,24.5,-125,-108.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,betrivers,9.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,betrivers,7.5,-108,-125.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,betrivers,18.5,-129,-106.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,betrivers,9.5,-132,-103.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,betrivers,18.5,-117,-117.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,betrivers,13.5,-108,-125.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,betrivers,8.5,100,-136.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,betrivers,20.5,-120,-113.0,0.507,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,betrivers,13.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,bovada,12.5,165,-220.0,0.354,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,bovada,12.5,165,-220.0,0.354,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,bovada,10.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,bovada,12.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,bovada,13.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,bovada,23.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,bovada,16.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,bovada,12.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,bovada,9.5,160,-215.0,0.36,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,bovada,24.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,bovada,22.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,bovada,16.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,bovada,10.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,bovada,29.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,betonlineag,9.5,-125,-103.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,betonlineag,19.5,-109,-119.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,betonlineag,8.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,betonlineag,7.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,betonlineag,10.5,-101,-128.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,betonlineag,10.5,110,-143.0,0.447,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,betonlineag,9.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,betonlineag,25.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,betonlineag,18.5,-119,-109.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,betonlineag,11.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,betonlineag,8.5,103,-133.0,0.463,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,betonlineag,13.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,betonlineag,20.5,-123,-105.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,betonlineag,12.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,espnbet,25.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,espnbet,18.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,espnbet,20.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,espnbet,19.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,espnbet,13.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,espnbet,13.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,espnbet,10.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,espnbet,8.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,espnbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,espnbet,9.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,espnbet,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,espnbet,8.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,espnbet,9.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,espnbet,7.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,betmgm,19.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,betmgm,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,betmgm,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,betmgm,13.5,-120,-111.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,betmgm,9.5,-130,-105.0,0.525,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,betmgm,18.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,betmgm,7.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,betmgm,21.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,betmgm,9.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,betmgm,11.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,betmgm,7.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,betmgm,7.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,betmgm,13.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,betmgm,10.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,hardrockbet,18.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,hardrockbet,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,hardrockbet,20.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,hardrockbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,hardrockbet,8.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,hardrockbet,13.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,hardrockbet,19.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,hardrockbet,13.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,hardrockbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,hardrockbet,8.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,hardrockbet,10.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,hardrockbet,10.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,hardrockbet,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,hardrockbet,7.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Collin Murray-Boyles,player_points,pinnacle,10.5,-101,-132.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Egor Demin,player_points,pinnacle,11.5,-103,-128.0,0.475,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Immanuel Quickley,player_points,pinnacle,18.5,-129,-102.0,0.527,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Ja'Kobe Walter,player_points,pinnacle,14.5,123,-164.0,0.419,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jakob Poeltl,player_points,pinnacle,9.5,-121,-109.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Julius Randle,player_points,pinnacle,21.5,105,-139.0,0.456,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Michael Porter Jr,player_points,pinnacle,19.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Mikel Brown Jr.,player_points,pinnacle,13.5,-118,-113.0,0.505,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Scottie Barnes,player_points,pinnacle,25.5,-106,-125.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Allen Graves,player_points,pinnacle,10.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Danny Wolf,player_points,pinnacle,8.5,-119,-111.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Day'Ron Sharpe,player_points,pinnacle,9.5,-136,102.0,0.538,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Jamal Shead,player_points,pinnacle,7.5,-105,-126.0,0.479,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Toronto Raptors,Brooklyn Nets,Noah Clowney,player_points,pinnacle,8.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,fanduel,16.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,fanduel,10.5,-102,-125.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,fanduel,12.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,fanduel,20.5,-122,-104.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,fanduel,12.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,fanduel,8.5,-115,-113.0,0.502,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,fanduel,11.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,fanduel,18.5,100,-128.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,fanduel,13.5,-115,-113.0,0.502,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Javonte Green,player_points,fanduel,8.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,fanduel,11.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kel'el Ware,player_points,fanduel,9.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,fanduel,10.5,104,-132.0,0.463,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,fanduel,12.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,draftkings,21.5,-110,-116.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,draftkings,17.5,-126,-101.0,0.526,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,draftkings,16.5,-107,-120.0,0.487,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,draftkings,14.5,-101,-126.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,draftkings,12.5,-124,-103.0,0.522,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,draftkings,12.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,draftkings,12.5,-107,-119.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,draftkings,12.5,101,-128.0,0.47,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,draftkings,11.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,draftkings,10.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,draftkings,10.5,-103,-123.0,0.479,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kel'el Ware,player_points,draftkings,9.5,-105,-122.0,0.482,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Javonte Green,player_points,draftkings,8.5,-124,-103.0,0.522,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,draftkings,8.5,-107,-120.0,0.487,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Javonte Green,player_points,betrivers,8.5,-117,-115.0,0.502,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,betrivers,10.5,-110,-122.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,betrivers,16.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,betrivers,11.5,-120,-113.0,0.507,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,betrivers,14.5,-103,-132.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,betrivers,11.5,-136,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Nate Ament,player_points,betrivers,7.5,-106,-127.0,0.479,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,betrivers,12.5,-130,-104.0,0.526,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,betrivers,11.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,betrivers,8.5,-104,-130.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,betrivers,17.5,-127,-108.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,betrivers,9.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,betrivers,12.5,-113,-121.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kel'el Ware,player_points,betrivers,8.5,-132,-103.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,betrivers,21.5,-108,-125.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,bovada,14.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,bovada,12.5,165,-220.0,0.354,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,bovada,21.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,bovada,19.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,bovada,15.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Javonte Green,player_points,bovada,11.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,bovada,14.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kel'el Ware,player_points,bovada,11.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,bovada,17.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,bovada,15.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,bovada,10.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,bovada,15.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,bovada,13.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,bovada,25.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,betonlineag,12.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,betonlineag,18.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,betonlineag,8.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,betonlineag,10.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,betonlineag,13.5,-115,-112.0,0.503,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,betonlineag,20.5,-118,-110.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,betonlineag,12.5,-116,-111.0,0.505,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,betonlineag,11.5,-116,-111.0,0.505,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,betonlineag,10.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,betonlineag,12.5,-115,-112.0,0.503,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,betonlineag,11.5,-125,-103.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,betonlineag,16.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Nate Ament,player_points,betonlineag,7.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kel'el Ware,player_points,betonlineag,8.5,-132,102.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Javonte Green,player_points,betonlineag,8.5,-123,-105.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,espnbet,18.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,espnbet,20.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,espnbet,16.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,espnbet,13.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,espnbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,espnbet,12.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,espnbet,12.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,espnbet,11.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,espnbet,11.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,espnbet,10.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,espnbet,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,espnbet,8.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,betmgm,15.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,betmgm,20.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,betmgm,7.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,betmgm,12.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,betmgm,12.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,betmgm,12.5,-111,-120.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,betmgm,11.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,betmgm,11.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,betmgm,13.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,betmgm,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,betmgm,18.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Javonte Green,player_points,betmgm,8.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kel'el Ware,player_points,betmgm,8.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,hardrockbet,18.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,hardrockbet,12.5,105,-135.0,0.459,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,hardrockbet,11.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,hardrockbet,13.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,hardrockbet,20.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,hardrockbet,12.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,hardrockbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,hardrockbet,8.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,hardrockbet,10.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,hardrockbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,hardrockbet,9.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,hardrockbet,16.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Nate Ament,player_points,hardrockbet,7.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kel'el Ware,player_points,hardrockbet,9.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Javonte Green,player_points,hardrockbet,8.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ausar Thompson,player_points,pinnacle,11.5,-120,-111.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Daniss Jenkins,player_points,pinnacle,18.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Jaime Jaquez Jr,player_points,pinnacle,12.5,-124,-107.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,John Collins,player_points,pinnacle,11.5,-114,-116.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kevin Huerter,player_points,pinnacle,13.5,-125,-106.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Kyle Kuzma,player_points,pinnacle,12.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Myles Turner,player_points,pinnacle,8.5,-117,-113.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Ryan Rollins,player_points,pinnacle,10.5,-102,-130.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Tyler Herro,player_points,pinnacle,20.5,-126,-105.0,0.521,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Brayden Burries,player_points,pinnacle,10.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Isaiah Joe,player_points,pinnacle,15.5,-128,-104.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Detroit Pistons,Milwaukee Bucks,Paul Reed Jr,player_points,pinnacle,12.5,-119,-111.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,fanduel,17.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,fanduel,23.5,-118,-108.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,fanduel,24.5,-122,-104.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,fanduel,12.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,fanduel,4.5,-122,-104.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,fanduel,12.5,102,-130.0,0.467,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,fanduel,12.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Anfernee Simons,player_points,fanduel,9.5,102,-130.0,0.467,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,fanduel,14.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Kentavious Caldwell-Pope,player_points,fanduel,7.5,100,-128.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,fanduel,15.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,fanduel,23.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,draftkings,25.5,-111,-114.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,draftkings,23.5,-122,-104.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,draftkings,23.5,-103,-124.0,0.478,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,draftkings,18.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,draftkings,15.5,-123,-104.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,draftkings,14.5,-117,-109.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,draftkings,12.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,draftkings,12.5,-114,-111.0,0.503,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,draftkings,12.5,-103,-124.0,0.478,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Anfernee Simons,player_points,draftkings,8.5,-112,-114.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Kentavious Caldwell-Pope,player_points,draftkings,7.5,-111,-115.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,draftkings,4.5,-144,113.0,0.557,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,betrivers,24.5,-107,-127.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,betrivers,5.5,108,-148.0,0.446,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,betrivers,11.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,betrivers,12.5,100,-136.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,betrivers,15.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,betrivers,18.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,betrivers,12.5,-108,-127.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,betrivers,23.5,-122,-110.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Kentavious Caldwell-Pope,player_points,betrivers,7.5,100,-136.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,betrivers,14.5,-115,-118.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Anfernee Simons,player_points,betrivers,8.5,-130,-104.0,0.526,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,betrivers,25.5,-108,-125.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,hardrockbet,23.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,hardrockbet,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,hardrockbet,18.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,hardrockbet,23.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,hardrockbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,hardrockbet,15.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,hardrockbet,14.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,hardrockbet,12.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,hardrockbet,12.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,hardrockbet,4.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Anfernee Simons,player_points,hardrockbet,8.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Kentavious Caldwell-Pope,player_points,hardrockbet,7.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,betmgm,12.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,betmgm,14.5,-130,-105.0,0.525,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,betmgm,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,betmgm,24.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,betmgm,5.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,betmgm,12.5,-111,-118.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,betmgm,18.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,betmgm,23.5,-120,-111.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,betmgm,11.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,betmgm,16.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,espnbet,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,espnbet,23.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,espnbet,23.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,espnbet,18.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,espnbet,15.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,espnbet,14.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,espnbet,11.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,espnbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,espnbet,12.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,bovada,15.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,bovada,19.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Anfernee Simons,player_points,bovada,10.5,160,-215.0,0.36,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,bovada,6.5,150,-200.0,0.375,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,bovada,15.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,bovada,28.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Kentavious Caldwell-Pope,player_points,bovada,9.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,bovada,21.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,bovada,15.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,bovada,27.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,bovada,29.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,bovada,17.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,betonlineag,25.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,betonlineag,12.5,-119,-109.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,betonlineag,15.5,-120,-108.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,betonlineag,23.5,-118,-110.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,betonlineag,12.5,-109,-119.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,betonlineag,23.5,-109,-119.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,betonlineag,18.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,betonlineag,5.5,103,-133.0,0.463,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,betonlineag,14.5,-118,-110.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,betonlineag,12.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Kentavious Caldwell-Pope,player_points,betonlineag,7.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Anfernee Simons,player_points,betonlineag,9.5,-102,-127.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Aaron Nesmith,player_points,pinnacle,12.5,-127,-104.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Andrew Nembhard,player_points,pinnacle,15.5,-125,-106.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Ivica Zubac,player_points,pinnacle,12.5,-109,-122.0,0.487,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Joel Embiid,player_points,pinnacle,23.5,-107,-123.0,0.484,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,LeBron James,player_points,pinnacle,18.5,-114,-116.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Obi Toppin,player_points,pinnacle,12.5,-104,-127.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Pascal Siakam,player_points,pinnacle,23.5,-104,-127.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Tyrese Maxey,player_points,pinnacle,25.5,-106,-125.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,VJ Edgecombe,player_points,pinnacle,15.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T00:40:00Z,Indiana Pacers,Philadelphia 76ers,Dean Wade,player_points,pinnacle,5.5,102,-135.0,0.463,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,fanduel,12.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,fanduel,18.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Kingston Flemings,player_points,fanduel,8.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,fanduel,8.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,fanduel,12.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Baylor Scheierman,player_points,fanduel,5.5,102,-130.0,0.467,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,fanduel,11.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,fanduel,14.5,104,-132.0,0.463,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,fanduel,7.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,fanduel,26.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,fanduel,11.5,-102,-125.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,fanduel,20.5,100,-128.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,fanduel,18.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,fanduel,9.5,-111,-115.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,draftkings,26.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,draftkings,19.5,-121,-105.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,draftkings,18.5,-111,-115.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,draftkings,18.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,draftkings,13.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,draftkings,12.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,draftkings,12.5,-104,-123.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,draftkings,11.5,-124,-103.0,0.522,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,draftkings,11.5,-113,-112.0,0.501,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,draftkings,9.5,-112,-114.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Kingston Flemings,player_points,draftkings,8.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,draftkings,8.5,-110,-116.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,draftkings,7.5,-110,-116.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Baylor Scheierman,player_points,draftkings,5.5,-105,-121.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,betrivers,7.5,-134,100.0,0.534,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,betrivers,19.5,-122,-110.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,betrivers,12.5,-130,-104.0,0.526,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,betrivers,11.5,-125,-108.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,betrivers,18.5,-125,-108.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Kingston Flemings,player_points,betrivers,8.5,-129,-105.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Baylor Scheierman,player_points,betrivers,5.5,-122,-110.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,betrivers,8.5,-124,-109.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,betrivers,9.5,-136,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,betrivers,12.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,betrivers,12.5,-129,-106.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,betrivers,18.5,-115,-118.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,betrivers,13.5,-122,-110.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,betrivers,26.5,-114,-118.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,hardrockbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,hardrockbet,13.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,hardrockbet,18.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,hardrockbet,19.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,hardrockbet,26.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,hardrockbet,11.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,hardrockbet,18.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,hardrockbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,hardrockbet,8.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,hardrockbet,9.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Kingston Flemings,player_points,hardrockbet,8.5,-120,,,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,hardrockbet,7.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,hardrockbet,11.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Baylor Scheierman,player_points,hardrockbet,5.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,betmgm,8.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,betmgm,7.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,betmgm,12.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,betmgm,13.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,betmgm,9.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,betmgm,20.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,betmgm,18.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,betmgm,18.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,betmgm,11.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,betmgm,26.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,betmgm,12.5,-111,-118.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,espnbet,26.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,espnbet,18.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,espnbet,18.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,espnbet,19.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,espnbet,14.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,espnbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,espnbet,11.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,espnbet,12.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,espnbet,9.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,espnbet,7.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,espnbet,8.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,bovada,14.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Baylor Scheierman,player_points,bovada,7.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,bovada,15.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,bovada,12.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,bovada,21.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,bovada,31.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Kingston Flemings,player_points,bovada,11.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,bovada,10.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,bovada,14.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,bovada,23.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,bovada,16.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,bovada,21.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,bovada,15.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,bovada,9.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,betonlineag,18.5,-106,-122.0,0.484,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,betonlineag,12.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,betonlineag,7.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,betonlineag,11.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,betonlineag,9.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Kingston Flemings,player_points,betonlineag,8.5,-118,-110.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,betonlineag,18.5,-109,-119.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,betonlineag,13.5,-115,-112.0,0.503,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,betonlineag,20.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,betonlineag,8.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Baylor Scheierman,player_points,betonlineag,5.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,betonlineag,25.5,-125,-103.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,betonlineag,11.5,-122,-106.0,0.516,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,betonlineag,11.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Derrick White,player_points,pinnacle,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jalen Johnson,player_points,pinnacle,18.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Jayson Tatum,player_points,pinnacle,26.5,105,-139.0,0.456,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Kingston Flemings,player_points,pinnacle,8.5,-124,-107.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Neemias Queta,player_points,pinnacle,11.5,-105,-126.0,0.479,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Nickeil Alexander-Walker,player_points,pinnacle,20.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Onyeka Okongwu,player_points,pinnacle,14.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Paul George,player_points,pinnacle,18.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Payton Pritchard,player_points,pinnacle,12.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Dyson Daniels,player_points,pinnacle,9.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Aaron Wiggins,player_points,pinnacle,13.5,146,-196.0,0.38,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Luguentz Dort,player_points,pinnacle,8.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:10:00Z,Boston Celtics,Atlanta Hawks,Sam Hauser,player_points,pinnacle,7.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,fanduel,5.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,fanduel,16.5,-102,-125.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,fanduel,9.5,-128,100.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,fanduel,19.5,-113,-113.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,fanduel,19.5,-128,100.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,fanduel,8.5,102,-130.0,0.467,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,fanduel,8.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Bones Hyland,player_points,fanduel,12.5,-122,-104.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,fanduel,9.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Terrence Shannon Jr.,player_points,fanduel,16.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,fanduel,22.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,fanduel,15.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,draftkings,21.5,-124,-103.0,0.522,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,draftkings,20.5,-103,-123.0,0.479,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,draftkings,19.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Terrence Shannon Jr.,player_points,draftkings,16.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,draftkings,16.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,draftkings,15.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Bones Hyland,player_points,draftkings,13.5,-102,-125.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,draftkings,10.5,-105,-121.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,draftkings,10.5,-101,-126.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,draftkings,8.5,-107,-119.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,draftkings,8.5,108,-137.0,0.454,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,draftkings,5.5,-134,105.0,0.54,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,betrivers,5.5,-134,-103.0,0.53,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,betrivers,8.5,105,-141.0,0.455,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Bones Hyland,player_points,betrivers,12.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Terrence Shannon Jr.,player_points,betrivers,16.5,-107,-127.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,betrivers,8.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,betrivers,16.5,-105,-129.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,betrivers,19.5,-112,-121.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,betrivers,9.5,-127,-108.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,betrivers,19.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,betrivers,15.5,-104,-130.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,betrivers,22.5,-108,-125.0,0.483,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,betrivers,9.5,-129,-105.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,bovada,23.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Bones Hyland,player_points,bovada,16.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,bovada,12.5,165,-220.0,0.354,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,bovada,19.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,bovada,23.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,bovada,12.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,bovada,19.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,bovada,8.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,bovada,10.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Terrence Shannon Jr.,player_points,bovada,20.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,bovada,25.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,bovada,10.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,betonlineag,19.5,-116,-111.0,0.505,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,betonlineag,9.5,-123,-104.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,betonlineag,8.5,102,-132.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,betonlineag,8.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,betonlineag,5.5,-130,101.0,0.532,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,betonlineag,16.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,betonlineag,9.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,betonlineag,15.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Bones Hyland,player_points,betonlineag,13.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,betonlineag,20.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,betonlineag,21.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,espnbet,21.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,espnbet,20.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,espnbet,15.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,espnbet,16.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,espnbet,19.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,espnbet,9.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,espnbet,8.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,espnbet,8.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,espnbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,espnbet,5.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,betmgm,8.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,betmgm,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,betmgm,19.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,betmgm,8.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,betmgm,22.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,betmgm,19.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,betmgm,9.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,betmgm,16.5,-111,-118.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,betmgm,15.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,betmgm,6.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Terrence Shannon Jr.,player_points,betmgm,15.5,-145,105.0,0.548,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,hardrockbet,21.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,hardrockbet,8.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,hardrockbet,15.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,hardrockbet,19.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,hardrockbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,hardrockbet,20.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,hardrockbet,9.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,hardrockbet,16.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Kris Murray,player_points,hardrockbet,5.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,hardrockbet,8.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Terrence Shannon Jr.,player_points,hardrockbet,16.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Bones Hyland,player_points,hardrockbet,13.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ayo Dosunmu,player_points,pinnacle,19.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cam Spencer,player_points,pinnacle,9.5,-128,-104.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Cedric Coward,player_points,pinnacle,16.5,-101,-131.0,0.47,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaden McDaniels,player_points,pinnacle,19.5,-126,-105.0,0.521,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jaylen Wells,player_points,pinnacle,10.5,115,-153.0,0.435,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Jonathan Kuminga,player_points,pinnacle,15.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Ty Jerome,player_points,pinnacle,22.5,105,-139.0,0.456,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Zach Edey,player_points,pinnacle,8.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T01:40:00Z,Minnesota Timberwolves,Memphis Grizzlies,Rudy Gobert,player_points,pinnacle,8.5,-113,-117.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,fanduel,24.5,-132,100.0,0.532,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,fanduel,11.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,fanduel,13.5,-125,-106.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,fanduel,10.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,fanduel,12.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Caleb Martin,player_points,fanduel,7.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,fanduel,15.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,fanduel,15.5,-108,-122.0,0.486,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,fanduel,8.5,-122,-108.0,0.514,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,fanduel,7.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,fanduel,6.5,-122,-108.0,0.514,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,fanduel,10.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,fanduel,25.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,draftkings,25.5,-106,-120.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,draftkings,25.5,-105,-122.0,0.482,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Kyrie Irving,player_points,draftkings,22.5,-109,-117.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,draftkings,15.5,-107,-120.0,0.487,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,draftkings,15.5,-101,-127.0,0.473,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,draftkings,14.5,-109,-117.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,draftkings,12.5,-112,-114.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,draftkings,11.5,-121,-105.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,draftkings,10.5,-102,-126.0,0.475,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,draftkings,9.5,-127,-101.0,0.527,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,draftkings,8.5,-112,-114.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,draftkings,7.5,-104,-122.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Caleb Martin,player_points,draftkings,6.5,-129,101.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,draftkings,6.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,betrivers,8.5,-106,-129.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,betrivers,14.5,-114,-118.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,betrivers,9.5,-124,-110.0,0.514,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,betrivers,14.5,-129,-106.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,betrivers,9.5,-124,-109.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,betrivers,24.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Caleb Martin,player_points,betrivers,6.5,-127,-108.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,betrivers,11.5,-103,-132.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,betrivers,14.5,-132,-103.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,betrivers,6.5,-106,-129.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,betrivers,24.5,-125,-108.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,betrivers,7.5,-112,-121.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,betrivers,11.5,-132,-103.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Caleb Martin,player_points,bovada,9.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,bovada,12.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,bovada,29.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,bovada,12.5,165,-220.0,0.354,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,bovada,29.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,bovada,18.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,bovada,18.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,bovada,9.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Kyrie Irving,player_points,bovada,26.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,bovada,17.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,bovada,14.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,bovada,8.5,165,-220.0,0.354,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,bovada,15.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,bovada,10.5,160,-215.0,0.36,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Kyrie Irving,player_points,betonlineag,22.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,betonlineag,9.5,-123,-105.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,betonlineag,15.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,betonlineag,6.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,betonlineag,9.5,-123,-104.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,betonlineag,15.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,betonlineag,7.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,betonlineag,8.5,-109,-119.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,betonlineag,24.5,-123,-105.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,betonlineag,13.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,betonlineag,25.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,betonlineag,11.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,betonlineag,12.5,-106,-122.0,0.484,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,espnbet,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,espnbet,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Kyrie Irving,player_points,espnbet,22.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,espnbet,15.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,espnbet,13.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,espnbet,12.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,espnbet,15.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,espnbet,11.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,espnbet,8.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,espnbet,10.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,espnbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Caleb Martin,player_points,espnbet,7.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,espnbet,6.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,espnbet,7.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,betmgm,15.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,betmgm,24.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,betmgm,6.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Kyrie Irving,player_points,betmgm,22.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,betmgm,15.5,-111,-120.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,betmgm,14.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,betmgm,11.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,betmgm,9.5,-130,-105.0,0.525,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,betmgm,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,betmgm,6.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,betmgm,10.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,betmgm,8.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,betmgm,25.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Caleb Martin,player_points,betmgm,6.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,hardrockbet,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Kyrie Irving,player_points,hardrockbet,22.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,hardrockbet,10.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Caleb Martin,player_points,hardrockbet,6.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,hardrockbet,12.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,hardrockbet,25.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,hardrockbet,15.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,hardrockbet,6.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Zaccharie Risacher,player_points,hardrockbet,8.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Naji Marshall,player_points,hardrockbet,11.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,hardrockbet,13.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,hardrockbet,15.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,hardrockbet,9.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jordan Goodwin,player_points,hardrockbet,7.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Collin Gillespie,player_points,pinnacle,10.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Cooper Flagg,player_points,pinnacle,25.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Daniel Gafford,player_points,pinnacle,9.5,-132,100.0,0.532,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Devin Booker,player_points,pinnacle,24.5,-132,100.0,0.532,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Dillon Brooks,player_points,pinnacle,15.5,-114,-116.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Jalen Green,player_points,pinnacle,15.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Kyrie Irving,player_points,pinnacle,22.5,107,-142.0,0.452,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Miles Bridges,player_points,pinnacle,14.5,100,-133.0,0.467,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,P.J. Washington,player_points,pinnacle,11.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:10:00Z,Phoenix Suns,Dallas Mavericks,Oso Ighodaro,player_points,pinnacle,6.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,fanduel,12.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,fanduel,16.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jaxson Hayes,player_points,fanduel,9.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,fanduel,20.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,fanduel,5.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,fanduel,15.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jusuf Nurkic,player_points,fanduel,7.5,-125,-106.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,fanduel,12.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Brice Sensabaugh,player_points,fanduel,10.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,fanduel,12.5,-136,102.0,0.538,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,fanduel,25.5,-102,-130.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,fanduel,9.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,fanduel,26.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,draftkings,26.5,-103,-123.0,0.479,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,draftkings,24.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,draftkings,20.5,-112,-113.0,0.499,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,draftkings,16.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,draftkings,15.5,-110,-116.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,draftkings,13.5,-101,-126.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,draftkings,12.5,-128,100.0,0.529,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,draftkings,12.5,-107,-120.0,0.487,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,draftkings,8.5,-119,-107.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jaxson Hayes,player_points,draftkings,8.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jusuf Nurkic,player_points,draftkings,8.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,draftkings,5.5,-104,-123.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Spencer Jones,player_points,draftkings,3.5,-121,-105.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,betrivers,9.5,-103,-132.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,betrivers,16.5,-122,-112.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,betrivers,20.5,-115,-117.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jusuf Nurkic,player_points,betrivers,7.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jaxson Hayes,player_points,betrivers,8.5,-136,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,betrivers,11.5,-136,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,betrivers,26.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,betrivers,25.5,-115,-117.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,betrivers,5.5,-112,-121.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Brice Sensabaugh,player_points,betrivers,9.5,-127,-108.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,betrivers,12.5,-136,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,betrivers,13.5,-106,-129.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,betrivers,15.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,betmgm,5.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,betmgm,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,betmgm,20.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,betmgm,16.5,-120,-111.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,betmgm,26.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,betmgm,12.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,betmgm,13.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,betmgm,24.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,betmgm,15.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,hardrockbet,16.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,hardrockbet,12.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,hardrockbet,15.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,hardrockbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,hardrockbet,25.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,hardrockbet,26.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,hardrockbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,hardrockbet,20.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Brice Sensabaugh,player_points,hardrockbet,10.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,hardrockbet,9.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jaxson Hayes,player_points,hardrockbet,8.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,hardrockbet,5.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Spencer Jones,player_points,hardrockbet,3.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jusuf Nurkic,player_points,hardrockbet,7.5,-135,105.0,0.541,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,espnbet,26.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,espnbet,25.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,espnbet,20.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,espnbet,15.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,espnbet,17.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,espnbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,espnbet,9.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,espnbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,espnbet,12.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jaxson Hayes,player_points,espnbet,9.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,espnbet,5.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Spencer Jones,player_points,espnbet,3.5,-140,105.0,0.545,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,bovada,16.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,bovada,18.5,185,-250.0,0.329,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,bovada,16.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,bovada,15.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,bovada,20.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,bovada,11.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,bovada,28.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jaxson Hayes,player_points,bovada,11.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,bovada,7.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jusuf Nurkic,player_points,bovada,11.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,bovada,24.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,bovada,30.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,betonlineag,26.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,betonlineag,12.5,-106,-122.0,0.484,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,betonlineag,20.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,betonlineag,15.5,-102,-127.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jaxson Hayes,player_points,betonlineag,9.5,104,-135.0,0.46,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,betonlineag,16.5,-119,-109.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,betonlineag,9.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Josh Green,player_points,betonlineag,5.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,betonlineag,12.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Spencer Jones,player_points,betonlineag,4.5,105,-135.0,0.459,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,betonlineag,12.5,-127,-102.0,0.526,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jusuf Nurkic,player_points,betonlineag,7.5,-133,103.0,0.537,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Brice Sensabaugh,player_points,betonlineag,10.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,betonlineag,24.5,-122,-106.0,0.516,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Aaron Gordon,player_points,pinnacle,13.5,109,-144.0,0.448,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Ace Bailey,player_points,pinnacle,15.5,102,-135.0,0.463,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Cameron Johnson,player_points,pinnacle,12.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Christian Braun,player_points,pinnacle,12.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Darryn Peterson,player_points,pinnacle,16.5,-123,-108.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Jamal Murray,player_points,pinnacle,25.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Keyonte George,player_points,pinnacle,21.5,123,-165.0,0.419,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,Nikola Jokic,player_points,pinnacle,27.5,106,-141.0,0.453,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Utah Jazz,Denver Nuggets,DeMar DeRozan,player_points,pinnacle,9.5,-103,-129.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,fanduel,16.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,fanduel,26.5,-102,-130.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Scoot Henderson,player_points,fanduel,14.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,fanduel,5.5,-108,-122.0,0.486,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,fanduel,8.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,fanduel,9.5,-102,-130.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,fanduel,18.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,fanduel,12.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,fanduel,11.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,fanduel,16.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,fanduel,9.5,-136,102.0,0.538,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,fanduel,11.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,draftkings,25.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,draftkings,19.5,-106,-121.0,0.484,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,draftkings,16.5,-109,-117.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,draftkings,15.5,-122,-105.0,0.518,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Scoot Henderson,player_points,draftkings,14.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,draftkings,11.5,-123,-104.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,draftkings,11.5,-104,-123.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,draftkings,10.5,-119,-107.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,draftkings,10.5,102,-131.0,0.466,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,draftkings,9.5,100,-128.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,draftkings,8.5,-119,-107.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,draftkings,5.5,-115,-111.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,betrivers,18.5,-122,-110.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,betrivers,26.5,-112,-121.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,betrivers,8.5,-114,-118.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,betrivers,9.5,-127,-107.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,betrivers,10.5,-120,-113.0,0.507,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,betrivers,15.5,-121,-112.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,betrivers,15.5,-130,-104.0,0.526,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,betrivers,8.5,-139,102.0,0.54,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,betrivers,10.5,-134,-103.0,0.53,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,betrivers,5.5,-110,-122.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Scoot Henderson,player_points,betrivers,14.5,-129,-106.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,betrivers,12.5,-105,-129.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,bovada,19.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,bovada,12.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,bovada,14.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,bovada,30.5,215,-295.0,0.298,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,bovada,13.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,bovada,7.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,bovada,11.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,bovada,19.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Scoot Henderson,player_points,bovada,17.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,bovada,11.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,bovada,14.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,bovada,22.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,betonlineag,5.5,-110,-118.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,betonlineag,9.5,102,-132.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,betonlineag,11.5,-116,-111.0,0.505,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,betonlineag,10.5,-119,-109.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,betonlineag,11.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,betonlineag,18.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,betonlineag,16.5,-101,-128.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,betonlineag,10.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,betonlineag,25.5,-119,-109.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,betonlineag,8.5,-118,-110.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Scoot Henderson,player_points,betonlineag,14.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,betonlineag,16.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,espnbet,26.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,espnbet,18.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,espnbet,16.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,espnbet,11.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,espnbet,11.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,espnbet,12.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,espnbet,16.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,espnbet,9.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,espnbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,espnbet,8.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,espnbet,5.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,betmgm,11.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,betmgm,11.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,betmgm,16.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,betmgm,9.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,betmgm,5.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,betmgm,10.5,-120,-111.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,betmgm,9.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,betmgm,25.5,-120,-111.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,betmgm,9.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,betmgm,17.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,hardrockbet,18.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,hardrockbet,9.5,-135,105.0,0.541,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,hardrockbet,5.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,hardrockbet,11.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,hardrockbet,15.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,hardrockbet,25.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,hardrockbet,11.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,hardrockbet,15.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Sidy Cissoko,player_points,hardrockbet,8.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,hardrockbet,10.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,hardrockbet,9.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Scoot Henderson,player_points,hardrockbet,14.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Brandin Podziemski,player_points,pinnacle,16.5,-102,-130.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,De'Anthony Melton,player_points,pinnacle,11.5,-108,-122.0,0.486,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Deni Avdija,player_points,pinnacle,25.5,-132,100.0,0.532,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Donovan Clingan,player_points,pinnacle,11.5,103,-137.0,0.46,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Jrue Holiday,player_points,pinnacle,15.5,-119,-111.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Toumani Camara,player_points,pinnacle,12.5,103,-137.0,0.46,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Yaxel Lendeborg,player_points,pinnacle,18.5,-117,-113.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Charles Bassey,player_points,pinnacle,9.5,-122,-109.0,0.513,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Draymond Green,player_points,pinnacle,5.5,-111,-120.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Portland Trail Blazers,Golden State Warriors,Gui Santos,player_points,pinnacle,9.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,fanduel,17.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,fanduel,11.5,-128,-104.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,fanduel,14.5,-112,-118.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,fanduel,7.5,-102,-130.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,fanduel,22.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,fanduel,9.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,fanduel,8.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,fanduel,15.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,fanduel,18.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,fanduel,9.5,-125,-106.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,fanduel,4.5,-125,-106.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,fanduel,20.5,-104,-128.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,fanduel,6.5,-108,-122.0,0.486,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,fanduel,8.5,-106,-125.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,fanduel,14.5,-132,100.0,0.532,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,draftkings,22.5,-113,-112.0,0.501,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,draftkings,20.5,-117,-109.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,draftkings,18.5,-112,-114.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,draftkings,17.5,-109,-117.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,draftkings,15.5,-118,-108.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,draftkings,15.5,-117,-109.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,draftkings,14.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,draftkings,11.5,-123,-103.0,0.521,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,draftkings,10.5,-109,-117.0,0.492,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,draftkings,9.5,-115,-110.0,0.505,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,draftkings,8.5,103,-132.0,0.464,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,draftkings,7.5,-129,101.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,draftkings,7.5,-116,-110.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,draftkings,6.5,-108,-118.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,draftkings,4.5,-140,110.0,0.551,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,betrivers,20.5,-106,-129.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,betrivers,7.5,-103,-132.0,0.471,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,betrivers,17.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,betrivers,11.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,betrivers,7.5,-136,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,betrivers,10.5,-124,-109.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,betrivers,22.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,betrivers,4.5,-141,105.0,0.545,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,betrivers,7.5,-127,-108.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,betrivers,15.5,-115,-117.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,betrivers,18.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,betrivers,9.5,-114,-118.0,0.496,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,betrivers,6.5,-104,-130.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,betrivers,14.5,-106,-129.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,betrivers,15.5,-112,-121.0,0.491,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,betonlineag,22.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,betonlineag,15.5,-120,-108.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,betonlineag,7.5,-109,-119.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,betonlineag,6.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,betonlineag,17.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,betonlineag,20.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,betonlineag,9.5,-120,-108.0,0.512,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,betonlineag,18.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,betonlineag,10.5,-105,-123.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,betonlineag,8.5,102,-132.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,betonlineag,4.5,-125,-103.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,betonlineag,11.5,-118,-110.0,0.508,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,betonlineag,15.5,-111,-116.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,betonlineag,14.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,betonlineag,8.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,espnbet,22.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,espnbet,20.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,espnbet,18.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,espnbet,17.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,espnbet,15.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,espnbet,14.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,espnbet,11.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,espnbet,14.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,espnbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,espnbet,8.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,espnbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,espnbet,8.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,espnbet,7.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,espnbet,6.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,espnbet,4.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,betmgm,15.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,betmgm,7.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,betmgm,17.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,betmgm,6.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,betmgm,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,betmgm,22.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,betmgm,13.5,-140,105.0,0.545,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,betmgm,7.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,betmgm,19.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,betmgm,11.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,betmgm,14.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,betmgm,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,betmgm,17.5,-145,105.0,0.548,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,betmgm,5.5,115,-155.0,0.433,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,betmgm,8.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,hardrockbet,22.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,hardrockbet,9.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,hardrockbet,17.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,hardrockbet,6.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,hardrockbet,7.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,hardrockbet,15.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,hardrockbet,15.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,hardrockbet,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,hardrockbet,7.5,-135,105.0,0.541,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,hardrockbet,18.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,hardrockbet,14.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,hardrockbet,20.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,hardrockbet,8.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,hardrockbet,11.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,hardrockbet,4.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Keaton Wagler,player_points,hardrockbet,10.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,bovada,22.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,bovada,13.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,bovada,24.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,bovada,12.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,bovada,10.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,bovada,9.5,160,-215.0,0.36,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,bovada,20.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,bovada,14.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,bovada,6.5,150,-200.0,0.375,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,bovada,10.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,bovada,17.5,170,-230.0,0.347,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,bovada,19.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,bovada,19.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,bovada,8.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,bovada,26.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brandon Ingram,player_points,pinnacle,18.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Brook Lopez,player_points,pinnacle,9.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Darius Garland,player_points,pinnacle,20.5,-102,-129.0,0.473,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derik Queen,player_points,pinnacle,9.5,-128,-104.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Derrick Jones,player_points,pinnacle,7.5,-135,102.0,0.537,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Herb Jones,player_points,pinnacle,7.5,-104,-128.0,0.476,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jeremiah Fears,player_points,pinnacle,17.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Jordan Poole,player_points,pinnacle,11.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Rui Hachimura,player_points,pinnacle,13.5,-149,112.0,0.559,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Saddiq Bey,player_points,pinnacle,14.5,-142,107.0,0.548,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Trey Murphy III,player_points,pinnacle,15.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Zion Williamson,player_points,pinnacle,22.5,-127,-104.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Kris Dunn,player_points,pinnacle,4.5,-127,-104.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Max Strus,player_points,pinnacle,8.5,101,-134.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,Los Angeles Clippers,New Orleans Pelicans,Yves Missi,player_points,pinnacle,6.5,-108,-122.0,0.486,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,draftkings,33.5,-110,-116.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,draftkings,30.5,-107,-119.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,draftkings,16.5,-125,-102.0,0.524,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,draftkings,16.5,-120,-106.0,0.515,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,draftkings,13.5,-101,-126.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,draftkings,12.5,-110,-115.0,0.495,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,draftkings,11.5,-123,-104.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,draftkings,10.5,-121,-105.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,draftkings,10.5,-110,-116.0,0.494,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,draftkings,8.5,-129,101.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,draftkings,6.5,107,-136.0,0.456,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Jake LaRavia,player_points,draftkings,5.5,-112,-114.0,0.498,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,fanduel,10.5,-125,-106.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Dylan Harper,player_points,fanduel,13.5,-122,-108.0,0.514,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,fanduel,17.5,102,-136.0,0.462,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,fanduel,12.5,-122,-108.0,0.514,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,fanduel,8.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,fanduel,33.5,-102,-130.0,0.472,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,fanduel,12.5,-108,-122.0,0.486,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,fanduel,29.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,fanduel,12.5,-118,-112.0,0.506,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,fanduel,16.5,-130,-102.0,0.528,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,fanduel,6.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,fanduel,10.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,betrivers,11.5,-148,107.0,0.553,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,betrivers,11.5,114,-157.0,0.433,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,betrivers,10.5,-129,-106.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,betrivers,16.5,-121,-112.0,0.509,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,betrivers,12.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,betrivers,30.5,-117,-115.0,0.502,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,betrivers,33.5,-108,-127.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,betrivers,9.5,107,-148.0,0.447,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,betrivers,16.5,-129,-106.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,betrivers,12.5,-118,-114.0,0.504,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,betrivers,6.5,-113,-120.0,0.493,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Jake LaRavia,player_points,betrivers,5.5,-134,-103.0,0.53,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,hardrockbet,33.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,hardrockbet,16.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,hardrockbet,8.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,hardrockbet,12.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,hardrockbet,6.5,100,-130.0,0.469,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,hardrockbet,10.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Jake LaRavia,player_points,hardrockbet,5.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,hardrockbet,16.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,hardrockbet,10.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,hardrockbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,hardrockbet,12.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,hardrockbet,30.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Keldon Johnson,player_points,hardrockbet,10.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Dylan Harper,player_points,hardrockbet,13.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,betmgm,11.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,betmgm,16.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,betmgm,33.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,betmgm,17.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,betmgm,13.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,betmgm,30.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,betmgm,10.5,-135,100.0,0.535,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,betmgm,6.5,100,-135.0,0.465,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,espnbet,30.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,espnbet,32.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,espnbet,17.5,-105,-125.0,0.48,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,espnbet,16.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,espnbet,12.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,espnbet,12.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,espnbet,10.5,-115,-115.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,espnbet,10.5,-125,-105.0,0.52,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,espnbet,12.5,-110,-120.0,0.49,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,espnbet,8.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,espnbet,6.5,105,-140.0,0.455,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Jake LaRavia,player_points,espnbet,5.5,-130,100.0,0.531,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,bovada,20.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,bovada,11.5,190,-260.0,0.323,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,bovada,16.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,bovada,15.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Jake LaRavia,player_points,bovada,7.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,bovada,13.5,180,-245.0,0.335,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,bovada,38.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,bovada,8.5,205,-280.0,0.308,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,bovada,13.5,210,-290.0,0.303,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,bovada,20.5,200,-275.0,0.312,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,bovada,14.5,175,-240.0,0.34,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,betonlineag,12.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,betonlineag,16.5,-123,-105.0,0.519,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,betonlineag,30.5,-108,-120.0,0.488,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,betonlineag,33.5,-103,-125.0,0.477,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,betonlineag,12.5,-102,-127.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Jake LaRavia,player_points,betonlineag,5.5,-122,-106.0,0.516,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,betonlineag,10.5,-112,-115.0,0.497,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Matisse Thybulle,player_points,betonlineag,6.5,104,-135.0,0.46,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,betonlineag,10.5,-125,-103.0,0.523,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,betonlineag,13.5,-102,-127.0,0.474,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,betonlineag,16.5,-122,-106.0,0.516,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,betonlineag,8.5,-114,-114.0,0.5,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Austin Reaves,player_points,pinnacle,17.5,100,-132.0,0.468,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,De'Aaron Fox,player_points,pinnacle,12.5,-120,-110.0,0.51,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Devin Vassell,player_points,pinnacle,12.5,-128,-103.0,0.525,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Julian Champagnie,player_points,pinnacle,11.5,102,-135.0,0.463,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Luka Doncic,player_points,pinnacle,33.5,-106,-125.0,0.481,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Quentin Grimes,player_points,pinnacle,10.5,-124,-107.0,0.517,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Stephon Castle,player_points,pinnacle,17.5,104,-138.0,0.458,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Victor Wembanyama,player_points,pinnacle,30.5,-108,-123.0,0.485,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Walker Kessler,player_points,pinnacle,12.5,-110,-121.0,0.489,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Collin Sexton,player_points,pinnacle,9.5,140,-188.0,0.39,2026-11-27T21:48+00:00
+2026-11-27,2026-11-28T02:40:00Z,San Antonio Spurs,Los Angeles Lakers,Jake LaRavia,player_points,pinnacle,5.5,-136,102.0,0.538,2026-11-27T21:48+00:00
